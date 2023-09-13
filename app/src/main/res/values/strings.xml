@@ -1,4 +1,47 @@
 <resources>
     <string name="app_name">Hirfati</string>
     <string name="login">تسجيل الدخول</string>
+    <string-array name="wilaya">
+        <item>أدرار</item>
+        <item>شلف</item>
+        <item>أغواط</item>
+        <item>أم البواقي</item>
+        <item>باتنة</item>
+        <item>بجاية</item>
+        <item>بسكرة</item>
+        <item>بشار</item>
+        <item>البليدة</item>
+        <item>البويرة</item>
+        <item>تمنراست</item>
+        <item>تبسة</item>
+        <item></item>
+        <item>Tiaret</item>
+        <item>Tizi Ouzou</item>
+        <item>Alger</item>
+        <item>Djelfa</item>
+        <item>Djijel</item>
+        <item>Sétif</item>
+        <item>Saïda</item>
+        <item>Skikda</item>
+        <item>Sidi Bel Abbès</item>
+        <item>Annaba</item>
+        <item>Guelma</item>
+        <item>Constantine</item>
+        <item>Médéa</item>
+        <item>Mostaganem</item>
+        <item>M'Sila</item>
+        <item>Mascara</item>
+        <item>Ouargla</item>
+        <item>Oran</item>
+        <item></item>
+        <item></item>
+        <item></item>
+        <item></item>
+        <item></item>
+        <item></item>
+        <item></item>
+        <item></item>
+        <item></item>
+        <item></item>
+    </string-array>
 </resources>
