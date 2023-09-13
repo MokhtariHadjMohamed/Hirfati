@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -7,195 +7,202 @@
     android:background="@color/textColor02"
     tools:context=".LogIn">
 
-    <androidx.cardview.widget.CardView
-        android:id="@+id/logoView"
-        android:layout_width="150dp"
-        android:layout_height="150dp"
-        android:padding="20dp"
-        app:cardCornerRadius="10000dp"
-        app:layout_constraintBottom_toBottomOf="@+id/view"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="1.0">
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
 
-        <ImageView
-            android:id="@+id/logo"
-            android:layout_width="wrap_content"
+        <androidx.cardview.widget.CardView
+            android:id="@+id/logoView"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:padding="20dp"
+            app:cardCornerRadius="10000dp"
+            app:layout_constraintBottom_toBottomOf="@+id/view"
+            app:layout_constraintEnd_toEndOf="@+id/view"
+            app:layout_constraintHorizontal_bias="0.35"
+            app:layout_constraintStart_toStartOf="@+id/view"
+            app:layout_constraintTop_toTopOf="@+id/view"
+            app:layout_constraintVertical_bias="1.1">
+
+            <ImageView
+                android:id="@+id/logo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                tools:srcCompat="@drawable/logo" />
+
+        </androidx.cardview.widget.CardView>
+
+        <View
+            android:id="@+id/view"
+            android:layout_width="500dp"
+            android:layout_height="500dp"
+            android:layout_marginTop="-270dp"
+            android:background="@drawable/rectangle_01"
+            android:maxWidth="1000dp"
+            android:maxHeight="1000dp"
+            android:rotation="-31"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/loginFrame"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            tools:srcCompat="@drawable/logo" />
+            android:layout_marginStart="32dp"
+            android:layout_marginTop="110dp"
+            android:layout_marginEnd="32dp"
+            android:layout_marginBottom="32dp"
+            app:cardBackgroundColor="#158AAD"
+            app:cardCornerRadius="30dp"
+            app:contentPaddingBottom="20dp"
+            app:contentPaddingTop="20dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/view">
 
-    </androidx.cardview.widget.CardView>
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
 
-    <View
-        android:id="@+id/view"
-        android:layout_width="500dp"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="650dp"
-        android:background="@drawable/rectangle_01"
-        android:maxWidth="1000dp"
-        android:maxHeight="1000dp"
-        android:rotation="-25"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.62"
-        app:layout_constraintStart_toStartOf="parent" />
+                <TextView
+                    android:id="@+id/textView4"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginStart="60dp"
+                    android:layout_marginEnd="60dp"
+                    android:layout_marginBottom="32dp"
+                    android:fontFamily="@font/tajawal_regular"
+                    android:gravity="center"
+                    android:text="مرحبا بكم  في تطبيق حرفتي"
+                    android:textColor="@color/textColor01"
+                    android:textSize="34sp"
+                    app:layout_constraintBottom_toTopOf="@+id/email01"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
 
-    <androidx.cardview.widget.CardView
-        android:id="@+id/loginFrame"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="32dp"
-        android:layout_marginEnd="32dp"
-        android:layout_marginBottom="16dp"
-        app:cardBackgroundColor="#158AAD"
-        app:cardCornerRadius="30dp"
-        app:contentPaddingBottom="20dp"
-        app:contentPaddingTop="20dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/view">
+                <EditText
+                    android:id="@+id/email01"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="32dp"
+                    android:layout_marginEnd="32dp"
+                    android:layout_marginBottom="16dp"
+                    android:background="@drawable/custom_input"
+                    android:ems="10"
+                    android:hint="بريد الإلكتروني"
+                    android:inputType="textEmailAddress"
+                    app:layout_constraintBottom_toTopOf="@+id/password01"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/textView4" />
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
+                <EditText
+                    android:id="@+id/password01"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="32dp"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginEnd="32dp"
+                    android:layout_marginBottom="16dp"
+                    android:background="@drawable/custom_input"
+                    android:ems="10"
+                    android:hint="كلمة السر"
+                    android:inputType="textPassword"
+                    app:layout_constraintBottom_toTopOf="@+id/logIn01"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/email01" />
 
-            <TextView
-                android:id="@+id/textView4"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginStart="60dp"
-                android:layout_marginEnd="60dp"
-                android:layout_marginBottom="32dp"
-                android:fontFamily="@font/tajawal_regular"
-                android:gravity="center"
-                android:text="مرحبا بكم  في تطبيق حرفتي"
-                android:textColor="@color/textColor01"
-                android:textSize="34sp"
-                app:layout_constraintBottom_toTopOf="@+id/email01"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                <TextView
+                    android:id="@+id/textView6"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="8dp"
+                    android:text="نسيت كلمة السر؟"
+                    android:textColor="@color/textColor01"
+                    app:layout_constraintBottom_toTopOf="@+id/logIn01"
+                    app:layout_constraintEnd_toEndOf="@+id/password01" />
 
-            <EditText
-                android:id="@+id/email01"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="32dp"
-                android:layout_marginEnd="32dp"
-                android:layout_marginBottom="16dp"
-                android:background="@drawable/custom_input"
-                android:ems="10"
-                android:hint="بريد الإلكتروني"
-                android:inputType="textEmailAddress"
-                app:layout_constraintBottom_toTopOf="@+id/password01"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textView4" />
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/logIn01"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="60dp"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginEnd="60dp"
+                    android:layout_marginBottom="8dp"
+                    android:background="@drawable/button_shape"
+                    android:backgroundTint="@color/textColor01"
+                    android:fontFamily="@font/tajawal_bold"
+                    android:text="تسجيل الدخول"
+                    android:textColor="@color/Color01"
+                    app:layout_constraintBottom_toTopOf="@+id/textView5"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/password01" />
 
-            <EditText
-                android:id="@+id/password01"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="32dp"
-                android:layout_marginTop="16dp"
-                android:layout_marginEnd="32dp"
-                android:layout_marginBottom="16dp"
-                android:background="@drawable/custom_input"
-                android:ems="10"
-                android:hint="كلمة السر"
-                android:inputType="textPassword"
-                app:layout_constraintBottom_toTopOf="@+id/logIn01"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/email01" />
+                <TextView
+                    android:id="@+id/textView5"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:fontFamily="@font/tajawal_medium"
+                    android:text="فتح حساب مستخدم"
+                    android:textColor="@color/textColor01"
+                    app:layout_constraintBottom_toTopOf="@+id/button8"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/logIn01" />
 
-            <TextView
-                android:id="@+id/textView6"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="8dp"
-                android:text="نسيت كلمة السر؟"
-                android:textColor="@color/textColor01"
-                app:layout_constraintBottom_toTopOf="@+id/logIn01"
-                app:layout_constraintEnd_toEndOf="@+id/password01" />
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/button8"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="32dp"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginEnd="16dp"
+                    android:background="@drawable/button_shape"
+                    android:backgroundTint="@color/textColor01"
+                    android:fontFamily="@font/tajawal_medium"
+                    android:text="مستخدم"
+                    android:textColor="@color/Color01"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@+id/button9"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/textView5" />
 
-            <androidx.appcompat.widget.AppCompatButton
-                android:id="@+id/logIn01"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="60dp"
-                android:layout_marginTop="16dp"
-                android:layout_marginEnd="60dp"
-                android:layout_marginBottom="8dp"
-                android:background="@drawable/button_shape"
-                android:backgroundTint="@color/textColor01"
-                android:fontFamily="@font/tajawal_bold"
-                android:text="تسجيل الدخول"
-                android:textColor="@color/Color01"
-                app:layout_constraintBottom_toTopOf="@+id/textView5"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/password01" />
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/button9"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginEnd="32dp"
+                    android:background="@drawable/button_shape"
+                    android:backgroundTint="@color/textColor01"
+                    android:fontFamily="@font/tajawal_medium"
+                    android:text="حرفي"
+                    android:textColor="@color/Color01"
+                    app:layout_constraintBottom_toBottomOf="@+id/button8"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintStart_toEndOf="@+id/button8"
+                    app:layout_constraintTop_toTopOf="@+id/button8" />
 
-            <TextView
-                android:id="@+id/textView5"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:fontFamily="@font/tajawal_medium"
-                android:text="فتح حساب مستخدم"
-                android:textColor="@color/textColor01"
-                app:layout_constraintBottom_toTopOf="@+id/button8"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/logIn01" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
-            <androidx.appcompat.widget.AppCompatButton
-                android:id="@+id/button8"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="32dp"
-                android:layout_marginTop="16dp"
-                android:layout_marginEnd="16dp"
-                android:background="@drawable/button_shape"
-                android:backgroundTint="@color/textColor01"
-                android:fontFamily="@font/tajawal_medium"
-                android:text="مستخدم"
-                android:textColor="@color/Color01"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toStartOf="@+id/button9"
-                app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textView5" />
+        </androidx.cardview.widget.CardView>
 
-            <androidx.appcompat.widget.AppCompatButton
-                android:id="@+id/button9"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:layout_marginEnd="32dp"
-                android:background="@drawable/button_shape"
-                android:backgroundTint="@color/textColor01"
-                android:fontFamily="@font/tajawal_medium"
-                android:text="حرفي"
-                android:textColor="@color/Color01"
-                app:layout_constraintBottom_toBottomOf="@+id/button8"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintStart_toEndOf="@+id/button8"
-                app:layout_constraintTop_toTopOf="@+id/button8" />
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
-    </androidx.cardview.widget.CardView>
-
-</androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>
