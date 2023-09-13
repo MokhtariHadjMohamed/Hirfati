@@ -50,9 +50,9 @@
             android:id="@+id/loginFrame"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="32dp"
+            android:layout_marginStart="8dp"
             android:layout_marginTop="110dp"
-            android:layout_marginEnd="32dp"
+            android:layout_marginEnd="8dp"
             android:layout_marginBottom="32dp"
             app:cardBackgroundColor="#158AAD"
             app:cardCornerRadius="30dp"
@@ -73,8 +73,8 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:layout_marginStart="60dp"
-                    android:layout_marginEnd="60dp"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginEnd="8dp"
                     android:layout_marginBottom="32dp"
                     android:fontFamily="@font/tajawal_bold"
                     android:gravity="center"
@@ -91,8 +91,8 @@
                     android:id="@+id/nameUser"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="32dp"
-                    android:layout_marginEnd="32dp"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginEnd="16dp"
                     android:layout_marginBottom="16dp"
                     android:background="@drawable/custom_input"
                     android:ems="10"
@@ -108,9 +108,9 @@
                     android:id="@+id/familyNameUser"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="32dp"
+                    android:layout_marginStart="16dp"
                     android:layout_marginTop="16dp"
-                    android:layout_marginEnd="32dp"
+                    android:layout_marginEnd="16dp"
                     android:background="@drawable/custom_input"
                     android:ems="10"
                     android:hint="اللقب"
@@ -124,9 +124,9 @@
                     android:id="@+id/addressUser"
                     android:layout_width="0dp"
                     android:layout_height="120dp"
-                    android:layout_marginStart="32dp"
+                    android:layout_marginStart="16dp"
                     android:layout_marginTop="16dp"
-                    android:layout_marginEnd="32dp"
+                    android:layout_marginEnd="16dp"
                     android:background="@drawable/custom_input"
                     android:ems="10"
                     android:gravity="start|top"
@@ -139,52 +139,76 @@
                     app:layout_constraintTop_toBottomOf="@+id/familyNameUser" />
 
                 <androidx.appcompat.widget.AppCompatSpinner
-                    android:id="@+id/spinner"
+                    android:id="@+id/wilayatUser"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="32dp"
+                    android:layout_marginStart="16dp"
                     android:layout_marginTop="16dp"
-                    android:layout_marginEnd="32dp"
+                    android:layout_marginEnd="16dp"
                     android:background="@drawable/custom_input"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.0"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/addressUser" />
 
-                <!--                <androidx.appcompat.widget.AppCompatButton-->
-                <!--                    android:id="@+id/nextBtn"-->
-                <!--                    android:layout_width="0dp"-->
-                <!--                    android:layout_height="wrap_content"-->
-                <!--                    android:layout_marginStart="32dp"-->
-                <!--                    android:layout_marginTop="32dp"-->
-                <!--                    android:layout_marginEnd="8dp"-->
-                <!--                    android:background="@drawable/button_shape"-->
-                <!--                    android:backgroundTint="@color/textColor01"-->
-                <!--                    android:fontFamily="@font/tajawal_medium"-->
-                <!--                    android:text="استمرار"-->
-                <!--                    android:textColor="@color/Color01"-->
-                <!--                    app:layout_constraintBottom_toBottomOf="parent"-->
-                <!--                    app:layout_constraintEnd_toStartOf="@+id/goBackSignIn"-->
-                <!--                    app:layout_constraintHorizontal_bias="0.5"-->
-                <!--                    app:layout_constraintStart_toStartOf="parent"-->
-                <!--                    app:layout_constraintTop_toBottomOf="@+id/familyNameUser" />-->
+                <androidx.appcompat.widget.AppCompatSpinner
+                    android:id="@+id/citesUser"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginEnd="16dp"
+                    android:background="@drawable/custom_input"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/wilayatUser" />
 
-                <!--                <androidx.appcompat.widget.AppCompatButton-->
-                <!--                    android:id="@+id/goBackSignIn"-->
-                <!--                    android:layout_width="0dp"-->
-                <!--                    android:layout_height="wrap_content"-->
-                <!--                    android:layout_marginStart="8dp"-->
-                <!--                    android:layout_marginEnd="32dp"-->
-                <!--                    android:background="@drawable/button_shape"-->
-                <!--                    android:backgroundTint="@color/textColor01"-->
-                <!--                    android:fontFamily="@font/tajawal_medium"-->
-                <!--                    android:text="تسجيل الدخول"-->
-                <!--                    android:textColor="@color/Color01"-->
-                <!--                    app:layout_constraintBottom_toBottomOf="@+id/nextBtn"-->
-                <!--                    app:layout_constraintEnd_toEndOf="parent"-->
-                <!--                    app:layout_constraintHorizontal_bias="0.5"-->
-                <!--                    app:layout_constraintStart_toEndOf="@+id/nextBtn"-->
-                <!--                    app:layout_constraintTop_toTopOf="@+id/nextBtn" />-->
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/dateUser"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginEnd="16dp"
+                    android:background="@drawable/custom_input"
+                    android:text="DD/MM/YYYY"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/citesUser" />
+
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/nextBtn"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginEnd="8dp"
+                    android:background="@drawable/button_shape"
+                    android:backgroundTint="@color/textColor01"
+                    android:fontFamily="@font/tajawal_medium"
+                    android:text="استمرار"
+                    android:textColor="@color/Color01"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@+id/goBackSignIn"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/dateUser" />
+
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/goBackSignIn"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginEnd="16dp"
+                    android:background="@drawable/button_shape"
+                    android:backgroundTint="@color/textColor01"
+                    android:fontFamily="@font/tajawal_medium"
+                    android:text="تسجيل الدخول"
+                    android:textColor="@color/Color01"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/nextBtn"
+                    app:layout_constraintTop_toTopOf="@+id/nextBtn" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 

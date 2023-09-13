@@ -16,6 +16,6 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
-        startActivity(new Intent(MainActivity.this, LogIn.class));
+        startActivity(new Intent(MainActivity.this, NewRegisterUser01.class));
     }
 }
