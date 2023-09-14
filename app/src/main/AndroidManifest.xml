@@ -13,6 +13,9 @@
         android:theme="@style/Theme.Hirfati"
         tools:targetApi="31">
         <activity
+            android:name=".Home"
+            android:exported="false" />
+        <activity
             android:name=".NewRegisterUser"
             android:exported="false" />
         <activity
@@ -27,7 +30,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name="com.hadjmohamed.hirfati.NewRegisterCraftsman" />
+        <activity android:name=".NewRegisterCraftsman" />
     </application>
 
 </manifest>
