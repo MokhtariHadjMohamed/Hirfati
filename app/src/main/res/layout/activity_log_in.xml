@@ -98,6 +98,8 @@
                     android:ems="10"
                     android:hint="بريد الإلكتروني"
                     android:inputType="textEmailAddress"
+                    android:textColor="@color/Color01"
+                    android:textColorHint="@color/Color01"
                     app:layout_constraintBottom_toTopOf="@+id/passwordSignIn"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.5"
@@ -116,6 +118,8 @@
                     android:ems="10"
                     android:hint="كلمة السر"
                     android:inputType="textPassword"
+                    android:textColor="@color/Color01"
+                    android:textColorHint="@color/Color01"
                     app:layout_constraintBottom_toTopOf="@+id/logIn01"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.5"
@@ -159,14 +163,14 @@
                     android:fontFamily="@font/tajawal_medium"
                     android:text="فتح حساب مستخدم"
                     android:textColor="@color/textColor01"
-                    app:layout_constraintBottom_toTopOf="@+id/nextBtn"
+                    app:layout_constraintBottom_toTopOf="@+id/nextBtnUser"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.5"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/logIn01" />
 
                 <androidx.appcompat.widget.AppCompatButton
-                    android:id="@+id/nextBtn"
+                    android:id="@+id/nextBtnUser"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="32dp"
@@ -178,13 +182,13 @@
                     android:text="مستخدم"
                     android:textColor="@color/Color01"
                     app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toStartOf="@+id/goBackSignIn"
+                    app:layout_constraintEnd_toStartOf="@+id/goBackSignInUser"
                     app:layout_constraintHorizontal_bias="0.5"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/textView5" />
 
                 <androidx.appcompat.widget.AppCompatButton
-                    android:id="@+id/goBackSignIn"
+                    android:id="@+id/goBackSignInUser"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
@@ -194,11 +198,11 @@
                     android:fontFamily="@font/tajawal_medium"
                     android:text="حرفي"
                     android:textColor="@color/Color01"
-                    app:layout_constraintBottom_toBottomOf="@+id/nextBtn"
+                    app:layout_constraintBottom_toBottomOf="@+id/nextBtnUser"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.5"
-                    app:layout_constraintStart_toEndOf="@+id/nextBtn"
-                    app:layout_constraintTop_toTopOf="@+id/nextBtn" />
+                    app:layout_constraintStart_toEndOf="@+id/nextBtnUser"
+                    app:layout_constraintTop_toTopOf="@+id/nextBtnUser" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 

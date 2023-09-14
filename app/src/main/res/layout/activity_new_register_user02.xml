@@ -80,15 +80,16 @@
                     android:gravity="center"
                     android:text="مسخدم جديد"
                     android:textColor="@color/textColor01"
+                    android:textColorHint="@color/Color01"
                     android:textSize="34sp"
-                    app:layout_constraintBottom_toTopOf="@+id/nameUser"
+                    app:layout_constraintBottom_toTopOf="@+id/phoneNumberUser"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.5"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <EditText
-                    android:id="@+id/nameUser"
+                    android:id="@+id/phoneNumberUser"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
@@ -96,19 +97,19 @@
                     android:layout_marginBottom="16dp"
                     android:background="@drawable/custom_input"
                     android:ems="10"
-                    android:hint="الإسم"
-                    android:inputType="text"
+                    android:hint="رقم هاتف"
+                    android:inputType="phone"
                     android:textColor="@color/Color01"
                     android:textColorHint="@color/Color01"
                     android:textSize="20sp"
-                    app:layout_constraintBottom_toTopOf="@+id/familyNameUser"
+                    app:layout_constraintBottom_toTopOf="@+id/emailUser"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.5"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/textView4" />
 
                 <EditText
-                    android:id="@+id/familyNameUser"
+                    android:id="@+id/emailUser"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
@@ -116,78 +117,49 @@
                     android:layout_marginEnd="16dp"
                     android:background="@drawable/custom_input"
                     android:ems="10"
-                    android:hint="اللقب"
-                    android:inputType="text"
+                    android:hint="بريد الإلكتروني"
+                    android:inputType="textEmailAddress"
                     android:textColor="@color/Color01"
                     android:textColorHint="@color/Color01"
                     android:textSize="20sp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.5"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/nameUser" />
+                    app:layout_constraintTop_toBottomOf="@+id/phoneNumberUser" />
 
                 <EditText
-                    android:id="@+id/addressUser"
-                    android:layout_width="0dp"
-                    android:layout_height="120dp"
-                    android:layout_marginStart="16dp"
-                    android:layout_marginTop="16dp"
-                    android:layout_marginEnd="16dp"
-                    android:background="@drawable/custom_input"
-                    android:ems="10"
-                    android:gravity="start|top"
-                    android:hint="عنوان سكن"
-                    android:inputType="textMultiLine"
-                    android:lines="10"
-                    android:scrollbars="vertical"
-                    android:textColor="@color/Color01"
-                    android:textColorHint="@color/Color01"
-                    android:textSize="20sp"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.5"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/familyNameUser" />
-
-                <androidx.appcompat.widget.AppCompatSpinner
-                    android:id="@+id/wilayatUser"
+                    android:id="@+id/password01User"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
                     android:layout_marginTop="16dp"
                     android:layout_marginEnd="16dp"
                     android:background="@drawable/custom_input"
+                    android:hint="كلمة السر"
+                    android:inputType="textPassword"
+                    android:textColor="@color/Color01"
+                    android:textColorHint="@color/Color01"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.0"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/addressUser" />
+                    app:layout_constraintTop_toBottomOf="@+id/emailUser" />
 
-                <androidx.appcompat.widget.AppCompatSpinner
-                    android:id="@+id/citesUser"
+                <EditText
+                    android:id="@+id/password02User"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
                     android:layout_marginTop="16dp"
                     android:layout_marginEnd="16dp"
                     android:background="@drawable/custom_input"
-                    app:layout_constraintHorizontal_bias="0.5"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/wilayatUser" />
-
-                <androidx.appcompat.widget.AppCompatButton
-                    android:id="@+id/dateUser"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="16dp"
-                    android:layout_marginTop="16dp"
-                    android:layout_marginEnd="16dp"
-                    android:background="@drawable/custom_input"
-                    android:text="DD/MM/YYYY"
+                    android:hint=" تأكيد كلمة السر"
+                    android:inputType="textPassword"
                     android:textColor="@color/Color01"
                     android:textColorHint="@color/Color01"
                     app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.5"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/citesUser" />
+                    app:layout_constraintTop_toBottomOf="@+id/password01User" />
 
                 <androidx.appcompat.widget.AppCompatButton
                     android:id="@+id/nextBtnUser"
@@ -202,13 +174,13 @@
                     android:text="استمرار"
                     android:textColor="@color/Color01"
                     app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toStartOf="@+id/goBackSignInUser"
+                    app:layout_constraintEnd_toStartOf="@+id/goBackUser"
                     app:layout_constraintHorizontal_bias="0.5"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/dateUser" />
+                    app:layout_constraintTop_toBottomOf="@+id/password02User" />
 
                 <androidx.appcompat.widget.AppCompatButton
-                    android:id="@+id/goBackSignInUser"
+                    android:id="@+id/goBackUser"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="8dp"
@@ -216,7 +188,7 @@
                     android:background="@drawable/button_shape"
                     android:backgroundTint="@color/textColor01"
                     android:fontFamily="@font/tajawal_medium"
-                    android:text="تسجيل الدخول"
+                    android:text="عودة"
                     android:textColor="@color/Color01"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"

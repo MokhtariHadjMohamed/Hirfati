@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/textColor01"
-    tools:context=".NewRegisterUser">
+    tools:context=".NewRegisterCraftsman">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -78,17 +78,17 @@
                     android:layout_marginBottom="32dp"
                     android:fontFamily="@font/tajawal_bold"
                     android:gravity="center"
-                    android:text="مسخدم جديد"
+                    android:text="حرفي جديد"
                     android:textColor="@color/textColor01"
                     android:textSize="34sp"
-                    app:layout_constraintBottom_toTopOf="@+id/nameUser"
+                    app:layout_constraintBottom_toTopOf="@+id/phoneCraftsman"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.5"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <EditText
-                    android:id="@+id/nameUser"
+                    android:id="@+id/phoneCraftsman"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
@@ -96,19 +96,19 @@
                     android:layout_marginBottom="16dp"
                     android:background="@drawable/custom_input"
                     android:ems="10"
-                    android:hint="الإسم"
-                    android:inputType="text"
+                    android:hint="رقم الهاتف"
+                    android:inputType="phone"
                     android:textColor="@color/Color01"
                     android:textColorHint="@color/Color01"
                     android:textSize="20sp"
-                    app:layout_constraintBottom_toTopOf="@+id/familyNameUser"
+                    app:layout_constraintBottom_toTopOf="@+id/emailCraftsman"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.5"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/textView4" />
 
                 <EditText
-                    android:id="@+id/familyNameUser"
+                    android:id="@+id/emailCraftsman"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
@@ -116,29 +116,28 @@
                     android:layout_marginEnd="16dp"
                     android:background="@drawable/custom_input"
                     android:ems="10"
-                    android:hint="اللقب"
-                    android:inputType="text"
+                    android:hint="بريد الإلكتروني"
+                    android:inputType="textEmailAddress"
                     android:textColor="@color/Color01"
                     android:textColorHint="@color/Color01"
                     android:textSize="20sp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.5"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/nameUser" />
+                    app:layout_constraintTop_toBottomOf="@+id/phoneCraftsman" />
 
                 <EditText
-                    android:id="@+id/addressUser"
+                    android:id="@+id/password01Craftsman"
                     android:layout_width="0dp"
-                    android:layout_height="120dp"
+                    android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
                     android:layout_marginTop="16dp"
                     android:layout_marginEnd="16dp"
                     android:background="@drawable/custom_input"
                     android:ems="10"
                     android:gravity="start|top"
-                    android:hint="عنوان سكن"
+                    android:hint="كلمة السر"
                     android:inputType="textMultiLine"
-                    android:lines="10"
                     android:scrollbars="vertical"
                     android:textColor="@color/Color01"
                     android:textColorHint="@color/Color01"
@@ -146,10 +145,31 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.5"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/familyNameUser" />
+                    app:layout_constraintTop_toBottomOf="@+id/emailCraftsman" />
+
+                <EditText
+                    android:id="@+id/password02Craftsman"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginEnd="16dp"
+                    android:background="@drawable/custom_input"
+                    android:ems="10"
+                    android:gravity="start|top"
+                    android:hint="تأكيد كلمة السر"
+                    android:inputType="textMultiLine"
+                    android:scrollbars="vertical"
+                    android:textColor="@color/Color01"
+                    android:textColorHint="@color/Color01"
+                    android:textSize="20sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/password01Craftsman" />
 
                 <androidx.appcompat.widget.AppCompatSpinner
-                    android:id="@+id/wilayatUser"
+                    android:id="@+id/craftCraftsman"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
@@ -159,10 +179,10 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.0"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/addressUser" />
+                    app:layout_constraintTop_toBottomOf="@+id/password02Craftsman" />
 
                 <androidx.appcompat.widget.AppCompatSpinner
-                    android:id="@+id/citesUser"
+                    android:id="@+id/levelCraftsman"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
@@ -172,25 +192,23 @@
                     app:layout_constraintHorizontal_bias="0.5"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/wilayatUser" />
+                    app:layout_constraintTop_toBottomOf="@+id/craftCraftsman" />
 
-                <androidx.appcompat.widget.AppCompatButton
-                    android:id="@+id/dateUser"
-                    android:layout_width="0dp"
+                <androidx.appcompat.widget.AppCompatSpinner
+                    android:id="@+id/yearsCraftsman"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
                     android:layout_marginTop="16dp"
                     android:layout_marginEnd="16dp"
                     android:background="@drawable/custom_input"
-                    android:text="DD/MM/YYYY"
-                    android:textColor="@color/Color01"
-                    android:textColorHint="@color/Color01"
+                    app:layout_constraintHorizontal_bias="0.5"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/citesUser" />
+                    app:layout_constraintTop_toBottomOf="@+id/levelCraftsman" />
 
                 <androidx.appcompat.widget.AppCompatButton
-                    android:id="@+id/nextBtnUser"
+                    android:id="@+id/nextBtnCraftsman"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
@@ -202,13 +220,13 @@
                     android:text="استمرار"
                     android:textColor="@color/Color01"
                     app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toStartOf="@+id/goBackSignInUser"
+                    app:layout_constraintEnd_toStartOf="@+id/goBackCraftsman"
                     app:layout_constraintHorizontal_bias="0.5"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/dateUser" />
+                    app:layout_constraintTop_toBottomOf="@+id/yearsCraftsman" />
 
                 <androidx.appcompat.widget.AppCompatButton
-                    android:id="@+id/goBackSignInUser"
+                    android:id="@+id/goBackCraftsman"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="8dp"
@@ -216,12 +234,12 @@
                     android:background="@drawable/button_shape"
                     android:backgroundTint="@color/textColor01"
                     android:fontFamily="@font/tajawal_medium"
-                    android:text="تسجيل الدخول"
+                    android:text="عودة"
                     android:textColor="@color/Color01"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toEndOf="@+id/nextBtnUser"
-                    app:layout_constraintTop_toTopOf="@+id/nextBtnUser" />
+                    app:layout_constraintStart_toEndOf="@+id/nextBtnCraftsman"
+                    app:layout_constraintTop_toTopOf="@+id/nextBtnCraftsman" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 

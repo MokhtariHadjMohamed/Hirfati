@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/textColor01"
-    tools:context=".NewRegisterUser">
+    tools:context=".NewRegisterCraftsman">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -78,17 +78,17 @@
                     android:layout_marginBottom="32dp"
                     android:fontFamily="@font/tajawal_bold"
                     android:gravity="center"
-                    android:text="مسخدم جديد"
+                    android:text="حرفي جديد"
                     android:textColor="@color/textColor01"
                     android:textSize="34sp"
-                    app:layout_constraintBottom_toTopOf="@+id/nameUser"
+                    app:layout_constraintBottom_toTopOf="@+id/nameCraftsman"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.5"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <EditText
-                    android:id="@+id/nameUser"
+                    android:id="@+id/nameCraftsman"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
@@ -101,14 +101,14 @@
                     android:textColor="@color/Color01"
                     android:textColorHint="@color/Color01"
                     android:textSize="20sp"
-                    app:layout_constraintBottom_toTopOf="@+id/familyNameUser"
+                    app:layout_constraintBottom_toTopOf="@+id/familyNameCraftsman"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.5"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/textView4" />
 
                 <EditText
-                    android:id="@+id/familyNameUser"
+                    android:id="@+id/familyNameCraftsman"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
@@ -124,10 +124,10 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.5"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/nameUser" />
+                    app:layout_constraintTop_toBottomOf="@+id/nameCraftsman" />
 
                 <EditText
-                    android:id="@+id/addressUser"
+                    android:id="@+id/addressCraftsman"
                     android:layout_width="0dp"
                     android:layout_height="120dp"
                     android:layout_marginStart="16dp"
@@ -146,10 +146,10 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.5"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/familyNameUser" />
+                    app:layout_constraintTop_toBottomOf="@+id/familyNameCraftsman" />
 
                 <androidx.appcompat.widget.AppCompatSpinner
-                    android:id="@+id/wilayatUser"
+                    android:id="@+id/wilayatCraftsman"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
@@ -159,10 +159,10 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.0"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/addressUser" />
+                    app:layout_constraintTop_toBottomOf="@+id/addressCraftsman" />
 
                 <androidx.appcompat.widget.AppCompatSpinner
-                    android:id="@+id/citesUser"
+                    android:id="@+id/citesCraftsman"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
@@ -172,25 +172,26 @@
                     app:layout_constraintHorizontal_bias="0.5"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/wilayatUser" />
+                    app:layout_constraintTop_toBottomOf="@+id/wilayatCraftsman" />
 
                 <androidx.appcompat.widget.AppCompatButton
-                    android:id="@+id/dateUser"
+                    android:id="@+id/dateCraftsman"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
                     android:layout_marginTop="16dp"
                     android:layout_marginEnd="16dp"
                     android:background="@drawable/custom_input"
+                    android:fontFamily="@font/tajawal_bold"
                     android:text="DD/MM/YYYY"
                     android:textColor="@color/Color01"
                     android:textColorHint="@color/Color01"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/citesUser" />
+                    app:layout_constraintTop_toBottomOf="@+id/citesCraftsman" />
 
                 <androidx.appcompat.widget.AppCompatButton
-                    android:id="@+id/nextBtnUser"
+                    android:id="@+id/nextBtnCraftsman"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
@@ -202,13 +203,13 @@
                     android:text="استمرار"
                     android:textColor="@color/Color01"
                     app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toStartOf="@+id/goBackSignInUser"
+                    app:layout_constraintEnd_toStartOf="@+id/goBackSignInCraftsman"
                     app:layout_constraintHorizontal_bias="0.5"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/dateUser" />
+                    app:layout_constraintTop_toBottomOf="@+id/dateCraftsman" />
 
                 <androidx.appcompat.widget.AppCompatButton
-                    android:id="@+id/goBackSignInUser"
+                    android:id="@+id/goBackSignInCraftsman"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="8dp"
@@ -220,8 +221,8 @@
                     android:textColor="@color/Color01"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toEndOf="@+id/nextBtnUser"
-                    app:layout_constraintTop_toTopOf="@+id/nextBtnUser" />
+                    app:layout_constraintStart_toEndOf="@+id/nextBtnCraftsman"
+                    app:layout_constraintTop_toTopOf="@+id/nextBtnCraftsman" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
