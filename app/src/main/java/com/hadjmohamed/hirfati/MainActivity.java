@@ -16,6 +16,6 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
-        startActivity(new Intent(MainActivity.this, NewRegisterCraftsman.class));
+        startActivity(new Intent(MainActivity.this, Home.class));
     }
 }
