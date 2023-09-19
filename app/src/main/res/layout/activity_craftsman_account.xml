@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".CraftsmanInfo">
+    tools:context=".CraftsmanAccount">
+
 
     <ScrollView
         android:layout_width="0dp"
@@ -149,24 +150,6 @@
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintTop_toTopOf="@+id/cardView2" />
 
-                    <androidx.appcompat.widget.AppCompatButton
-                        android:id="@+id/button"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="24dp"
-                        android:layout_marginTop="8dp"
-                        android:layout_marginEnd="24dp"
-                        android:layout_marginBottom="16dp"
-                        android:background="@drawable/button_shape"
-                        android:fontFamily="@font/tajawal_bold"
-                        android:text="تواصل مع الحرفي"
-                        android:textColor="@color/Color01"
-                        android:textSize="20sp"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/craftsmanInfoDesc" />
-
                     <androidx.cardview.widget.CardView
                         android:id="@+id/cardView2"
                         android:layout_width="120dp"
@@ -211,21 +194,8 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/textView13" />
 
-            <TextView
-                android:id="@+id/textView14"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:layout_marginEnd="16dp"
-                android:fontFamily="@font/tajawal_bold"
-                android:text="تعليقات"
-                android:textColor="@color/textColor03"
-                android:textSize="20sp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/_dynamic" />
-
             <androidx.cardview.widget.CardView
-                android:id="@+id/cardView4"
+                android:id="@+id/cardView5"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
@@ -235,33 +205,71 @@
                 app:cardCornerRadius="20dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textView14">
+                app:layout_constraintTop_toBottomOf="@+id/_dynamic">
 
-                <androidx.recyclerview.widget.RecyclerView
+                <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:padding="10dp" />
+                    android:layout_height="match_parent">
+
+                    <TextView
+                        android:id="@+id/accountInfoUserAccount"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginTop="16dp"
+                        android:layout_marginEnd="16dp"
+                        android:drawableRight="@drawable/baseline_manage_accounts_24"
+                        android:drawablePadding="10dp"
+                        android:drawableTint="@color/textColor01"
+                        android:fontFamily="@font/tajawal_bold"
+                        android:text="معلومات الحساب"
+                        android:textColor="@color/textColor01"
+                        android:textSize="20sp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
+                        android:id="@+id/settingUserAccount"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginTop="16dp"
+                        android:layout_marginEnd="16dp"
+                        android:drawableRight="@drawable/baseline_settings_24"
+                        android:drawablePadding="10dp"
+                        android:drawableTint="@color/textColor01"
+                        android:fontFamily="@font/tajawal_bold"
+                        android:text="الإعدادات"
+                        android:textColor="@color/textColor01"
+                        android:textSize="20sp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/accountInfoUserAccount" />
+
+                    <TextView
+                        android:id="@+id/logOutUserAccount"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginTop="16dp"
+                        android:layout_marginEnd="16dp"
+                        android:layout_marginBottom="16dp"
+                        android:drawableRight="@drawable/baseline_logout_24"
+                        android:drawablePadding="10dp"
+                        android:drawableTint="@color/textColor01"
+                        android:fontFamily="@font/tajawal_bold"
+                        android:text="تسجيل الخروج"
+                        android:textColor="@color/textColor01"
+                        android:textSize="20sp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/settingUserAccount" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
             </androidx.cardview.widget.CardView>
 
-            <androidx.appcompat.widget.AppCompatButton
-                android:id="@+id/button2"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="16dp"
-                android:layout_marginEnd="8dp"
-                android:background="@drawable/button_shape"
-                android:backgroundTint="@color/Color01"
-                android:drawableEnd="@drawable/baseline_report_gmailerrorred_24"
-                android:drawablePadding="10dp"
-                android:fontFamily="@font/tajawal_bold"
-                android:text="إبلاغ عن الحرفي"
-                android:gravity="right|center_vertical"
-                android:textColor="@color/Error"
-                android:textSize="20sp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/cardView4" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>

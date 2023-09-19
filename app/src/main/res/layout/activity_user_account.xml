@@ -19,7 +19,7 @@
             android:layout_height="wrap_content"
             android:background="@color/textColor01"
             android:minHeight="1000dp"
-            tools:context=".Home">
+            tools:context=".HomePage">
 
             <View
                 android:id="@+id/view"

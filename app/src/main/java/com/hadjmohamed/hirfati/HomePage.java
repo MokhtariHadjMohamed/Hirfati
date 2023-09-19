@@ -3,7 +3,6 @@ package com.hadjmohamed.hirfati;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -14,7 +13,7 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Home extends AppCompatActivity {
+public class HomePage extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,14 +29,16 @@ public class Home extends AppCompatActivity {
             if (id == R.id.homeNavigation) {
                 return true;
             } else if (id == R.id.searchNavigation) {
-                Toast.makeText(this, "Search", Toast.LENGTH_SHORT).show();
+                startActivity(new Intent(HomePage.this, SearchPage.class));
+                overridePendingTransition(R.anim.slide_in_left, R.anim.slide_in_right);
                 return true;
             } else if (id == R.id.accountNavigation) {
-                startActivity(new Intent(Home.this, UserAccount.class));
+                startActivity(new Intent(HomePage.this, UserAccount.class));
                 overridePendingTransition(R.anim.slide_in_left, R.anim.slide_in_right);
                 return true;
             } else if (id == R.id.categoryNavigation) {
-                Toast.makeText(this, "Category", Toast.LENGTH_SHORT).show();
+                startActivity(new Intent(HomePage.this, CategoryPage.class));
+                overridePendingTransition(R.anim.slide_in_left, R.anim.slide_in_right);
                 return true;
             } else {
                 return false;
