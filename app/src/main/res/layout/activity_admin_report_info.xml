@@ -1,0 +1,216 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Admin.AdminReportInfo">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/textColor01"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0"
+        tools:context=".NewRegisterCraftsman">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/deleteAdminReportInfo"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="16dp"
+                android:background="@drawable/button_shape"
+                android:backgroundTint="@color/Color01"
+                android:drawableEnd="@drawable/baseline_delete_24"
+                android:drawablePadding="10dp"
+                android:drawableTint="@color/Error"
+                android:fontFamily="@font/tajawal_bold"
+                android:gravity="right|center"
+                android:text="حذف الإبلاغ"
+                android:textColor="@color/Error"
+                android:textSize="20sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/cardView3" />
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/logoView"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:padding="20dp"
+                app:cardCornerRadius="10000dp"
+                app:layout_constraintBottom_toBottomOf="@+id/view"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/view"
+                app:layout_constraintVertical_bias="0.8">
+
+                <ImageView
+                    android:id="@+id/logo"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    tools:srcCompat="@drawable/logo" />
+
+            </androidx.cardview.widget.CardView>
+
+            <View
+                android:id="@+id/view"
+                android:layout_width="500dp"
+                android:layout_height="500dp"
+                android:layout_marginTop="-270dp"
+                android:background="@drawable/rectangle_01"
+                android:maxWidth="1000dp"
+                android:maxHeight="1000dp"
+                android:rotation="-31"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/cardView3"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginEnd="8dp"
+                android:backgroundTint="@color/Color01"
+                app:cardCornerRadius="20dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/view">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:padding="10dp">
+
+                    <TextView
+                        android:id="@+id/craftsNumberAdminReportInfo"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="4dp"
+                        android:fontFamily="@font/tajawal_bold"
+                        android:text="إبلاغ رقم 01"
+                        android:textColor="@color/textColor01"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
+                        android:id="@+id/reportHimAdminReportInfo"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginTop="16dp"
+                        android:layout_marginEnd="16dp"
+                        android:background="@drawable/custom_input"
+                        android:fontFamily="@font/tajawal_regular"
+                        android:gravity="right|center"
+                        android:text="المبلغ"
+                        android:textColor="@color/Color01"
+                        android:textSize="15sp"
+
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/craftsNumberAdminReportInfo" />
+
+                        <androidx.appcompat.widget.AppCompatButton
+                            android:id="@+id/showReportHimAdminReportInfo"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="عرض الملف"
+                            android:backgroundTint="@color/Color02"
+                            android:fontFamily="@font/tajawal_bold"
+                            android:textColor="@color/textColor01"
+                            app:layout_constraintBottom_toBottomOf="@+id/reportHimAdminReportInfo"
+                            app:layout_constraintStart_toStartOf="@+id/reportHimAdminReportInfo"
+                            app:layout_constraintTop_toTopOf="@+id/reportHimAdminReportInfo" />
+
+                    <TextView
+                        android:id="@+id/reportedAdminReportInfo"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginTop="16dp"
+                        android:layout_marginEnd="16dp"
+                        android:text="اسم المبلغ عنه"
+                        android:fontFamily="@font/tajawal_regular"
+                        android:textSize="15sp"
+                        android:textColor="@color/Color01"
+                        android:background="@drawable/custom_input"
+                        android:gravity="right|center"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/reportHimAdminReportInfo" />
+
+                    <androidx.appcompat.widget.AppCompatButton
+                        android:id="@+id/showReportedAdminReportInfo"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="عرض الملف"
+                        android:backgroundTint="@color/Color02"
+                        android:fontFamily="@font/tajawal_bold"
+                        android:textColor="@color/textColor01"
+                        app:layout_constraintBottom_toBottomOf="@+id/reportedAdminReportInfo"
+                        app:layout_constraintStart_toStartOf="@+id/reportedAdminReportInfo"
+                        app:layout_constraintTop_toTopOf="@+id/reportedAdminReportInfo" />
+
+
+                    <EditText
+                        android:id="@+id/reportAdminReportInfo"
+                        android:layout_width="0dp"
+                        android:layout_height="120dp"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginTop="16dp"
+                        android:layout_marginEnd="16dp"
+                        android:background="@drawable/custom_input"
+                        android:ems="10"
+                        android:fontFamily="@font/tajawal_regular"
+                        android:gravity="start|top"
+                        android:hint="وصف الحرفة"
+                        android:inputType="textMultiLine"
+                        android:lines="10"
+                        android:scrollbars="vertical"
+                        android:textColor="@color/Color01"
+                        android:textColorHint="@color/Color01"
+                        android:textSize="15sp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.5"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/reportedAdminReportInfo" />
+
+                    <androidx.appcompat.widget.AppCompatButton
+                        android:id="@+id/submitAdminReportInfo"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginTop="16dp"
+                        android:layout_marginBottom="7dp"
+                        android:background="@drawable/button_shape"
+                        android:fontFamily="@font/tajawal_bold"
+                        android:text="تحديث"
+                        android:textColor="@color/Color01"
+                        android:textColorHint="@color/Color01"
+                        android:textSize="20sp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/reportAdminReportInfo" />
+
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+            </androidx.cardview.widget.CardView>
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </ScrollView>
+</androidx.constraintlayout.widget.ConstraintLayout>

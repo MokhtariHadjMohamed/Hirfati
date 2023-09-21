@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".CraftsmanAccountInfo">
+    tools:context=".Admin.AdminCraftsmenAccountInfo">
 
     <ScrollView
         android:layout_width="0dp"
@@ -63,23 +63,6 @@
                     android:layout_height="wrap_content"
                     tools:srcCompat="@tools:sample/avatars" />
 
-                <androidx.cardview.widget.CardView
-                    android:id="@+id/editImageِCraftsmanAccountInfo"
-                    android:layout_width="120dp"
-                    android:layout_height="120dp"
-                    android:backgroundTint="#00000000"
-                    app:cardCornerRadius="20dp"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent">
-
-                    <ImageView
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:background="@color/Color01_50p"
-                        android:padding="20dp"
-                        android:src="@drawable/baseline_edit_24" />
-                </androidx.cardview.widget.CardView>
-
 
             </androidx.cardview.widget.CardView>
 
@@ -102,7 +85,7 @@
                     android:padding="10dp">
 
                     <TextView
-                        android:id="@+id/craftsmanNumberCraftsmanAccountInfo"
+                        android:id="@+id/craftsmanNumberAdminCraftsmenAccountInfo"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="4dp"
@@ -114,7 +97,7 @@
                         app:layout_constraintTop_toTopOf="parent" />
 
                     <EditText
-                        android:id="@+id/nameCraftsmanAccountInfo"
+                        android:id="@+id/nameAdminCraftsmenAccountInfo"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="16dp"
@@ -130,10 +113,10 @@
                         android:textSize="20sp"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/craftsmanNumberCraftsmanAccountInfo" />
+                        app:layout_constraintTop_toBottomOf="@+id/craftsmanNumberAdminCraftsmenAccountInfo" />
 
                     <EditText
-                        android:id="@+id/familyNameCraftsmanAccountInfo"
+                        android:id="@+id/familyNameAdminCraftsmenAccountInfo"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="16dp"
@@ -149,10 +132,10 @@
                         android:textSize="20sp"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/nameCraftsmanAccountInfo" />
+                        app:layout_constraintTop_toBottomOf="@+id/nameAdminCraftsmenAccountInfo" />
 
                     <androidx.appcompat.widget.AppCompatButton
-                        android:id="@+id/birthdayCraftsmanAccountInfo"
+                        android:id="@+id/birthdayAdminCraftsmenAccountInfo"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="16dp"
@@ -169,10 +152,10 @@
                         android:textSize="20sp"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/familyNameCraftsmanAccountInfo" />
+                        app:layout_constraintTop_toBottomOf="@+id/familyNameAdminCraftsmenAccountInfo" />
 
                     <EditText
-                        android:id="@+id/addressCraftsmanAccountInfo"
+                        android:id="@+id/addressAdminCraftsmenAccountInfo"
                         android:layout_width="0dp"
                         android:layout_height="120dp"
                         android:layout_marginStart="16dp"
@@ -192,10 +175,10 @@
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintHorizontal_bias="0.5"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/birthdayCraftsmanAccountInfo" />
+                        app:layout_constraintTop_toBottomOf="@+id/birthdayAdminCraftsmenAccountInfo" />
 
                     <Spinner
-                        android:id="@+id/wilayaCraftsmanAccountInfo"
+                        android:id="@+id/wilayaAdminCraftsmenAccountInfo"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="16dp"
@@ -208,10 +191,10 @@
                         android:textSize="20sp"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/addressCraftsmanAccountInfo" />
+                        app:layout_constraintTop_toBottomOf="@+id/addressAdminCraftsmenAccountInfo" />
 
                     <Spinner
-                        android:id="@+id/cityCraftsmanAccountInfo"
+                        android:id="@+id/cityAdminCraftsmenAccountInfo"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="16dp"
@@ -224,10 +207,10 @@
                         android:textSize="20sp"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/wilayaCraftsmanAccountInfo" />
+                        app:layout_constraintTop_toBottomOf="@+id/wilayaAdminCraftsmenAccountInfo" />
 
                     <EditText
-                        android:id="@+id/emailCraftsmanAccountInfo"
+                        android:id="@+id/emailAdminCraftsmenAccountInfo"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="16dp"
@@ -243,10 +226,10 @@
                         android:textSize="20sp"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/cityCraftsmanAccountInfo" />
+                        app:layout_constraintTop_toBottomOf="@+id/cityAdminCraftsmenAccountInfo" />
 
                     <EditText
-                        android:id="@+id/phoneNumberCraftsmanAccountInfo"
+                        android:id="@+id/phoneNumberAdminCraftsmenAccountInfo"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="16dp"
@@ -263,30 +246,10 @@
                         android:textSize="20sp"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/emailCraftsmanAccountInfo" />
-
-                    <EditText
-                        android:id="@+id/passwordCraftsmanAccountInfo"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="16dp"
-                        android:layout_marginTop="16dp"
-                        android:layout_marginEnd="16dp"
-                        android:background="@drawable/custom_input"
-                        android:ems="10"
-                        android:fontFamily="@font/tajawal_regular"
-                        android:gravity="right"
-                        android:hint="كلمة السر"
-                        android:inputType="textPassword"
-                        android:textColor="@color/Color01"
-                        android:textColorHint="@color/Color01"
-                        android:textSize="20sp"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/phoneNumberCraftsmanAccountInfo" />
+                        app:layout_constraintTop_toBottomOf="@+id/emailAdminCraftsmenAccountInfo" />
 
                     <Spinner
-                        android:id="@+id/craftsCraftsmanAccountInfo"
+                        android:id="@+id/craftsAdminCraftsmenAccountInfo"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="16dp"
@@ -299,10 +262,10 @@
                         android:textSize="20sp"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/passwordCraftsmanAccountInfo" />
+                        app:layout_constraintTop_toBottomOf="@+id/phoneNumberAdminCraftsmenAccountInfo" />
 
                     <Spinner
-                        android:id="@+id/levelCraftsmanAccountInfo"
+                        android:id="@+id/levelAdminCraftsmenAccountInfo"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="16dp"
@@ -315,10 +278,10 @@
                         android:textSize="20sp"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/craftsCraftsmanAccountInfo" />
+                        app:layout_constraintTop_toBottomOf="@+id/craftsAdminCraftsmenAccountInfo" />
 
                     <Spinner
-                        android:id="@+id/yearsCraftsmanAccountInfo"
+                        android:id="@+id/yearsAdminCraftsmenAccountInfo"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="16dp"
@@ -331,10 +294,10 @@
                         android:textSize="20sp"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/levelCraftsmanAccountInfo" />
+                        app:layout_constraintTop_toBottomOf="@+id/levelAdminCraftsmenAccountInfo" />
 
                     <androidx.appcompat.widget.AppCompatButton
-                        android:id="@+id/submitCraftsmanAccountInfo"
+                        android:id="@+id/submitAdminCraftsmenAccountInfo"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="16dp"
@@ -348,10 +311,10 @@
                         android:textSize="20sp"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/yearsCraftsmanAccountInfo" />
+                        app:layout_constraintTop_toBottomOf="@+id/yearsAdminCraftsmenAccountInfo" />
 
                     <TextView
-                        android:id="@+id/deleteCraftsmanAccountInfo"
+                        android:id="@+id/deleteAdminCraftsmenAccountInfo"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="16dp"
@@ -359,9 +322,9 @@
                         android:text="غلق الحساب"
                         android:textColor="@color/Error"
                         android:textSize="16sp"
-                        app:layout_constraintBottom_toBottomOf="@+id/submitCraftsmanAccountInfo"
-                        app:layout_constraintStart_toEndOf="@+id/submitCraftsmanAccountInfo"
-                        app:layout_constraintTop_toTopOf="@+id/submitCraftsmanAccountInfo" />
+                        app:layout_constraintBottom_toBottomOf="@+id/submitAdminCraftsmenAccountInfo"
+                        app:layout_constraintStart_toEndOf="@+id/submitAdminCraftsmenAccountInfo"
+                        app:layout_constraintTop_toTopOf="@+id/submitAdminCraftsmenAccountInfo" />
 
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
