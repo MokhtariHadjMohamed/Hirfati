@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/textColor01"
-    tools:context=".NewRegisterUser">
+    tools:context=".NewRegisterUserActivity">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -98,6 +98,7 @@
                     android:background="@drawable/custom_input"
                     android:ems="10"
                     android:hint="رقم هاتف"
+                    android:gravity="right"
                     android:inputType="phone"
                     android:textColor="@color/Color01"
                     android:textColorHint="@color/Color01"
@@ -135,6 +136,7 @@
                     android:layout_marginTop="16dp"
                     android:layout_marginEnd="16dp"
                     android:background="@drawable/custom_input"
+                    android:gravity="right"
                     android:hint="كلمة السر"
                     android:inputType="textPassword"
                     android:textColor="@color/Color01"
@@ -153,6 +155,7 @@
                     android:layout_marginEnd="16dp"
                     android:background="@drawable/custom_input"
                     android:hint=" تأكيد كلمة السر"
+                    android:gravity="right"
                     android:inputType="textPassword"
                     android:textColor="@color/Color01"
                     android:textColorHint="@color/Color01"
@@ -162,7 +165,7 @@
                     app:layout_constraintTop_toBottomOf="@+id/password01User" />
 
                 <androidx.appcompat.widget.AppCompatButton
-                    android:id="@+id/nextBtnUser"
+                    android:id="@+id/submitNewRegisterUser"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
@@ -192,8 +195,8 @@
                     android:textColor="@color/Color01"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toEndOf="@+id/nextBtnUser"
-                    app:layout_constraintTop_toTopOf="@+id/nextBtnUser" />
+                    app:layout_constraintStart_toEndOf="@+id/submitNewRegisterUser"
+                    app:layout_constraintTop_toTopOf="@+id/submitNewRegisterUser" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 

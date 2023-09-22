@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/textColor02"
-    tools:context=".LogIn">
+    tools:context=".LogInActivity">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -26,9 +26,9 @@
 
             <ImageView
                 android:id="@+id/logo"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                tools:srcCompat="@drawable/logo" />
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                tools:src="@drawable/logo" />
 
         </androidx.cardview.widget.CardView>
 
@@ -98,6 +98,7 @@
                     android:ems="10"
                     android:hint="بريد الإلكتروني"
                     android:inputType="textEmailAddress"
+                    android:textSize="20sp"
                     android:textColor="@color/Color01"
                     android:textColorHint="@color/Color01"
                     app:layout_constraintBottom_toTopOf="@+id/passwordSignIn"
@@ -119,8 +120,10 @@
                     android:hint="كلمة السر"
                     android:inputType="textPassword"
                     android:textColor="@color/Color01"
+                    android:textSize="20sp"
+                    android:gravity="right"
                     android:textColorHint="@color/Color01"
-                    app:layout_constraintBottom_toTopOf="@+id/logIn01"
+                    app:layout_constraintBottom_toTopOf="@+id/logIn"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.5"
                     app:layout_constraintStart_toStartOf="parent"
@@ -133,11 +136,11 @@
                     android:layout_marginBottom="8dp"
                     android:text="نسيت كلمة السر؟"
                     android:textColor="@color/textColor01"
-                    app:layout_constraintBottom_toTopOf="@+id/logIn01"
+                    app:layout_constraintBottom_toTopOf="@+id/logIn"
                     app:layout_constraintEnd_toEndOf="@+id/passwordSignIn" />
 
                 <androidx.appcompat.widget.AppCompatButton
-                    android:id="@+id/logIn01"
+                    android:id="@+id/logIn"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="60dp"
@@ -163,14 +166,14 @@
                     android:fontFamily="@font/tajawal_medium"
                     android:text="فتح حساب مستخدم"
                     android:textColor="@color/textColor01"
-                    app:layout_constraintBottom_toTopOf="@+id/nextBtnUser"
+                    app:layout_constraintBottom_toTopOf="@+id/userRegisterLogIn"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.5"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/logIn01" />
+                    app:layout_constraintTop_toBottomOf="@+id/logIn" />
 
                 <androidx.appcompat.widget.AppCompatButton
-                    android:id="@+id/nextBtnUser"
+                    android:id="@+id/userRegisterLogIn"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="32dp"
@@ -182,13 +185,13 @@
                     android:text="مستخدم"
                     android:textColor="@color/Color01"
                     app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toStartOf="@+id/goBackSignInUser"
+                    app:layout_constraintEnd_toStartOf="@+id/craftsmanRegisterLogIn"
                     app:layout_constraintHorizontal_bias="0.5"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/textView5" />
 
                 <androidx.appcompat.widget.AppCompatButton
-                    android:id="@+id/goBackSignInUser"
+                    android:id="@+id/craftsmanRegisterLogIn"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
@@ -198,11 +201,11 @@
                     android:fontFamily="@font/tajawal_medium"
                     android:text="حرفي"
                     android:textColor="@color/Color01"
-                    app:layout_constraintBottom_toBottomOf="@+id/nextBtnUser"
+                    app:layout_constraintBottom_toBottomOf="@+id/userRegisterLogIn"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.5"
-                    app:layout_constraintStart_toEndOf="@+id/nextBtnUser"
-                    app:layout_constraintTop_toTopOf="@+id/nextBtnUser" />
+                    app:layout_constraintStart_toEndOf="@+id/userRegisterLogIn"
+                    app:layout_constraintTop_toTopOf="@+id/userRegisterLogIn" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 

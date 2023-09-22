@@ -13,9 +13,21 @@ public class HolderRecCategory extends RecyclerView.ViewHolder {
     TextView categoryName;
 
 
-    public HolderRecCategory(@NonNull View itemView) {
+    public HolderRecCategory(@NonNull View itemView, RecViewInterface recViewInterface) {
         super(itemView);
         imageView = itemView.findViewById(R.id.imageHomeCategory);
         categoryName = itemView.findViewById(R.id.categoryNameHome);
+
+        itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (recViewInterface != null){
+                    int pos = getAdapterPosition();
+                    if (pos != RecyclerView.NO_POSITION){
+                        recViewInterface.onItemClick("Category", pos);
+                    }
+                }
+            }
+        });
     }
 }

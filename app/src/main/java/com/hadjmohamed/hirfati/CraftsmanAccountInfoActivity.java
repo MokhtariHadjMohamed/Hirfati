@@ -4,11 +4,11 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 
-public class CraftsmanAccount extends AppCompatActivity {
+public class CraftsmanAccountInfoActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_craftsman_account);
+        setContentView(R.layout.activity_craftsman_account_info);
     }
 }

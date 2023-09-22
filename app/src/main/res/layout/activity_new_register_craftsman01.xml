@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/textColor01"
-    tools:context=".NewRegisterCraftsman">
+    tools:context=".NewRegisterCraftsmanActivity">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -28,7 +28,7 @@
                 android:id="@+id/logo"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                tools:srcCompat="@drawable/logo" />
+                tools:src="@drawable/logo" />
 
         </androidx.cardview.widget.CardView>
 
@@ -191,7 +191,7 @@
                     app:layout_constraintTop_toBottomOf="@+id/citesCraftsman" />
 
                 <androidx.appcompat.widget.AppCompatButton
-                    android:id="@+id/nextBtnCraftsman"
+                    android:id="@+id/nextBtnCraftsman01"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
@@ -221,8 +221,8 @@
                     android:textColor="@color/Color01"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toEndOf="@+id/nextBtnCraftsman"
-                    app:layout_constraintTop_toTopOf="@+id/nextBtnCraftsman" />
+                    app:layout_constraintStart_toEndOf="@+id/nextBtnCraftsman01"
+                    app:layout_constraintTop_toTopOf="@+id/nextBtnCraftsman01" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 

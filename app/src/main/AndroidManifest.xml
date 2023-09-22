@@ -49,40 +49,40 @@
             android:name=".Admin.AdminHomePage"
             android:exported="false" />
         <activity
-            android:name=".SettingsPage"
+            android:name=".SettingsPageActivity"
             android:exported="false" />
         <activity
-            android:name=".ForgetPassword"
+            android:name=".ForgetPasswordActivity"
             android:exported="false" />
         <activity
-            android:name=".SearchPage"
+            android:name=".SearchPageActivity"
             android:exported="false" />
         <activity
-            android:name=".CategoryPage"
+            android:name=".CategoryPageActivity"
             android:exported="false" />
         <activity
             android:name=".CraftsmanAccountInfo"
             android:exported="false" />
         <activity
-            android:name=".UserAccountInfo"
+            android:name=".UserAccountInfoActivity"
             android:exported="false" />
         <activity
-            android:name=".CraftsmanAccount"
+            android:name=".CraftsmanAccountActivity"
             android:exported="false" />
         <activity
-            android:name=".UserAccount"
+            android:name=".UserAccountActivity"
             android:exported="false" />
         <activity
-            android:name=".CraftsmanInfo"
+            android:name=".CraftsmanInfoActivity"
             android:exported="false" />
         <activity
-            android:name=".HomePage"
+            android:name=".HomePageActivity"
             android:exported="false" />
         <activity
-            android:name=".NewRegisterUser"
+            android:name=".NewRegisterUserActivity"
             android:exported="false" />
         <activity
-            android:name=".LogIn"
+            android:name=".LogInActivity"
             android:exported="false" />
         <activity
             android:name=".MainActivity"
@@ -93,7 +93,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".NewRegisterCraftsman" />
+        <activity android:name=".NewRegisterCraftsmanActivity" />
     </application>
 
 </manifest>

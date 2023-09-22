@@ -11,37 +11,38 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.List;
 public class AdapterRecCraftsmen extends RecyclerView.Adapter<HolderRecCraftsmen> {
 
+    private RecViewInterface recViewInterface;
     Context context;
-    List<Craftsman> craftsmenList;
+    List<Craftsman> commentList;
 
-    public AdapterRecCraftsmen(Context context, List<Craftsman> categoryList) {
+    public AdapterRecCraftsmen(Context context, List<Craftsman> categoryList,RecViewInterface recViewInterface) {
         this.context = context;
-        this.craftsmenList = categoryList;
+        this.commentList = categoryList;
+        this.recViewInterface = recViewInterface;
     }
 
     @NonNull
     @Override
     public HolderRecCraftsmen onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         return new HolderRecCraftsmen(LayoutInflater.from(context).
-                inflate(R.layout.craftsman_item_rec, parent, false));
+                inflate(R.layout.craftsman_item_rec, parent, false), recViewInterface);
     }
 
     @Override
     public void onBindViewHolder(@NonNull HolderRecCraftsmen holder, int position) {
-        if (craftsmenList.get(position) == null){
+        if (commentList.get(position) == null){
             Log.e("ERROR", "______________________________");
             return;
         }
-        Log.d("Name", craftsmenList.get(position).getName());
-        holder.nameAndFamilyName.setText(craftsmenList.get(position).getName() + " "
-                + craftsmenList.get(position).getFamilyName());
-        holder.crafts.setText(craftsmenList.get(position).getCrafts());
-        holder.description.setText(craftsmenList.get(position).getDescription());
-        holder.imageView.setImageURI(craftsmenList.get(position).getImage());
+        holder.nameAndFamilyName.setText(commentList.get(position).getName() + " "
+                + commentList.get(position).getFamilyName());
+        holder.crafts.setText(commentList.get(position).getCrafts());
+        holder.description.setText(commentList.get(position).getDescription());
+        holder.imageView.setImageURI(commentList.get(position).getImage());
     }
 
     @Override
     public int getItemCount() {
-        return craftsmenList.size();
+        return commentList.size();
     }
 }

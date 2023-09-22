@@ -11,19 +11,21 @@ import java.util.List;
 
 public class AdapterRecCategory extends RecyclerView.Adapter<HolderRecCategory> {
 
+    private final RecViewInterface recViewInterface;
     Context context;
     List<Category> categoryList;
 
-    public AdapterRecCategory(Context context, List<Category> categoryList) {
+    public AdapterRecCategory(Context context, List<Category> categoryList, RecViewInterface recViewInterface) {
         this.context = context;
         this.categoryList = categoryList;
+        this.recViewInterface = recViewInterface;
     }
 
     @NonNull
     @Override
     public HolderRecCategory onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         return new HolderRecCategory(LayoutInflater.from(context).
-                inflate(R.layout.category_item_rec, parent, false));
+                inflate(R.layout.category_item_rec, parent, false), recViewInterface);
     }
 
     @Override

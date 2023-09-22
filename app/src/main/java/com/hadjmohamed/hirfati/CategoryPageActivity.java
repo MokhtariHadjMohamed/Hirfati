@@ -4,11 +4,10 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.widget.Toast;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
-public class CategoryPage extends AppCompatActivity {
+public class CategoryPageActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -22,16 +21,13 @@ public class CategoryPage extends AppCompatActivity {
         bottomNavigationView.setOnItemSelectedListener(item -> {
             int id = item.getItemId();
             if (id == R.id.homeNavigation) {
-                startActivity(new Intent(CategoryPage.this, HomePage.class));
-                overridePendingTransition(R.anim.slide_in_left, R.anim.slide_in_right);
+                startActivity(new Intent(CategoryPageActivity.this, HomePageActivity.class));
                 return true;
             } else if (id == R.id.searchNavigation) {
-                startActivity(new Intent(CategoryPage.this, SearchPage.class));
-                overridePendingTransition(R.anim.slide_in_left, R.anim.slide_in_right);
+                startActivity(new Intent(CategoryPageActivity.this, SearchPageActivity.class));
                 return true;
             } else if (id == R.id.accountNavigation) {
-                startActivity(new Intent(CategoryPage.this, UserAccount.class));
-                overridePendingTransition(R.anim.slide_in_left, R.anim.slide_in_right);
+                startActivity(new Intent(CategoryPageActivity.this, UserAccountActivity.class));
                 return true;
             } else if (id == R.id.categoryNavigation) {
                 return true;
