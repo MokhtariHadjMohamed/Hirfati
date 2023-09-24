@@ -18,8 +18,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@color/textColor01"
-            android:minHeight="1000dp"
-            tools:context=".HomePageActivity">
+            android:minHeight="1000dp">
 
             <View
                 android:id="@+id/view"
@@ -37,7 +36,7 @@
 
             <include
                 android:id="@+id/toolbar"
-                layout="@layout/toolbar"
+                layout="@layout/toolbar_back_arrow"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"

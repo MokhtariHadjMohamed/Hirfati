@@ -36,7 +36,7 @@ public class HomePageActivity extends AppCompatActivity implements RecViewInterf
 
         recyclerViewCategory.setLayoutManager(new LinearLayoutManager(this,
                 LinearLayoutManager.HORIZONTAL, false));
-        recyclerViewCategory.setAdapter(new AdapterRecCategory(getApplicationContext(),
+        recyclerViewCategory.setAdapter(new AdapterRecCategoryHor(getApplicationContext(),
                 categoryList, this));
 
         // recyclerView Craftsmen

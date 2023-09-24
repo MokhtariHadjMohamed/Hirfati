@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Admin.AdminUserAccount">
+    tools:context=".Admin.AdminUserAccount"
+    android:background="@color/textColor01">
 
 
     <ScrollView
@@ -17,9 +18,7 @@
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@color/textColor01"
-            tools:context=".HomePageActivity">
+            android:layout_height="wrap_content">
 
             <View
                 android:id="@+id/view"
@@ -37,7 +36,7 @@
 
             <include
                 android:id="@+id/toolbar"
-                layout="@layout/toolbar"
+                layout="@layout/toolbar_back_arrow"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
@@ -71,7 +70,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="4dp"
                         android:fontFamily="@font/tajawal_bold"
-                        android:text="الحرفي رقم 1029 "
+                        android:text="المستعمل رقم 1029 "
                         android:textColor="@color/textColor01"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"

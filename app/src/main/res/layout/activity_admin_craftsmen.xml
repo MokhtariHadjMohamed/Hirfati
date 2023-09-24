@@ -38,7 +38,7 @@
                     android:id="@+id/logo"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    tools:srcCompat="@drawable/logo"/>
+                    android:src="@drawable/logo"/>
 
             </androidx.cardview.widget.CardView>
 

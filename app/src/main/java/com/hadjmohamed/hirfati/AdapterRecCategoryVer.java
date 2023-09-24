@@ -9,13 +9,13 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.List;
 
-public class AdapterRecCategory extends RecyclerView.Adapter<HolderRecCategory> {
+public class AdapterRecCategoryVer extends RecyclerView.Adapter<HolderRecCategory> {
 
     private final RecViewInterface recViewInterface;
     Context context;
     List<Category> categoryList;
 
-    public AdapterRecCategory(Context context, List<Category> categoryList, RecViewInterface recViewInterface) {
+    public AdapterRecCategoryVer(Context context, List<Category> categoryList, RecViewInterface recViewInterface) {
         this.context = context;
         this.categoryList = categoryList;
         this.recViewInterface = recViewInterface;
@@ -25,7 +25,7 @@ public class AdapterRecCategory extends RecyclerView.Adapter<HolderRecCategory> 
     @Override
     public HolderRecCategory onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         return new HolderRecCategory(LayoutInflater.from(context).
-                inflate(R.layout.category_item_rec, parent, false), recViewInterface);
+                inflate(R.layout.category_item_rec_ver, parent, false), recViewInterface);
     }
 
     @Override

@@ -6,8 +6,6 @@
     android:layout_height="match_parent"
     tools:context=".UserAccountInfoActivity">
 
-
-
     <ScrollView
         android:layout_width="0dp"
         android:layout_height="0dp"
@@ -39,7 +37,7 @@
 
             <include
                 android:id="@+id/toolbar"
-                layout="@layout/toolbar"
+                layout="@layout/toolbar_back_arrow"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"

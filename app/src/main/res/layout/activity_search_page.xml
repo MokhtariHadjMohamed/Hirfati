@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".SearchPageActivity">
+    tools:context=".SearchPageActivity"
+    android:background="@color/textColor01">
 
     <ScrollView
         android:layout_width="match_parent"
@@ -14,8 +15,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@color/textColor01"
-            android:minHeight="1000dp"
-            tools:context=".HomePageActivity">
+            android:minHeight="500dp">
 
             <View
                 android:id="@+id/view"

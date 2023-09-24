@@ -38,7 +38,7 @@
                     android:id="@+id/logo"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    tools:srcCompat="@drawable/logo" />
+                    android:src="@drawable/logo" />
 
             </androidx.cardview.widget.CardView>
 
@@ -386,7 +386,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/tajawal_bold"
-                        android:text="المستعملين اون لاين"
+                        android:text="الإبلاغات"
                         android:textColor="@color/Error"
                         android:textSize="20sp"
                         app:layout_constraintBottom_toBottomOf="parent"
