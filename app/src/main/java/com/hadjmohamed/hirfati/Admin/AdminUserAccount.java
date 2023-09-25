@@ -52,7 +52,9 @@ public class AdminUserAccount extends AppCompatActivity implements View.OnClickL
             Toast.makeText(this, "Report", Toast.LENGTH_SHORT).show();
         else if (view == deleteUser)
             Toast.makeText(this, "Delete", Toast.LENGTH_SHORT).show();
-        else if(view == backArrowToolsBar)
+        else if(view == backArrowToolsBar){
             startActivity(new Intent(AdminUserAccount.this, AdminUser.class));
+            finish();
+        }
     }
 }

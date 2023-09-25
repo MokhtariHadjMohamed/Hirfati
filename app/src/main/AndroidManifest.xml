@@ -61,7 +61,7 @@
             android:name=".CategoryPageActivity"
             android:exported="false" />
         <activity
-            android:name=".CraftsmanAccountInfo"
+            android:name=".CraftsmanAccountInfoActivity"
             android:exported="false" />
         <activity
             android:name=".UserAccountInfoActivity"

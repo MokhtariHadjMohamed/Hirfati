@@ -34,7 +34,9 @@ public class AdminCraftsmenAccountInfo extends AppCompatActivity implements View
 
     @Override
     public void onClick(View view) {
-        if (view == backArrowToolsBar)
+        if (view == backArrowToolsBar){
             startActivity(new Intent(AdminCraftsmenAccountInfo.this, AdminCraftsmenAccount.class));
+            finish();
+        }
     }
 }

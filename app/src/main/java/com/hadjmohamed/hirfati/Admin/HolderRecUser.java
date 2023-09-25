@@ -1,5 +1,6 @@
 package com.hadjmohamed.hirfati.Admin;
 
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -27,6 +28,7 @@ public class HolderRecUser extends RecyclerView.ViewHolder{
             public void onClick(View view) {
                 if (recViewInterface != null){
                     int pos = getAdapterPosition();
+                    Log.d("NUMBER:", String.valueOf(pos));
                     if (pos != RecyclerView.NO_POSITION)
                         recViewInterface.onItemClick("user", pos);
                 }

@@ -71,7 +71,9 @@ public class AdminCraftsmenAccount extends AppCompatActivity implements View.OnC
             Toast.makeText(this, "Report", Toast.LENGTH_SHORT).show();
         else if(view == deleteCraftsmen)
             Toast.makeText(this, "Delete", Toast.LENGTH_SHORT).show();
-        else if(view == backArrowToolsBar)
+        else if(view == backArrowToolsBar){
             startActivity(new Intent(AdminCraftsmenAccount.this, AdminCraftsmen.class));
+            finish();
+        }
     }
 }

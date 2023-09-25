@@ -33,7 +33,9 @@ public class AdminUserAccountInfo extends AppCompatActivity implements View.OnCl
 
     @Override
     public void onClick(View view) {
-        if (view == backArrowToolsBar)
+        if (view == backArrowToolsBar){
             startActivity(new Intent(AdminUserAccountInfo.this, AdminUserAccount.class));
+            finish();
+        }
     }
 }

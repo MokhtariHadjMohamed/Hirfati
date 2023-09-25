@@ -4,7 +4,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.widget.Toast;
 
 import com.hadjmohamed.hirfati.R;
 import com.hadjmohamed.hirfati.RecViewInterface;
@@ -40,6 +42,6 @@ public class AdminReport extends AppCompatActivity implements RecViewInterface {
 
     @Override
     public void onItemClick(String view, int position) {
-
+        startActivity(new Intent(AdminReport.this, AdminReportInfo.class));
     }
 }

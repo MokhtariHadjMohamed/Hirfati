@@ -1,5 +1,6 @@
 package com.hadjmohamed.hirfati.Admin;
 
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -23,6 +24,17 @@ public class HolderRecReport extends RecyclerView.ViewHolder {
         reporter = itemView.findViewById(R.id.reporterName);
         desc = itemView.findViewById(R.id.reportText);
 
+        itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (recViewInterface != null){
+                    int pos = getAdapterPosition();
+                    Log.d("NUMBER:", String.valueOf(pos));
+                    if (pos != RecyclerView.NO_POSITION)
+                        recViewInterface.onItemClick("report", pos);
+                }
+            }
+        });
     }
 
 }

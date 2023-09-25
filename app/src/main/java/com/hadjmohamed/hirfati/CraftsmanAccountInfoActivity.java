@@ -30,7 +30,9 @@ public class CraftsmanAccountInfoActivity extends AppCompatActivity implements V
 
     @Override
     public void onClick(View view) {
-        if (view == backArrowToolsBar)
+        if (view == backArrowToolsBar){
             startActivity(new Intent(CraftsmanAccountInfoActivity.this, CraftsmanAccountActivity.class));
+            finish();
+        }
     }
 }

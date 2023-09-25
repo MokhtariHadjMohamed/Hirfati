@@ -22,6 +22,7 @@ public class AdminCraftsInfo extends AppCompatActivity implements View.OnClickLi
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_admin_crafts_info);
 
+        // Toolbar
         Toolbar toolBar = findViewById(R.id.toolbar_back_arrow);
         setSupportActionBar(toolBar);
         textViewToolsBar = findViewById(R.id.toolbarTitle);
@@ -33,7 +34,9 @@ public class AdminCraftsInfo extends AppCompatActivity implements View.OnClickLi
 
     @Override
     public void onClick(View view) {
-        if (view == backArrowToolsBar)
+        if (view == backArrowToolsBar){
             startActivity(new Intent(AdminCraftsInfo.this, AdminCrafts.class));
+            finish();
+        }
     }
 }

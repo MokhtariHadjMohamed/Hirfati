@@ -52,7 +52,9 @@ public class CraftsmanInfoActivity extends AppCompatActivity implements View.OnC
 
     @Override
     public void onClick(View view) {
-        if (view == backArrowToolsBar)
+        if (view == backArrowToolsBar){
             startActivity(new Intent(CraftsmanInfoActivity.this, HomePageActivity.class));
+            finish();
+        }
     }
 }

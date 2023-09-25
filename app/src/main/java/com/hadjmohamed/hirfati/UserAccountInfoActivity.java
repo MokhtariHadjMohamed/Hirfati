@@ -31,7 +31,9 @@ public class UserAccountInfoActivity extends AppCompatActivity implements View.O
 
     @Override
     public void onClick(View view) {
-        if (view == backArrowToolsBar)
+        if (view == backArrowToolsBar){
             startActivity(new Intent(UserAccountInfoActivity.this, UserAccountActivity.class));
+            finish();
+        }
     }
 }

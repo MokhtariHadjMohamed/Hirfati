@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import com.hadjmohamed.hirfati.R;
@@ -42,6 +43,6 @@ public class AdminOnlineUsers extends AppCompatActivity implements RecViewInterf
 
     @Override
     public void onItemClick(String view, int position) {
-
+        startActivity(new Intent(AdminOnlineUsers.this, AdminUserAccount.class));
     }
 }

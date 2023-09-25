@@ -79,7 +79,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="8dp"
                         android:fontFamily="@font/tajawal_bold"
-                        android:text="المستعملين"
+                        android:text="إبلاغات"
                         android:textColor="@color/textColor01"
                         android:textSize="20sp"
                         app:layout_constraintEnd_toEndOf="parent"
