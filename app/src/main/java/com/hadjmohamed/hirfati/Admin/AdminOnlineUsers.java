@@ -28,10 +28,6 @@ public class AdminOnlineUsers extends AppCompatActivity implements RecViewInterf
         // recycle view
         recyclerViewUserAdmin = findViewById(R.id.onlineUsersAdmin);
         List<User> userList = new ArrayList<>();
-        userList.add(new User("sdfaadfadfafd","حاج", "مختاري", null));
-        userList.add(new User("sdfaadfadfafd","حاج", "مختاري", null));
-        userList.add(new User("sdfaadfadfafd","حاج", "مختاري", null));
-        userList.add(new User("sdfaadfadfafd","حاج", "مختاري", null));
 
         recyclerViewUserAdmin.setLayoutManager(new LinearLayoutManager(this,
                 LinearLayoutManager.VERTICAL, false));

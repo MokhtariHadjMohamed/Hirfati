@@ -3,22 +3,26 @@ package com.hadjmohamed.hirfati;
 import android.net.Uri;
 
 public class User {
-    private String Uid, name, familyName;
-    private Uri image;
+    private String idUser, name, familyName, address, wilaiay, cite, email;
+    private int phoneNumber;
 
-    public User(String uid, String name, String familyName, Uri image) {
-        Uid = uid;
+    public User(String idUser, String name, String familyName, String address, String wilaiay, String cite, String email, int phoneNumber) {
+        this.idUser = idUser;
         this.name = name;
         this.familyName = familyName;
-        this.image = image;
+        this.address = address;
+        this.wilaiay = wilaiay;
+        this.cite = cite;
+        this.email = email;
+        this.phoneNumber = phoneNumber;
     }
 
-    public String getUid() {
-        return Uid;
+    public String getIdUser() {
+        return idUser;
     }
 
-    public void setUid(String uid) {
-        Uid = uid;
+    public void setIdUser(String idUser) {
+        this.idUser = idUser;
     }
 
     public String getName() {
@@ -37,11 +41,43 @@ public class User {
         this.familyName = familyName;
     }
 
-    public Uri getImage() {
-        return image;
+    public String getAddress() {
+        return address;
     }
 
-    public void setImage(Uri image) {
-        this.image = image;
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public String getWilaiay() {
+        return wilaiay;
+    }
+
+    public void setWilaiay(String wilaiay) {
+        this.wilaiay = wilaiay;
+    }
+
+    public String getCite() {
+        return cite;
+    }
+
+    public void setCite(String cite) {
+        this.cite = cite;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public int getPhoneNumber() {
+        return phoneNumber;
+    }
+
+    public void setPhoneNumber(int phoneNumber) {
+        this.phoneNumber = phoneNumber;
     }
 }

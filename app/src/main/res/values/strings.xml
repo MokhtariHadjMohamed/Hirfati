@@ -1,6 +1,16 @@
 <resources>
     <string name="app_name">Hirfati</string>
     <string name="login">تسجيل الدخول</string>
+    <string-array name="level">
+        <item>مبتدأ</item>
+        <item>متوسط</item>
+        <item>محترف</item>
+    </string-array>
+    <string-array name="exYears">
+        <item>أقل من سنة</item>
+        <item>مابين سنة و4 سنوات</item>
+        <item>اكثر من 4 سنوات</item>
+    </string-array>
     <string-array name="wilaya">
         <item>أدرار</item>
         <item>شلف</item>

@@ -27,10 +27,6 @@ public class AdminUser extends AppCompatActivity implements RecViewInterface {
         // recycle view
         recyclerViewUserAdmin = findViewById(R.id.usersAdmin);
         List<User> userList = new ArrayList<>();
-        userList.add(new User("sdfaadfadfafd","حاج", "مختاري", null));
-        userList.add(new User("sdfaadfadfafd","حاج", "مختاري", null));
-        userList.add(new User("sdfaadfadfafd","حاج", "مختاري", null));
-        userList.add(new User("sdfaadfadfafd","حاج", "مختاري", null));
 
         recyclerViewUserAdmin.setLayoutManager(new LinearLayoutManager(this,
                 LinearLayoutManager.VERTICAL, false));
