@@ -3,17 +3,27 @@ package com.hadjmohamed.hirfati;
 import android.net.Uri;
 
 public class User {
-    private String idUser, name, familyName, address, wilaiay, cite, email;
-    private int phoneNumber;
+    private String idUser, name, familyName, address, birthday,
+            wilaiay, city, email, craft, level, exYears, userType, phoneNumber;
 
-    public User(String idUser, String name, String familyName, String address, String wilaiay, String cite, String email, int phoneNumber) {
+    public User() {
+    }
+
+    public User(String idUser, String name, String familyName, String address, String birthday,
+                String wilaiay, String city, String email, String craft, String level, String exYears,
+                String userType, String phoneNumber) {
         this.idUser = idUser;
         this.name = name;
         this.familyName = familyName;
         this.address = address;
+        this.birthday = birthday;
         this.wilaiay = wilaiay;
-        this.cite = cite;
+        this.city = city;
         this.email = email;
+        this.craft = craft;
+        this.level = level;
+        this.exYears = exYears;
+        this.userType = userType;
         this.phoneNumber = phoneNumber;
     }
 
@@ -49,6 +59,14 @@ public class User {
         this.address = address;
     }
 
+    public String getBirthday() {
+        return birthday;
+    }
+
+    public void setBirthday(String birthday) {
+        this.birthday = birthday;
+    }
+
     public String getWilaiay() {
         return wilaiay;
     }
@@ -58,11 +76,11 @@ public class User {
     }
 
     public String getCite() {
-        return cite;
+        return city;
     }
 
-    public void setCite(String cite) {
-        this.cite = cite;
+    public void setCite(String city) {
+        this.city = city;
     }
 
     public String getEmail() {
@@ -73,11 +91,43 @@ public class User {
         this.email = email;
     }
 
-    public int getPhoneNumber() {
+    public String getPhoneNumber() {
         return phoneNumber;
     }
 
-    public void setPhoneNumber(int phoneNumber) {
+    public void setPhoneNumber(String phoneNumber) {
         this.phoneNumber = phoneNumber;
+    }
+
+    public String getCraft() {
+        return craft;
+    }
+
+    public void setCraft(String craft) {
+        this.craft = craft;
+    }
+
+    public String getLevel() {
+        return level;
+    }
+
+    public void setLevel(String level) {
+        this.level = level;
+    }
+
+    public String getExYears() {
+        return exYears;
+    }
+
+    public void setExYears(String exYears) {
+        this.exYears = exYears;
+    }
+
+    public String getUserType() {
+        return userType;
+    }
+
+    public void setUserType(String userType) {
+        this.userType = userType;
     }
 }

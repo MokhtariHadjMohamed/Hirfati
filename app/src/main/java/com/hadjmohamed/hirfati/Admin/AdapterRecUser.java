@@ -35,8 +35,8 @@ public class AdapterRecUser extends RecyclerView.Adapter<HolderRecUser>{
 
     @Override
     public void onBindViewHolder(@NonNull HolderRecUser holder, int position) {
-        holder.userUid.setText(userList.get(position).getUid());
-        holder.imageView.setImageURI(userList.get(position).getImage());
+        holder.userUid.setText(userList.get(position).getIdUser());
+        holder.imageView.setImageURI(null);
         holder.userName.setText(userList.get(position).getName() + userList.get(position).getFamilyName());
     }
 
