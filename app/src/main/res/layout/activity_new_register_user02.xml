@@ -7,6 +7,7 @@
     android:background="@color/textColor01"
     tools:context=".NewRegisterUserActivity">
 
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
@@ -18,9 +19,8 @@
             android:padding="20dp"
             app:cardCornerRadius="10000dp"
             app:layout_constraintBottom_toBottomOf="@+id/view"
-            app:layout_constraintEnd_toEndOf="@+id/view"
-            app:layout_constraintHorizontal_bias="0.35"
-            app:layout_constraintStart_toStartOf="@+id/view"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="@+id/view"
             app:layout_constraintVertical_bias="1.1">
 
@@ -28,7 +28,7 @@
                 android:id="@+id/logo"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                tools:srcCompat="@drawable/logo" />
+                android:src="@drawable/logo" />
 
         </androidx.cardview.widget.CardView>
 
@@ -41,9 +41,9 @@
             android:maxWidth="1000dp"
             android:maxHeight="1000dp"
             android:rotation="-31"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="@+id/logoView"
+            app:layout_constraintHorizontal_bias="0.35"
+            app:layout_constraintStart_toStartOf="@+id/logoView"
             app:layout_constraintTop_toTopOf="parent" />
 
         <androidx.cardview.widget.CardView
@@ -78,7 +78,7 @@
                     android:layout_marginBottom="32dp"
                     android:fontFamily="@font/tajawal_bold"
                     android:gravity="center"
-                    android:text="مسخدم جديد"
+                    android:text="مستخدم جديد"
                     android:textColor="@color/textColor01"
                     android:textColorHint="@color/Color01"
                     android:textSize="34sp"
@@ -88,26 +88,37 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
+                <TextView
+                    android:id="@+id/errorUser2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:fontFamily="@font/tajawal_bold"
+                    android:textColor="@color/Error"
+                    android:textSize="20sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/textView4" />
+
                 <EditText
                     android:id="@+id/phoneNumberUser"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
+                    android:layout_marginTop="8dp"
                     android:layout_marginEnd="16dp"
-                    android:layout_marginBottom="16dp"
                     android:background="@drawable/custom_input"
                     android:ems="10"
-                    android:hint="رقم هاتف"
                     android:gravity="right"
+                    android:hint="رقم هاتف"
                     android:inputType="phone"
                     android:textColor="@color/Color01"
                     android:textColorHint="@color/Color01"
                     android:textSize="20sp"
-                    app:layout_constraintBottom_toTopOf="@+id/emailUser"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.5"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/textView4" />
+                    app:layout_constraintTop_toBottomOf="@+id/errorUser2" />
 
                 <EditText
                     android:id="@+id/emailUser"
@@ -141,6 +152,7 @@
                     android:inputType="textPassword"
                     android:textColor="@color/Color01"
                     android:textColorHint="@color/Color01"
+                    android:textSize="20sp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.0"
                     app:layout_constraintStart_toStartOf="parent"
@@ -154,11 +166,12 @@
                     android:layout_marginTop="16dp"
                     android:layout_marginEnd="16dp"
                     android:background="@drawable/custom_input"
-                    android:hint=" تأكيد كلمة السر"
                     android:gravity="right"
+                    android:hint=" تأكيد كلمة السر"
                     android:inputType="textPassword"
                     android:textColor="@color/Color01"
                     android:textColorHint="@color/Color01"
+                    android:textSize="20sp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.5"
                     app:layout_constraintStart_toStartOf="parent"

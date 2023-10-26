@@ -10,6 +10,7 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.firebase.auth.FirebaseAuth;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -77,7 +78,10 @@ public class UserAccountActivity extends AppCompatActivity implements View.OnCli
             startActivity(new Intent(UserAccountActivity.this, UserAccountInfoActivity.class));
         }else if (view == settingUserAccount){
             startActivity(new Intent(UserAccountActivity.this, SettingsPageActivity.class));
-        }else if (view == logOutUserAccount)
+        }else if (view == logOutUserAccount){
+            FirebaseAuth.getInstance().signOut();
             startActivity(new Intent(UserAccountActivity.this, LogInActivity.class));
+            finish();
+        }
     }
 }

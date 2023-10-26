@@ -18,9 +18,8 @@
             android:padding="20dp"
             app:cardCornerRadius="10000dp"
             app:layout_constraintBottom_toBottomOf="@+id/view"
-            app:layout_constraintEnd_toEndOf="@+id/view"
-            app:layout_constraintHorizontal_bias="0.35"
-            app:layout_constraintStart_toStartOf="@+id/view"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="@+id/view"
             app:layout_constraintVertical_bias="1.1">
 
@@ -28,7 +27,7 @@
                 android:id="@+id/logo"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                tools:srcCompat="@drawable/logo" />
+                android:src="@drawable/logo" />
 
         </androidx.cardview.widget.CardView>
 
@@ -41,9 +40,9 @@
             android:maxWidth="1000dp"
             android:maxHeight="1000dp"
             android:rotation="-31"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="@+id/logoView"
+            app:layout_constraintHorizontal_bias="0.35"
+            app:layout_constraintStart_toStartOf="@+id/logoView"
             app:layout_constraintTop_toTopOf="parent" />
 
         <androidx.cardview.widget.CardView
@@ -78,7 +77,7 @@
                     android:layout_marginBottom="32dp"
                     android:fontFamily="@font/tajawal_bold"
                     android:gravity="center"
-                    android:text="مسخدم جديد"
+                    android:text="مستخدم جديد"
                     android:textColor="@color/textColor01"
                     android:textSize="34sp"
                     app:layout_constraintBottom_toTopOf="@+id/nameUser"
@@ -87,11 +86,24 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
+                <TextView
+                    android:id="@+id/errorUser"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:fontFamily="@font/tajawal_bold"
+                    android:textColor="@color/Error"
+                    android:textSize="20sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/textView4" />
+
                 <EditText
                     android:id="@+id/nameUser"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
+                    android:layout_marginTop="13dp"
                     android:layout_marginEnd="16dp"
                     android:layout_marginBottom="16dp"
                     android:background="@drawable/custom_input"
@@ -105,7 +117,7 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.5"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/textView4" />
+                    app:layout_constraintTop_toBottomOf="@+id/errorUser" />
 
                 <EditText
                     android:id="@+id/familyNameUser"
@@ -149,7 +161,7 @@
                     app:layout_constraintTop_toBottomOf="@+id/familyNameUser" />
 
                 <androidx.appcompat.widget.AppCompatSpinner
-                    android:id="@+id/wilayatUser"
+                    android:id="@+id/stateUser"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
@@ -162,19 +174,19 @@
                     app:layout_constraintTop_toBottomOf="@+id/addressUser" />
 
                 <androidx.appcompat.widget.AppCompatSpinner
-                    android:id="@+id/citesUser"
+                    android:id="@+id/citiesUser"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
                     android:layout_marginTop="16dp"
                     android:layout_marginEnd="16dp"
                     android:background="@drawable/custom_input"
-                    app:layout_constraintHorizontal_bias="0.5"
                     app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.5"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/wilayatUser" />
+                    app:layout_constraintTop_toBottomOf="@+id/stateUser" />
 
-                <androidx.appcompat.widget.AppCompatButton
+                <EditText
                     android:id="@+id/dateUser"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
@@ -182,12 +194,14 @@
                     android:layout_marginTop="16dp"
                     android:layout_marginEnd="16dp"
                     android:background="@drawable/custom_input"
-                    android:text="DD/MM/YYYY"
+                    android:text="تاريخ ميلاد"
+                    android:editable="false"
                     android:textColor="@color/Color01"
                     android:textColorHint="@color/Color01"
+                    android:textSize="20sp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/citesUser" />
+                    app:layout_constraintTop_toBottomOf="@+id/citiesUser" />
 
                 <androidx.appcompat.widget.AppCompatButton
                     android:id="@+id/nextBtnUser"

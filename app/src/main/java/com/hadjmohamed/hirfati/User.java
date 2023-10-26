@@ -4,20 +4,20 @@ import android.net.Uri;
 
 public class User {
     private String idUser, name, familyName, address, birthday,
-            wilaiay, city, email, craft, level, exYears, userType, phoneNumber;
+            state, city, email, craft, level, exYears, userType, phoneNumber, description;
 
     public User() {
     }
 
     public User(String idUser, String name, String familyName, String address, String birthday,
-                String wilaiay, String city, String email, String craft, String level, String exYears,
-                String userType, String phoneNumber) {
+                String state, String city, String email, String craft, String level, String exYears,
+                String userType, String phoneNumber, String description) {
         this.idUser = idUser;
         this.name = name;
         this.familyName = familyName;
         this.address = address;
         this.birthday = birthday;
-        this.wilaiay = wilaiay;
+        this.state = state;
         this.city = city;
         this.email = email;
         this.craft = craft;
@@ -25,6 +25,7 @@ public class User {
         this.exYears = exYears;
         this.userType = userType;
         this.phoneNumber = phoneNumber;
+        this.description = description;
     }
 
     public String getIdUser() {
@@ -67,19 +68,19 @@ public class User {
         this.birthday = birthday;
     }
 
-    public String getWilaiay() {
-        return wilaiay;
+    public String getState() {
+        return state;
     }
 
-    public void setWilaiay(String wilaiay) {
-        this.wilaiay = wilaiay;
+    public void setState(String state) {
+        this.state = state;
     }
 
-    public String getCite() {
+    public String getCity() {
         return city;
     }
 
-    public void setCite(String city) {
+    public void setCity(String city) {
         this.city = city;
     }
 
@@ -129,5 +130,13 @@ public class User {
 
     public void setUserType(String userType) {
         this.userType = userType;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 }

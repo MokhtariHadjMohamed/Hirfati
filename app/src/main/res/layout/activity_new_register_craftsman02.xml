@@ -169,9 +169,9 @@
                     android:layout_marginEnd="16dp"
                     android:background="@drawable/custom_input"
                     android:ems="10"
+                    android:gravity="right"
                     android:hint="تأكيد كلمة السر"
                     android:inputType="textPassword"
-                    android:gravity="right"
                     android:scrollbars="vertical"
                     android:textColor="@color/Color01"
                     android:textColorHint="@color/Color01"
@@ -180,6 +180,28 @@
                     app:layout_constraintHorizontal_bias="0.5"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/password01Craftsman" />
+
+                <EditText
+                    android:id="@+id/descriptionCraftsman"
+                    android:layout_width="0dp"
+                    android:layout_height="120dp"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginEnd="16dp"
+                    android:background="@drawable/custom_input"
+                    android:ems="10"
+                    android:gravity="start|top"
+                    android:hint="الوصف"
+                    android:inputType="textMultiLine"
+                    android:lines="10"
+                    android:scrollbars="vertical"
+                    android:textColor="@color/Color01"
+                    android:textColorHint="@color/Color01"
+                    android:textSize="20sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/password02Craftsman" />
 
                 <androidx.appcompat.widget.AppCompatSpinner
                     android:id="@+id/craftCraftsman"
@@ -192,7 +214,7 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.0"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/password02Craftsman" />
+                    app:layout_constraintTop_toBottomOf="@+id/descriptionCraftsman" />
 
                 <androidx.appcompat.widget.AppCompatSpinner
                     android:id="@+id/levelCraftsman"

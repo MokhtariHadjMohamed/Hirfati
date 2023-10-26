@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.DatePickerDialog;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -31,17 +32,20 @@ public class NewRegisterCraftsmanActivity extends AppCompatActivity
         implements View.OnClickListener{
 
     //Edit text
-    private EditText name, familyName, address, birthday, phoneNumber, email, password, password02;
+    private EditText name, familyName, address, birthday, phoneNumber, email,
+            password, password02, descriptionCraftsman;
     private EditText[] editTextsPage01, editTextsPage02;
     private TextView errorCraftsman;
     private Button next, submit, logIn, goBack;
-    private Spinner wilayatCraftsman, citesCraftsman, crafts, level, exYears;
+    private Spinner stateCraftsman, citesCraftsman, crafts, level, exYears;
     private DatePickerDialog datePickerDialog;
     private User user;
 
     // FireBase
     private FirebaseFirestore firestore;
     private FirebaseAuth firebaseAuth;
+    // progressDialog
+    private ProgressDialog progressDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -90,11 +94,11 @@ public class NewRegisterCraftsmanActivity extends AppCompatActivity
         });
 
         // spinner
-        wilayatCraftsman = findViewById(R.id.wilayatCraftsman);
+        stateCraftsman = findViewById(R.id.stateCraftsman);
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,R.array.wilaya,
                 android.R.layout.simple_spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        wilayatCraftsman.setAdapter(adapter);
+        stateCraftsman.setAdapter(adapter);
 
         editTextsPage01 = new EditText[]{name, familyName, address, birthday};
     }
@@ -114,6 +118,7 @@ public class NewRegisterCraftsmanActivity extends AppCompatActivity
         email = findViewById(R.id.emailCraftsman);
         password = findViewById(R.id.password01Craftsman);
         password02 = findViewById(R.id.password02Craftsman);
+        descriptionCraftsman = findViewById(R.id.descriptionCraftsman);
 
         // crafts spinner
         List<String> craftsList = new ArrayList();
@@ -167,7 +172,7 @@ public class NewRegisterCraftsmanActivity extends AppCompatActivity
                 user.setName(name.getText().toString());
                 user.setFamilyName(familyName.getText().toString());
                 user.setAddress(address.getText().toString());
-                user.setWilaiay(wilayatCraftsman.getSelectedItem().toString());
+                user.setState(stateCraftsman.getSelectedItem().toString());
 //                user.setCite(citesCraftsman.getSelectedItem().toString());
                 page02();
             }
@@ -178,8 +183,11 @@ public class NewRegisterCraftsmanActivity extends AppCompatActivity
         } else if (view == submit) {
             if (editTest(editTextsPage02))
                 if (password.getText().toString().equals(password02.getText().toString())){
-
-                    addAuth(email.getText().toString(), password.getText().toString());
+                    // Progress
+                    progressDialog = new ProgressDialog(this);
+                    progressDialog.setCancelable(false);
+                    progressDialog.setMessage("Fetching data...");
+                    progressDialog.show();
 
                     user.setPhoneNumber(phoneNumber.getText().toString());
                     user.setEmail(email.getText().toString());
@@ -187,9 +195,10 @@ public class NewRegisterCraftsmanActivity extends AppCompatActivity
                     user.setLevel(level.getSelectedItem().toString());
                     user.setExYears(exYears.getSelectedItem().toString());
                     user.setUserType("Craftsman");
+                    user.setDescription(descriptionCraftsman.getText().toString());
 
-                    startActivity(new Intent(NewRegisterCraftsmanActivity.this, HomePageActivity.class));
-                    finish();
+                    addAuth(email.getText().toString(), password.getText().toString());
+
                 }else{
                     errorCraftsman.setText("كلمة سر غير متطابقتان");
                     password02.setBackgroundResource(R.drawable.custom_input_error);
@@ -208,6 +217,8 @@ public class NewRegisterCraftsmanActivity extends AppCompatActivity
         }).addOnFailureListener(new OnFailureListener() {
             @Override
             public void onFailure(@NonNull Exception e) {
+                if (progressDialog.isShowing())
+                    progressDialog.dismiss();
                 Log.e("Register", e.getMessage());
             }
         });
@@ -221,10 +232,16 @@ public class NewRegisterCraftsmanActivity extends AppCompatActivity
                     @Override
                     public void onSuccess(Void unused) {
                         Log.d("Upload User", "success");
+                        startActivity(new Intent(NewRegisterCraftsmanActivity.this, HomePageActivity.class));
+                        finish();
+                        if (progressDialog.isShowing())
+                            progressDialog.dismiss();
                     }
                 }).addOnFailureListener(new OnFailureListener() {
                     @Override
                     public void onFailure(@NonNull Exception e) {
+                        if (progressDialog.isShowing())
+                            progressDialog.dismiss();
                         Log.e("Upload User", e.getMessage());
                     }
                 });
