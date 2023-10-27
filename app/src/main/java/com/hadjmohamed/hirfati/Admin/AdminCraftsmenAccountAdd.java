@@ -161,6 +161,7 @@ public class AdminCraftsmenAccountAdd extends AppCompatActivity implements View.
 //                    user.setCity(cityAdmin.getSelectedItem().toString());
                     craftsman.setState(statesAdmin.getSelectedItem().toString());
                     craftsman.setEmail(emailAdmin.getText().toString());
+                    craftsman.setPhoneNumber(phoneNumberAdmin.getText().toString());
                     craftsman.setCraft(craftsAdmin.getSelectedItem().toString());
                     craftsman.setLevel(levelAdmin.getSelectedItem().toString());
                     craftsman.setExYears(yearsAdmin.getSelectedItem().toString());

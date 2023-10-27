@@ -108,8 +108,13 @@ public class AdminCraftsmen extends AppCompatActivity implements RecViewInterfac
 
     @Override
     public void onItemClick(String view, int position) {
-        if (Objects.equals(view, "Craftsmen"))
-            startActivity(new Intent(AdminCraftsmen.this, AdminCraftsmenAccount.class));
+        if (Objects.equals(view, "Craftsmen")){
+            Intent intent = new Intent(AdminCraftsmen.this, AdminCraftsmenAccount.class);
+            intent.putExtra("idUser", craftsmanList.get(position).getIdUser());
+            startActivity(intent);
+
+
+        }
     }
 
     @Override
