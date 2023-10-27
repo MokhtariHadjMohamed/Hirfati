@@ -36,9 +36,9 @@ public class AdapterRecCraftsmen extends RecyclerView.Adapter<HolderRecCraftsmen
         }
         holder.nameAndFamilyName.setText(commentList.get(position).getName() + " "
                 + commentList.get(position).getFamilyName());
-        holder.crafts.setText(commentList.get(position).getCrafts());
+        holder.crafts.setText(commentList.get(position).getCraft());
         holder.description.setText(commentList.get(position).getDescription());
-        holder.imageView.setImageURI(commentList.get(position).getImage());
+        holder.imageView.setImageResource(R.drawable.baseline_image_not_supported_24);
     }
 
     @Override

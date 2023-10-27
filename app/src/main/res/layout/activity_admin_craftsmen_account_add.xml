@@ -1,0 +1,398 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Admin.AdminCraftsmenAccountAdd">
+
+    <View
+        android:id="@+id/view"
+        android:layout_width="500dp"
+        android:layout_height="500dp"
+        android:layout_marginTop="-232dp"
+        android:background="@drawable/rectangle_01"
+        android:maxWidth="1000dp"
+        android:maxHeight="1000dp"
+        android:rotation="-31"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <include
+        android:id="@+id/toolbar"
+        layout="@layout/toolbar_back_arrow"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <ScrollView
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/toolbar">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:minHeight="1000dp"
+            tools:context=".HomePageActivity">
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/cardView2"
+                android:layout_width="120dp"
+                android:layout_height="120dp"
+                app:cardBackgroundColor="#00000000"
+                app:cardCornerRadius="20dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <ImageView
+                    android:id="@+id/userImageUserAccountInfo"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    tools:srcCompat="@tools:sample/avatars" />
+
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/uploadImageِCraftsmanAccountAdd"
+                    android:layout_width="120dp"
+                    android:layout_height="120dp"
+                    android:backgroundTint="#00000000"
+                    app:cardCornerRadius="20dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent">
+
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="@color/Color01_50p"
+                        android:padding="20dp"
+                        android:src="@drawable/baseline_cloud_upload_24" />
+                </androidx.cardview.widget.CardView>
+
+
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/cardView3"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="32dp"
+                android:layout_marginEnd="8dp"
+                android:backgroundTint="@color/Color01"
+                app:cardCornerRadius="20dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/cardView2">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:padding="10dp">
+
+                    <TextView
+                        android:id="@+id/errorAdminCraftsmenAccountAdd"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="16dp"
+                        android:fontFamily="@font/tajawal_bold"
+                        android:textColor="@color/Error"
+                        android:textSize="20sp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <EditText
+                        android:id="@+id/nameAdminCraftsmenAccountAdd"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginTop="16dp"
+                        android:layout_marginEnd="16dp"
+                        android:background="@drawable/custom_input"
+                        android:ems="10"
+                        android:fontFamily="@font/tajawal_regular"
+                        android:hint="الإسم"
+                        android:inputType="text"
+                        android:textColor="@color/Color01"
+                        android:textColorHint="@color/Color01"
+                        android:textSize="20sp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/errorAdminCraftsmenAccountAdd" />
+
+                    <EditText
+                        android:id="@+id/familyNameAdminCraftsmenAccountAdd"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginTop="16dp"
+                        android:layout_marginEnd="16dp"
+                        android:background="@drawable/custom_input"
+                        android:ems="10"
+                        android:fontFamily="@font/tajawal_regular"
+                        android:hint="اللقب"
+                        android:inputType="text"
+                        android:textColor="@color/Color01"
+                        android:textColorHint="@color/Color01"
+                        android:textSize="20sp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/nameAdminCraftsmenAccountAdd" />
+
+                    <EditText
+                        android:id="@+id/birthdayAdminCraftsmenAccountAdd"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginTop="16dp"
+                        android:layout_marginEnd="16dp"
+                        android:background="@drawable/custom_input"
+                        android:editable="false"
+                        android:ems="10"
+                        android:fontFamily="@font/tajawal_regular"
+                        android:gravity="right|center"
+                        android:hint="تاريخ الميلاد"
+                        android:inputType="text"
+                        android:textColor="@color/Color01"
+                        android:textColorHint="@color/Color01"
+                        android:textSize="20sp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/familyNameAdminCraftsmenAccountAdd" />
+
+                    <EditText
+                        android:id="@+id/addressAdminCraftsmenAccountAdd"
+                        android:layout_width="0dp"
+                        android:layout_height="120dp"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginTop="16dp"
+                        android:layout_marginEnd="16dp"
+                        android:background="@drawable/custom_input"
+                        android:ems="10"
+                        android:fontFamily="@font/tajawal_regular"
+                        android:gravity="start|top"
+                        android:hint="عنوان سكن"
+                        android:inputType="textMultiLine"
+                        android:lines="10"
+                        android:scrollbars="vertical"
+                        android:textColor="@color/Color01"
+                        android:textColorHint="@color/Color01"
+                        android:textSize="20sp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.5"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/birthdayAdminCraftsmenAccountAdd" />
+
+                    <EditText
+                        android:id="@+id/descriptionAdminCraftsmenAccountAdd"
+                        android:layout_width="0dp"
+                        android:layout_height="120dp"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginTop="16dp"
+                        android:layout_marginEnd="16dp"
+                        android:background="@drawable/custom_input"
+                        android:ems="10"
+                        android:fontFamily="@font/tajawal_regular"
+                        android:gravity="start|top"
+                        android:hint="وصف"
+                        android:inputType="textMultiLine"
+                        android:lines="10"
+                        android:scrollbars="vertical"
+                        android:textColor="@color/Color01"
+                        android:textColorHint="@color/Color01"
+                        android:textSize="20sp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.5"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/addressAdminCraftsmenAccountAdd" />
+
+                    <Spinner
+                        android:id="@+id/statesAdminCraftsmenAccountAdd"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginTop="16dp"
+                        android:layout_marginEnd="16dp"
+                        android:background="@drawable/custom_input"
+                        android:fontFamily="@font/tajawal_regular"
+                        android:textColor="@color/Color01"
+                        android:textColorHint="@color/Color01"
+                        android:textSize="20sp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/descriptionAdminCraftsmenAccountAdd" />
+
+                    <Spinner
+                        android:id="@+id/cityAdminCraftsmenAccountAdd"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginTop="16dp"
+                        android:layout_marginEnd="16dp"
+                        android:background="@drawable/custom_input"
+                        android:fontFamily="@font/tajawal_regular"
+                        android:textColor="@color/Color01"
+                        android:textColorHint="@color/Color01"
+                        android:textSize="20sp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/statesAdminCraftsmenAccountAdd" />
+
+                    <EditText
+                        android:id="@+id/emailAdminCraftsmenAccountAdd"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginTop="16dp"
+                        android:layout_marginEnd="16dp"
+                        android:background="@drawable/custom_input"
+                        android:ems="10"
+                        android:fontFamily="@font/tajawal_regular"
+                        android:hint="بريد الإلكتروني"
+                        android:inputType="textEmailAddress"
+                        android:textColor="@color/Color01"
+                        android:textColorHint="@color/Color01"
+                        android:textSize="20sp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/cityAdminCraftsmenAccountAdd" />
+
+                    <EditText
+                        android:id="@+id/phoneNumberAdminCraftsmenAccountAdd"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginTop="16dp"
+                        android:layout_marginEnd="16dp"
+                        android:background="@drawable/custom_input"
+                        android:ems="10"
+                        android:fontFamily="@font/tajawal_regular"
+                        android:gravity="right"
+                        android:hint="رقم الهاتف"
+                        android:inputType="phone"
+                        android:textColor="@color/Color01"
+                        android:textColorHint="@color/Color01"
+                        android:textSize="20sp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/emailAdminCraftsmenAccountAdd" />
+
+                    <EditText
+                        android:id="@+id/passwordAdminCraftsmenAccountAdd"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginTop="16dp"
+                        android:layout_marginEnd="16dp"
+                        android:background="@drawable/custom_input"
+                        android:ems="10"
+                        android:fontFamily="@font/tajawal_regular"
+                        android:gravity="right"
+                        android:hint=" كلمة السر"
+                        android:inputType="textPassword"
+                        android:textColor="@color/Color01"
+                        android:textColorHint="@color/Color01"
+                        android:textSize="20sp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/phoneNumberAdminCraftsmenAccountAdd" />
+
+                    <EditText
+                        android:id="@+id/password02AdminCraftsmenAccountAdd"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginTop="16dp"
+                        android:layout_marginEnd="16dp"
+                        android:background="@drawable/custom_input"
+                        android:ems="10"
+                        android:fontFamily="@font/tajawal_regular"
+                        android:gravity="right"
+                        android:hint="اعادة كلمة السر"
+                        android:inputType="textPassword"
+                        android:textColor="@color/Color01"
+                        android:textColorHint="@color/Color01"
+                        android:textSize="20sp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/passwordAdminCraftsmenAccountAdd" />
+
+                    <Spinner
+                        android:id="@+id/craftsAdminCraftsmenAccountAdd"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginTop="16dp"
+                        android:layout_marginEnd="16dp"
+                        android:background="@drawable/custom_input"
+                        android:fontFamily="@font/tajawal_regular"
+                        android:textColor="@color/Color01"
+                        android:textColorHint="@color/Color01"
+                        android:textSize="20sp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/password02AdminCraftsmenAccountAdd" />
+
+                    <Spinner
+                        android:id="@+id/levelAdminCraftsmenAccountAdd"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginTop="16dp"
+                        android:layout_marginEnd="16dp"
+                        android:background="@drawable/custom_input"
+                        android:fontFamily="@font/tajawal_regular"
+                        android:textColor="@color/Color01"
+                        android:textColorHint="@color/Color01"
+                        android:textSize="20sp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/craftsAdminCraftsmenAccountAdd" />
+
+                    <Spinner
+                        android:id="@+id/yearsAdminCraftsmenAccountAdd"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginTop="16dp"
+                        android:layout_marginEnd="16dp"
+                        android:background="@drawable/custom_input"
+                        android:fontFamily="@font/tajawal_regular"
+                        android:textColor="@color/Color01"
+                        android:textColorHint="@color/Color01"
+                        android:textSize="20sp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/levelAdminCraftsmenAccountAdd" />
+
+                    <androidx.appcompat.widget.AppCompatButton
+                        android:id="@+id/submitAdminCraftsmenAccountAdd"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginTop="16dp"
+                        android:layout_marginBottom="7dp"
+                        android:background="@drawable/button_shape"
+                        android:fontFamily="@font/tajawal_bold"
+                        android:text="تسجيل"
+                        android:textColor="@color/Color01"
+                        android:textColorHint="@color/Color01"
+                        android:textSize="20sp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/yearsAdminCraftsmenAccountAdd" />
+
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+            </androidx.cardview.widget.CardView>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </ScrollView>
+</androidx.constraintlayout.widget.ConstraintLayout>

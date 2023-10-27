@@ -4,62 +4,44 @@ import android.net.Uri;
 
 import java.util.Date;
 
-public class Craftsman {
+public class Craftsman extends User{
 
-    private String idC;
-    private String name;
-    private String familyName;
-    private Date birthday;
-    private Uri image;
-    private String description;
-    private String crafts;
+    private String craft, level, exYears, description;
 
-    public Craftsman(String name, String familyName, Uri image, String description, String crafts) {
-        this.name = name;
-        this.familyName = familyName;
-        this.image = image;
+    public Craftsman() {
+    }
+
+    public Craftsman(String idUser, String name, String familyName, String address, String birthday, String state, String city, String email,
+                     String craft, String level, String exYears, String description, String userType) {
+        super(idUser, name, familyName, address, birthday, state, city, email, userType);
+        this.craft = craft;
+        this.level = level;
+        this.exYears = exYears;
         this.description = description;
-        this.crafts = crafts;
     }
 
-    public String getIdC() {
-        return idC;
+    public String getCraft() {
+        return craft;
     }
 
-    public void setIdC(String idC) {
-        this.idC = idC;
+    public void setCraft(String craft) {
+        this.craft = craft;
     }
 
-    public String getName() {
-        return name;
+    public String getLevel() {
+        return level;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setLevel(String level) {
+        this.level = level;
     }
 
-    public String getFamilyName() {
-        return familyName;
+    public String getExYears() {
+        return exYears;
     }
 
-    public void setFamilyName(String familyName) {
-        this.familyName = familyName;
-    }
-
-    public Date getBirthday() {
-        return birthday;
-    }
-
-    public void setBirthday(Date birthday) {
-        this.birthday = birthday;
-    }
-
-    public Uri getImage() {
-        return image;
-    }
-
-    public void setImage(Uri image) {
-        this.image = image;
+    public void setExYears(String exYears) {
+        this.exYears = exYears;
     }
 
     public String getDescription() {
@@ -68,13 +50,5 @@ public class Craftsman {
 
     public void setDescription(String description) {
         this.description = description;
-    }
-
-    public String getCrafts() {
-        return crafts;
-    }
-
-    public void setCrafts(String crafts) {
-        this.crafts = crafts;
     }
 }

@@ -39,7 +39,7 @@ public class NewRegisterCraftsmanActivity extends AppCompatActivity
     private Button next, submit, logIn, goBack;
     private Spinner stateCraftsman, citesCraftsman, crafts, level, exYears;
     private DatePickerDialog datePickerDialog;
-    private User user;
+    private Craftsman craftsman;
 
     // FireBase
     private FirebaseFirestore firestore;
@@ -50,7 +50,7 @@ public class NewRegisterCraftsmanActivity extends AppCompatActivity
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        user = new User();
+        craftsman = new Craftsman();
         firestore = FirebaseFirestore.getInstance();
         firebaseAuth = FirebaseAuth.getInstance();
 
@@ -86,7 +86,7 @@ public class NewRegisterCraftsmanActivity extends AppCompatActivity
                             @Override
                             public void onDateSet(DatePicker datePicker, int i, int i1, int i2) {
                                 birthday.setText(i2 + "/" + (i1 + 1) + "/" + i);
-                                user.setBirthday(i2 + "/" + (i1 + 1) + "/" + i);
+                                craftsman.setBirthday(i2 + "/" + (i1 + 1) + "/" + i);
                             }
                         }, year, month, day);
                 datePickerDialog.show();
@@ -169,10 +169,10 @@ public class NewRegisterCraftsmanActivity extends AppCompatActivity
     public void onClick(View view) {
         if (next == view){
             if (editTest(editTextsPage01)){
-                user.setName(name.getText().toString());
-                user.setFamilyName(familyName.getText().toString());
-                user.setAddress(address.getText().toString());
-                user.setState(stateCraftsman.getSelectedItem().toString());
+                craftsman.setName(name.getText().toString());
+                craftsman.setFamilyName(familyName.getText().toString());
+                craftsman.setAddress(address.getText().toString());
+                craftsman.setState(stateCraftsman.getSelectedItem().toString());
 //                user.setCite(citesCraftsman.getSelectedItem().toString());
                 page02();
             }
@@ -189,18 +189,19 @@ public class NewRegisterCraftsmanActivity extends AppCompatActivity
                     progressDialog.setMessage("Fetching data...");
                     progressDialog.show();
 
-                    user.setPhoneNumber(phoneNumber.getText().toString());
-                    user.setEmail(email.getText().toString());
-                    user.setCraft(crafts.getSelectedItem().toString());
-                    user.setLevel(level.getSelectedItem().toString());
-                    user.setExYears(exYears.getSelectedItem().toString());
-                    user.setUserType("Craftsman");
-                    user.setDescription(descriptionCraftsman.getText().toString());
+                    craftsman.setPhoneNumber(phoneNumber.getText().toString());
+                    craftsman.setEmail(email.getText().toString());
+                    craftsman.setCraft(crafts.getSelectedItem().toString());
+                    craftsman.setLevel(level.getSelectedItem().toString());
+                    craftsman.setExYears(exYears.getSelectedItem().toString());
+                    craftsman.setUserType("Craftsman");
+                    craftsman.setDescription(descriptionCraftsman.getText().toString());
 
                     addAuth(email.getText().toString(), password.getText().toString());
 
                 }else{
                     errorCraftsman.setText("كلمة سر غير متطابقتان");
+                    password.setBackgroundResource(R.drawable.custom_input_error);
                     password02.setBackgroundResource(R.drawable.custom_input_error);
                 }
         }
@@ -225,9 +226,9 @@ public class NewRegisterCraftsmanActivity extends AppCompatActivity
     }
 
     private void addUserFirestor(String uid){
-        user.setIdUser(uid);
+        craftsman.setIdUser(uid);
         firestore.collection("Users")
-                .document(uid).set(user)
+                .document(uid).set(craftsman)
                 .addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
                     public void onSuccess(Void unused) {

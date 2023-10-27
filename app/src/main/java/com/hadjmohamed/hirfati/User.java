@@ -4,14 +4,13 @@ import android.net.Uri;
 
 public class User {
     private String idUser, name, familyName, address, birthday,
-            state, city, email, craft, level, exYears, userType, phoneNumber, description;
+            state, city, email, phoneNumber, userType;
 
     public User() {
     }
 
     public User(String idUser, String name, String familyName, String address, String birthday,
-                String state, String city, String email, String craft, String level, String exYears,
-                String userType, String phoneNumber, String description) {
+                String state, String city, String email, String userType) {
         this.idUser = idUser;
         this.name = name;
         this.familyName = familyName;
@@ -20,12 +19,7 @@ public class User {
         this.state = state;
         this.city = city;
         this.email = email;
-        this.craft = craft;
-        this.level = level;
-        this.exYears = exYears;
         this.userType = userType;
-        this.phoneNumber = phoneNumber;
-        this.description = description;
     }
 
     public String getIdUser() {
@@ -100,30 +94,6 @@ public class User {
         this.phoneNumber = phoneNumber;
     }
 
-    public String getCraft() {
-        return craft;
-    }
-
-    public void setCraft(String craft) {
-        this.craft = craft;
-    }
-
-    public String getLevel() {
-        return level;
-    }
-
-    public void setLevel(String level) {
-        this.level = level;
-    }
-
-    public String getExYears() {
-        return exYears;
-    }
-
-    public void setExYears(String exYears) {
-        this.exYears = exYears;
-    }
-
     public String getUserType() {
         return userType;
     }
@@ -132,11 +102,4 @@ public class User {
         this.userType = userType;
     }
 
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
 }
