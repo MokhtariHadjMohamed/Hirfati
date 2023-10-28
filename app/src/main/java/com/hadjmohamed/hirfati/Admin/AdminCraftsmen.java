@@ -36,14 +36,16 @@ import java.util.Objects;
 
 public class AdminCraftsmen extends AppCompatActivity implements RecViewInterface, View.OnClickListener {
 
-    private RecyclerView recyclerViewCraftsmen;
-    private Button addCraftsmanAdminCraftsman;
-    private AdapterRecCraftsmen adapterRecCraftsmen;
-    private List<Craftsman> craftsmanList;
     // toolbar
     private Toolbar toolbar;
     private ImageView backArrow, imageViewToolBar;
     private TextView toolbarTitle;
+    // RecyclerView
+    private RecyclerView recyclerViewCraftsmen;
+    private Button addCraftsmanAdminCraftsman;
+    private AdapterRecCraftsmen adapterRecCraftsmen;
+    private List<Craftsman> craftsmanList;
+
     // Firestor
     private FirebaseFirestore firestore;
     // progressDialog
@@ -54,6 +56,14 @@ public class AdminCraftsmen extends AppCompatActivity implements RecViewInterfac
         setContentView(R.layout.activity_admin_craftsmen);
         firestore = FirebaseFirestore.getInstance();
 
+        // toolbar
+        toolbar = findViewById(R.id.toolbar_back_arrow);
+        setSupportActionBar(toolbar);
+        backArrow = findViewById(R.id.backArrow);
+        backArrow.setOnClickListener(this);
+        toolbarTitle = findViewById(R.id.toolbarTitle);
+        imageViewToolBar = findViewById(R.id.imageViewToolBar);
+
         // Progress
         progressDialog = new ProgressDialog(this);
         progressDialog.setCancelable(false);
@@ -63,14 +73,6 @@ public class AdminCraftsmen extends AppCompatActivity implements RecViewInterfac
         // addCraftsman
         addCraftsmanAdminCraftsman = findViewById(R.id.addCraftsmanAdminCraftsman);
         addCraftsmanAdminCraftsman.setOnClickListener(this);
-
-        // toolbar
-        toolbar = findViewById(R.id.toolbar_back_arrow);
-        setSupportActionBar(toolbar);
-        backArrow = findViewById(R.id.backArrow);
-        backArrow.setOnClickListener(this);
-        toolbarTitle = findViewById(R.id.toolbarTitle);
-        imageViewToolBar = findViewById(R.id.imageViewToolBar);
 
         // recyclerView Craftsmen
         recyclerViewCraftsmen = findViewById(R.id.craftsmenAdmin);
@@ -112,8 +114,6 @@ public class AdminCraftsmen extends AppCompatActivity implements RecViewInterfac
             Intent intent = new Intent(AdminCraftsmen.this, AdminCraftsmenAccount.class);
             intent.putExtra("idUser", craftsmanList.get(position).getIdUser());
             startActivity(intent);
-
-
         }
     }
 

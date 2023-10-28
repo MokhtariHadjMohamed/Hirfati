@@ -48,18 +48,18 @@ public class HomePageActivity extends AppCompatActivity implements RecViewInterf
         // navigation bar Bottom
         navigationBottom();
 
-        // RecyclerView Category
+        // RecyclerView Crafts
         recyclerViewCategory = findViewById(R.id.categoryHome);
-        List<Category> categoryList = new ArrayList<>();
-        categoryList.add(new Category("سباك", Uri.parse("android.resource:" + R.drawable.logo)));
-        categoryList.add(new Category("نجار", Uri.parse("android.resource:" + R.drawable.logo)));
-        categoryList.add(new Category("كهربائي", Uri.parse("android.resource:" + R.drawable.logo)));
-        categoryList.add(new Category("طيار", Uri.parse("android.resource:" + R.drawable.logo)));
+        List<Crafts> craftsList = new ArrayList<>();
+//        craftsList.add(new Crafts("سباك", Uri.parse("android.resource:" + R.drawable.logo)));
+//        craftsList.add(new Crafts("نجار", Uri.parse("android.resource:" + R.drawable.logo)));
+//        craftsList.add(new Crafts("كهربائي", Uri.parse("android.resource:" + R.drawable.logo)));
+//        craftsList.add(new Crafts("طيار", Uri.parse("android.resource:" + R.drawable.logo)));
 
         recyclerViewCategory.setLayoutManager(new LinearLayoutManager(this,
                 LinearLayoutManager.HORIZONTAL, false));
         recyclerViewCategory.setAdapter(new AdapterRecCategoryHor(getApplicationContext(),
-                categoryList, this));
+                craftsList, this));
 
         // recyclerView Craftsmen
         recyclerViewCraftsmen = findViewById(R.id.craftsmenHome);
@@ -96,8 +96,8 @@ public class HomePageActivity extends AppCompatActivity implements RecViewInterf
 
     @Override
     public void onItemClick(String view, int position) {
-        if (Objects.equals(view, "Category"))
-            startActivity(new Intent(HomePageActivity.this, CategoryPageActivity.class));
+        if (Objects.equals(view, "Crafts"))
+            startActivity(new Intent(HomePageActivity.this, CraftsPageActivity.class));
         else if (Objects.equals(view, "Craftsmen"))
             startActivity(new Intent(HomePageActivity.this, CraftsmanInfoActivity.class));
     }
@@ -118,7 +118,7 @@ public class HomePageActivity extends AppCompatActivity implements RecViewInterf
                 startActivity(new Intent(HomePageActivity.this, UserAccountActivity.class));
                 return true;
             } else if (id == R.id.categoryNavigation) {
-                startActivity(new Intent(HomePageActivity.this, CategoryPageActivity.class));
+                startActivity(new Intent(HomePageActivity.this, CraftsPageActivity.class));
                 return true;
             } else {
                 return false;

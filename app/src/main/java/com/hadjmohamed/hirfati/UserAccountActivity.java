@@ -64,7 +64,7 @@ public class UserAccountActivity extends AppCompatActivity implements View.OnCli
             } else if (id == R.id.accountNavigation) {
                 return true;
             } else if (id == R.id.categoryNavigation) {
-                startActivity(new Intent(UserAccountActivity.this, CategoryPageActivity.class));
+                startActivity(new Intent(UserAccountActivity.this, CraftsPageActivity.class));
                 return true;
             } else {
                 return false;

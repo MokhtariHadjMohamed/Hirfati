@@ -5,7 +5,6 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.cardview.widget.CardView;
-import androidx.recyclerview.widget.LinearLayoutManager;
 
 import android.app.DatePickerDialog;
 import android.app.ProgressDialog;
@@ -16,7 +15,6 @@ import android.os.Bundle;
 import android.provider.MediaStore;
 import android.util.Log;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
@@ -26,39 +24,30 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.QueryDocumentSnapshot;
-import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.OnProgressListener;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
-import com.hadjmohamed.hirfati.Crafts;
 import com.hadjmohamed.hirfati.Craftsman;
-import com.hadjmohamed.hirfati.HomePageActivity;
 import com.hadjmohamed.hirfati.ImageResizer;
-import com.hadjmohamed.hirfati.NewRegisterCraftsmanActivity;
 import com.hadjmohamed.hirfati.R;
 import com.hadjmohamed.hirfati.User;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.List;
 
-public class AdminCraftsmenAccountAdd extends AppCompatActivity implements View.OnClickListener {
+public class AdminUserAccountAdd extends AppCompatActivity implements View.OnClickListener {
 
     private EditText nameAdmin, familyNameAdmin, birthdayAdmin, addressAdmin, emailAdmin,
-            phoneNumberAdmin, passwordAdmin, password02Admin, descriptionAdmin;
+            phoneNumberAdmin, passwordAdmin, password02Admin;
     private EditText[] editTexts;
-    private Spinner statesAdmin, cityAdmin, craftsAdmin, levelAdmin, yearsAdmin;
+    private Spinner statesAdmin, cityAdmin;
     private Button submitAdmin;
     private TextView errorAdmin;
     // toolbar
@@ -69,33 +58,29 @@ public class AdminCraftsmenAccountAdd extends AppCompatActivity implements View.
     private static final int PICK_IMAGE_REQUEST = 1;
     private CardView uploadImage;
     private Uri imageUri;
-    private ImageView craftsmanImage;
+    private ImageView userImage;
     private FirebaseStorage storage;
     private StorageReference storageReference;
     // birthday
     private DatePickerDialog datePickerDialog;
-    private Craftsman craftsman;
-    // crafts list
-    private List<String> craftsList;
-    private ArrayAdapter<String> adapterCrafts;
 
     // Firebase
     private FirebaseAuth firebaseAuth;
     private FirebaseFirestore firestore;
-
+    private User user;
     // progressDialog
     private ProgressDialog progressDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_admin_craftsmen_account_add);
+        setContentView(R.layout.activity_admin_user_account_add);
 
         firebaseAuth = FirebaseAuth.getInstance();
         firestore = FirebaseFirestore.getInstance();
         storage = FirebaseStorage.getInstance();
         storageReference = storage.getReference();
-        craftsman = new Craftsman();
+        user = new User();
 
         // toolbar
         toolbar = findViewById(R.id.toolbar_back_arrow);
@@ -106,27 +91,24 @@ public class AdminCraftsmenAccountAdd extends AppCompatActivity implements View.
         imageViewToolBar = findViewById(R.id.imageViewToolBar);
 
         // get all element
-        errorAdmin = findViewById(R.id.errorAdminCraftsmenAccountAdd);
-        nameAdmin = findViewById(R.id.nameAdminCraftsmenAccountAdd);
-        familyNameAdmin = findViewById(R.id.familyNameAdminCraftsmenAccountAdd);
-        addressAdmin = findViewById(R.id.addressAdminCraftsmenAccountAdd);
-        emailAdmin = findViewById(R.id.emailAdminCraftsmenAccountAdd);
-        phoneNumberAdmin = findViewById(R.id.phoneNumberAdminCraftsmenAccountAdd);
-        passwordAdmin = findViewById(R.id.passwordAdminCraftsmenAccountAdd);
-        password02Admin = findViewById(R.id.password02AdminCraftsmenAccountAdd);
-        descriptionAdmin = findViewById(R.id.descriptionAdminCraftsmenAccountAdd);
-        statesAdmin = findViewById(R.id.statesAdminCraftsmenAccountAdd);
-        cityAdmin = findViewById(R.id.cityAdminCraftsmenAccountAdd);
-        craftsAdmin = findViewById(R.id.craftsAdminCraftsmenAccountAdd);
-        levelAdmin = findViewById(R.id.levelAdminCraftsmenAccountAdd);
-        yearsAdmin = findViewById(R.id.yearsAdminCraftsmenAccountAdd);
-        submitAdmin = (Button) findViewById(R.id.submitAdminCraftsmenAccountAdd);
-        uploadImage = findViewById(R.id.uploadImageCraftsmanAccountAdd);
+        errorAdmin = findViewById(R.id.errorAdminUserAccountAdd);
+        nameAdmin = findViewById(R.id.nameAdminUserAccountAdd);
+        familyNameAdmin = findViewById(R.id.famileNameAdminUserAccountAdd);
+        addressAdmin = findViewById(R.id.addressAdminUserAccountAdd);
+        emailAdmin = findViewById(R.id.emailAdminUserAccountAdd);
+        phoneNumberAdmin = findViewById(R.id.phoneAdminUserAccountAdd);
+        passwordAdmin = findViewById(R.id.passwordAdminUserAccountAdd);
+        password02Admin = findViewById(R.id.password02AdminUserAccountAdd);
+        statesAdmin = findViewById(R.id.statesAdminUserAccountAdd);
+        cityAdmin = findViewById(R.id.cityAdminUserAccountAdd);
+        submitAdmin = (Button) findViewById(R.id.submitAdminUserAccountAdd);
+        submitAdmin.setOnClickListener(this);
+        uploadImage = findViewById(R.id.uploadImageAdminUserAccountAdd);
         uploadImage.setOnClickListener(this);
-        craftsmanImage = findViewById(R.id.uploadImageAdminCraftsmanAccountAdd);
+        userImage = findViewById(R.id.userImageAdminUserAccountAdd);
 
         // birthday selected
-        birthdayAdmin = (EditText) findViewById(R.id.birthdayAdminCraftsmenAccountAdd);
+        birthdayAdmin = (EditText) findViewById(R.id.birthdayAdminUserAccountAdd);
         birthdayAdmin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -136,12 +118,12 @@ public class AdminCraftsmenAccountAdd extends AppCompatActivity implements View.
                 int year = calendar.get(Calendar.YEAR);
 
                 // data Piker
-                datePickerDialog = new DatePickerDialog(AdminCraftsmenAccountAdd.this,
+                datePickerDialog = new DatePickerDialog(AdminUserAccountAdd.this,
                         new DatePickerDialog.OnDateSetListener() {
                             @Override
                             public void onDateSet(DatePicker datePicker, int i, int i1, int i2) {
                                 birthdayAdmin.setText(i2 + "/" + (i1 + 1) + "/" + i);
-                                craftsman.setBirthday(i2 + "/" + (i1 + 1) + "/" + i);
+                                user.setBirthday(i2 + "/" + (i1 + 1) + "/" + i);
                             }
                         }, year, month, day);
                 datePickerDialog.show();
@@ -156,43 +138,6 @@ public class AdminCraftsmenAccountAdd extends AppCompatActivity implements View.
                 android.R.layout.simple_spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         statesAdmin.setAdapter(adapter);
-
-        // crafts spinner
-        craftsList = new ArrayList();
-        adapterCrafts = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, craftsList);
-        getCrafts();
-        // level spinner
-        ArrayAdapter<CharSequence> adapterLevel = ArrayAdapter.createFromResource(this,R.array.level,
-                android.R.layout.simple_spinner_item);
-        adapterLevel.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        levelAdmin.setAdapter(adapterLevel);
-        // exYears spinner
-        ArrayAdapter<CharSequence> adapterExYears = ArrayAdapter.createFromResource(this,R.array.exYears,
-                android.R.layout.simple_spinner_item);
-        adapterExYears.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        yearsAdmin.setAdapter(adapterExYears);
-
-        submitAdmin.setOnClickListener(this);
-    }
-
-    private void getCrafts(){
-        firestore.collection("Crafts")
-                .get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                    @Override
-                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                        if (!task.isSuccessful()){
-                            Log.e("GetUsers", "failed");
-                            return;
-                        }
-                        for(QueryDocumentSnapshot d: task.getResult()){
-                            craftsList.add(d.toObject(Crafts.class).getName());
-                        }
-                        adapterCrafts.notifyDataSetChanged();
-                    }
-                });
-
-        adapterCrafts.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        craftsAdmin.setAdapter(adapterCrafts);
     }
 
     private boolean editTest(EditText[] editTexts){
@@ -214,7 +159,7 @@ public class AdminCraftsmenAccountAdd extends AppCompatActivity implements View.
                     @Override
                     public void onSuccess(AuthResult authResult) {
                         addUserFirestor(authResult.getUser().getUid());
-                        Toast.makeText(AdminCraftsmenAccountAdd.this, "تم تسجيل", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(AdminUserAccountAdd.this, "تم تسجيل", Toast.LENGTH_SHORT).show();
                     }
                 }).addOnFailureListener(new OnFailureListener() {
                     @Override
@@ -227,14 +172,14 @@ public class AdminCraftsmenAccountAdd extends AppCompatActivity implements View.
     }
 
     private void addUserFirestor(String uid){
-        craftsman.setIdUser(uid);
+        user.setIdUser(uid);
         firestore.collection("Users")
-                .document(uid).set(craftsman)
+                .document(uid).set(user)
                 .addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
                     public void onSuccess(Void unused) {
                         Log.d("Upload User", "success");
-                        uploadImage(craftsman.getIdUser());
+                        uploadImage(user.getIdUser());
                         if (progressDialog.isShowing())
                             progressDialog.dismiss();
                     }
@@ -258,7 +203,7 @@ public class AdminCraftsmenAccountAdd extends AppCompatActivity implements View.
                 Bitmap bitmapOrigin = MediaStore.Images.Media.getBitmap(getContentResolver(), imageUri);
                 ByteArrayOutputStream out = new ByteArrayOutputStream();
                 Bitmap bitmap = ImageResizer.reduceBitmapSize(bitmapOrigin, 307200);
-                craftsmanImage.setImageBitmap(bitmap);
+                userImage.setImageBitmap(bitmap);
                 Toast.makeText(this, "Upload", Toast.LENGTH_SHORT).show();
             } catch (IOException e) {
                 e.printStackTrace();
@@ -297,9 +242,9 @@ public class AdminCraftsmenAccountAdd extends AppCompatActivity implements View.
                 .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                     @Override
                     public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                        startActivity(new Intent(AdminCraftsmenAccountAdd.this, AdminCraftsmen.class));
+                        startActivity(new Intent(AdminUserAccountAdd.this, AdminUser.class));
                         finish();
-                        Toast.makeText(AdminCraftsmenAccountAdd.this,
+                        Toast.makeText(AdminUserAccountAdd.this,
                                         "Image Uploaded!!",
                                         Toast.LENGTH_SHORT)
                                 .show();
@@ -308,7 +253,7 @@ public class AdminCraftsmenAccountAdd extends AppCompatActivity implements View.
                 .addOnFailureListener(new OnFailureListener() {
                     @Override
                     public void onFailure(@NonNull Exception e) {
-                        Toast.makeText(AdminCraftsmenAccountAdd.this,
+                        Toast.makeText(AdminUserAccountAdd.this,
                                         "Failed " + e.getMessage(),
                                         Toast.LENGTH_SHORT)
                                 .show();
@@ -331,11 +276,10 @@ public class AdminCraftsmenAccountAdd extends AppCompatActivity implements View.
                     }
                 });
     }
-
     @Override
     public void onClick(View view) {
         if (view == submitAdmin){
-            if (editTest(editTexts)){
+            if (editTest(editTexts)) {
                 if (passwordAdmin.getText().toString().equals(password02Admin.getText().toString())) {
                     // Progress
                     progressDialog = new ProgressDialog(this);
@@ -343,21 +287,17 @@ public class AdminCraftsmenAccountAdd extends AppCompatActivity implements View.
                     progressDialog.setMessage("Fetching data...");
                     progressDialog.show();
 
-                    craftsman.setName(nameAdmin.getText().toString());
-                    craftsman.setFamilyName(familyNameAdmin.getText().toString());
-                    craftsman.setAddress(addressAdmin.getText().toString());
+                    user.setName(nameAdmin.getText().toString());
+                    user.setFamilyName(familyNameAdmin.getText().toString());
+                    user.setAddress(addressAdmin.getText().toString());
 //                    user.setCity(cityAdmin.getSelectedItem().toString());
-                    craftsman.setState(statesAdmin.getSelectedItem().toString());
-                    craftsman.setEmail(emailAdmin.getText().toString());
-                    craftsman.setPhoneNumber(phoneNumberAdmin.getText().toString());
-                    craftsman.setCraft(craftsAdmin.getSelectedItem().toString());
-                    craftsman.setLevel(levelAdmin.getSelectedItem().toString());
-                    craftsman.setExYears(yearsAdmin.getSelectedItem().toString());
-                    craftsman.setDescription(descriptionAdmin.getText().toString());
-                    craftsman.setUserType("Craftsman");
+                    user.setState(statesAdmin.getSelectedItem().toString());
+                    user.setEmail(emailAdmin.getText().toString());
+                    user.setPhoneNumber(phoneNumberAdmin.getText().toString());
+                    user.setUserType("User");
 
                     addAuth(emailAdmin.getText().toString(), passwordAdmin.getText().toString());
-                }else{
+                } else {
                     errorAdmin.setText("كلمة سر غير متطابقتان");
                     passwordAdmin.setBackgroundResource(R.drawable.custom_input_error);
                     password02Admin.setBackgroundResource(R.drawable.custom_input_error);
@@ -371,9 +311,9 @@ public class AdminCraftsmenAccountAdd extends AppCompatActivity implements View.
                     intent,
                     "Select Image from here..."), PICK_IMAGE_REQUEST);
         } else if (view == backArrow) {
-            startActivity(new Intent(AdminCraftsmenAccountAdd.this, AdminCraftsmen.class));
+            startActivity(new Intent(AdminUserAccountAdd.this, AdminCraftsmen.class));
             finish();
         }
-    }
 
+    }
 }

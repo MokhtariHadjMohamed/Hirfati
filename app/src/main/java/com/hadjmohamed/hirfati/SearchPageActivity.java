@@ -29,7 +29,7 @@ public class SearchPageActivity extends AppCompatActivity {
                 startActivity(new Intent(SearchPageActivity.this, UserAccountActivity.class));
                 return true;
             } else if (id == R.id.categoryNavigation) {
-                startActivity(new Intent(SearchPageActivity.this, CategoryPageActivity.class));
+                startActivity(new Intent(SearchPageActivity.this, CraftsPageActivity.class));
                 return true;
             } else {
                 return false;

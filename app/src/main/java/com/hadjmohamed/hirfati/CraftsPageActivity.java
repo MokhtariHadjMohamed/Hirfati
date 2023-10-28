@@ -7,7 +7,7 @@ import android.os.Bundle;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
-public class CategoryPageActivity extends AppCompatActivity {
+public class CraftsPageActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -21,13 +21,13 @@ public class CategoryPageActivity extends AppCompatActivity {
         bottomNavigationView.setOnItemSelectedListener(item -> {
             int id = item.getItemId();
             if (id == R.id.homeNavigation) {
-                startActivity(new Intent(CategoryPageActivity.this, HomePageActivity.class));
+                startActivity(new Intent(CraftsPageActivity.this, HomePageActivity.class));
                 return true;
             } else if (id == R.id.searchNavigation) {
-                startActivity(new Intent(CategoryPageActivity.this, SearchPageActivity.class));
+                startActivity(new Intent(CraftsPageActivity.this, SearchPageActivity.class));
                 return true;
             } else if (id == R.id.accountNavigation) {
-                startActivity(new Intent(CategoryPageActivity.this, UserAccountActivity.class));
+                startActivity(new Intent(CraftsPageActivity.this, UserAccountActivity.class));
                 return true;
             } else if (id == R.id.categoryNavigation) {
                 return true;

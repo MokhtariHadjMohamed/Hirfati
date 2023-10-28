@@ -24,7 +24,7 @@ public class HolderRecCategory extends RecyclerView.ViewHolder {
                 if (recViewInterface != null){
                     int pos = getAdapterPosition();
                     if (pos != RecyclerView.NO_POSITION){
-                        recViewInterface.onItemClick("Category", pos);
+                        recViewInterface.onItemClick("Crafts", pos);
                     }
                 }
             }
