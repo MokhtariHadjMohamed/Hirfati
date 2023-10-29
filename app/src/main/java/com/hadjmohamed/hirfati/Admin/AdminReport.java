@@ -18,8 +18,10 @@ import android.widget.Toast;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
+import com.google.firebase.firestore.core.OrderBy;
 import com.hadjmohamed.hirfati.Craftsman;
 import com.hadjmohamed.hirfati.R;
 import com.hadjmohamed.hirfati.RecViewInterface;
@@ -76,6 +78,7 @@ public class AdminReport extends AppCompatActivity implements RecViewInterface, 
 
     private void getReport(){
         firestore.collection("Reports")
+                .orderBy("readSituation", Query.Direction.DESCENDING)
                 .get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
@@ -100,7 +103,9 @@ public class AdminReport extends AppCompatActivity implements RecViewInterface, 
 
     @Override
     public void onItemClick(String view, int position) {
-        startActivity(new Intent(AdminReport.this, AdminReportInfo.class));
+        Intent intent = new Intent(AdminReport.this, AdminReportInfo.class);
+        intent.putExtra("idReport", reportList.get(position).getIdReport());
+        startActivity(intent);
     }
 
     @Override

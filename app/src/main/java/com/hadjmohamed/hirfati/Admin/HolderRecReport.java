@@ -2,6 +2,7 @@ package com.hadjmohamed.hirfati.Admin;
 
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -13,7 +14,7 @@ import com.hadjmohamed.hirfati.RecViewInterface;
 
 public class HolderRecReport extends RecyclerView.ViewHolder {
 
-    ImageView imageView;
+    ImageView imageView, delete;
     TextView reporter, reported, desc;
 
     public HolderRecReport(@NonNull View itemView, RecViewInterface recViewInterface) {
@@ -23,6 +24,7 @@ public class HolderRecReport extends RecyclerView.ViewHolder {
         reported = itemView.findViewById(R.id.reportedName);
         reporter = itemView.findViewById(R.id.reporterName);
         desc = itemView.findViewById(R.id.reportText);
+        delete = itemView.findViewById(R.id.deleteReport);
 
         itemView.setOnClickListener(new View.OnClickListener() {
             @Override

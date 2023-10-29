@@ -4,13 +4,13 @@ import android.net.Uri;
 
 public class User {
     private String idUser, name, familyName, address, birthday,
-            state, city, email, phoneNumber, userType;
+            state, city, email, phoneNumber, userType, logInSituation;
 
     public User() {
     }
 
     public User(String idUser, String name, String familyName, String address, String birthday,
-                String state, String city, String email, String userType) {
+                String state, String city, String email, String userType, String logInSituation) {
         this.idUser = idUser;
         this.name = name;
         this.familyName = familyName;
@@ -20,6 +20,7 @@ public class User {
         this.city = city;
         this.email = email;
         this.userType = userType;
+        this.logInSituation = logInSituation;
     }
 
     public String getIdUser() {
@@ -102,4 +103,11 @@ public class User {
         this.userType = userType;
     }
 
+    public String getLogInSituation() {
+        return logInSituation;
+    }
+
+    public void setLogInSituation(String logInSituation) {
+        this.logInSituation = logInSituation;
+    }
 }

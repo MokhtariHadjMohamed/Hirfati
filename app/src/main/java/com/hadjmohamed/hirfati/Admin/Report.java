@@ -4,12 +4,26 @@ import android.net.Uri;
 
 public class Report {
 
-    private String reporter, reported, desc;
+    private String idReport, reporter, reported, desc;
+    private boolean readSituation;
 
-    public Report(String reporter, String reported, String desc) {
+    public Report() {
+    }
+
+    public Report(String idReport, String reporter, String reported, String desc, boolean readSituation) {
+        this.idReport = idReport;
         this.reporter = reporter;
         this.reported = reported;
         this.desc = desc;
+        this.readSituation = readSituation;
+    }
+
+    public String getIdReport() {
+        return idReport;
+    }
+
+    public void setIdReport(String idReport) {
+        this.idReport = idReport;
     }
 
     public String getReporter() {
@@ -34,5 +48,13 @@ public class Report {
 
     public void setDesc(String desc) {
         this.desc = desc;
+    }
+
+    public boolean isReadSituation() {
+        return readSituation;
+    }
+
+    public void setReadSituation(boolean readSituation) {
+        this.readSituation = readSituation;
     }
 }

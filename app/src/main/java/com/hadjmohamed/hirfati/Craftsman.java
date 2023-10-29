@@ -12,8 +12,8 @@ public class Craftsman extends User{
     }
 
     public Craftsman(String idUser, String name, String familyName, String address, String birthday, String state, String city, String email,
-                     String craft, String level, String exYears, String description, String userType) {
-        super(idUser, name, familyName, address, birthday, state, city, email, userType);
+                     String craft, String level, String exYears, String description, String userType, String logInSituation) {
+        super(idUser, name, familyName, address, birthday, state, city, email, userType, logInSituation);
         this.craft = craft;
         this.level = level;
         this.exYears = exYears;
