@@ -17,8 +17,7 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/textColor01"
-            android:minHeight="1000dp">
+            android:background="@color/textColor01">
 
             <View
                 android:id="@+id/view"
@@ -47,7 +46,7 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <androidx.cardview.widget.CardView
-                android:id="@+id/cardView2"
+                android:id="@+id/editImageCraftsmanAccountInfo"
                 android:layout_width="120dp"
                 android:layout_height="120dp"
                 android:layout_marginTop="32dp"
@@ -57,13 +56,12 @@
                 app:layout_constraintTop_toBottomOf="@+id/toolbar">
 
                 <ImageView
-                    android:id="@+id/userImageUserAccountInfo"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:id="@+id/ImageAdminCraftsAccountInfo"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
                     tools:srcCompat="@tools:sample/avatars" />
 
                 <androidx.cardview.widget.CardView
-                    android:id="@+id/editImageِCraftsmanAccountInfo"
                     android:layout_width="120dp"
                     android:layout_height="120dp"
                     android:backgroundTint="#00000000"
@@ -93,7 +91,7 @@
                 app:cardCornerRadius="20dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/cardView2">
+                app:layout_constraintTop_toBottomOf="@+id/editImageCraftsmanAccountInfo">
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
@@ -101,23 +99,47 @@
                     android:padding="10dp">
 
                     <TextView
-                        android:id="@+id/craftsNumberAdminCraftsInfo"
+                        android:id="@+id/textView16"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="4dp"
+                        android:fontFamily="@font/tajawal_bold"
+                        android:text="الحرفة رقم "
+                        android:textColor="@color/textColor01"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
+                        android:id="@+id/craftsNumberAdminCraftsInfo"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
                         android:fontFamily="@font/tajawal_bold"
                         android:text="الحرفة رقم 29 "
                         android:textColor="@color/textColor01"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
+                        app:layout_constraintTop_toBottomOf="@+id/textView16" />
+
+                    <TextView
+                        android:id="@+id/errorAdminCraftsmanAccountInfo"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:fontFamily="@font/tajawal_bold"
+                        android:textColor="@color/Error"
+                        android:textSize="20sp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/craftsNumberAdminCraftsInfo" />
 
                     <EditText
                         android:id="@+id/nameCraftAdminCraftsInfo"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="16dp"
-                        android:layout_marginTop="16dp"
+                        android:layout_marginTop="8dp"
                         android:layout_marginEnd="16dp"
                         android:background="@drawable/custom_input"
                         android:ems="10"
@@ -129,7 +151,7 @@
                         android:textSize="20sp"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/craftsNumberAdminCraftsInfo" />
+                        app:layout_constraintTop_toBottomOf="@+id/errorAdminCraftsmanAccountInfo" />
 
                     <EditText
                         android:id="@+id/descAdminCraftsInfo"
@@ -182,16 +204,18 @@
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="16dp"
                 android:layout_marginEnd="16dp"
-                android:text="حذف الحرفة"
-                android:drawableEnd="@drawable/baseline_delete_24"
-                android:drawableTint="@color/Error"
-                android:drawablePadding="10dp"
-                android:gravity="right|center"
+                android:layout_marginBottom="16dp"
                 android:background="@drawable/button_shape"
                 android:backgroundTint="@color/Color01"
+                android:drawableEnd="@drawable/baseline_delete_24"
+                android:drawablePadding="10dp"
+                android:drawableTint="@color/Error"
                 android:fontFamily="@font/tajawal_bold"
-                android:textSize="20sp"
+                android:gravity="right|center"
+                android:text="حذف الحرفة"
                 android:textColor="@color/Error"
+                android:textSize="20sp"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/cardView3" />

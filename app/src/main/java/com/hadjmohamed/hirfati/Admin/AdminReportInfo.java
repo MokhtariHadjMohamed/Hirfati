@@ -103,7 +103,7 @@ public class AdminReportInfo extends AppCompatActivity implements View.OnClickLi
                 });
     }
 
-    private void getDelete(String uid){
+    private void doDelete(String uid){
         firestore.collection("Reports")
                 .document(uid)
                 .delete().addOnSuccessListener(new OnSuccessListener<Void>() {
@@ -128,7 +128,7 @@ public class AdminReportInfo extends AppCompatActivity implements View.OnClickLi
     @Override
     public void onClick(View view) {
         if (view == submit) {
-            Toast.makeText(this, "Submit", Toast.LENGTH_SHORT).show();
+            getUpdate(idReport);
         } else if (view == showReportHim) {
             Intent intent = new Intent(AdminReportInfo.this, AdminUserAccount.class);
             intent.putExtra("idUser", reportHim.getText().toString());
@@ -138,7 +138,7 @@ public class AdminReportInfo extends AppCompatActivity implements View.OnClickLi
             intent.putExtra("idUser", reported.getText().toString());
             startActivity(intent);
         } else if (view == delete) {
-            Toast.makeText(this, "Delete", Toast.LENGTH_SHORT).show();
+            doDelete(idReport);
         } else if (view == backArrow) {
             startActivity(new Intent(AdminReportInfo.this, AdminReport.class));
             finish();

@@ -57,7 +57,7 @@ public class AdapterRecReport extends RecyclerView.Adapter<HolderRecReport>{
         delete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(context, uid, Toast.LENGTH_SHORT).show();
+                getDelete(uid);
             }
         });
 

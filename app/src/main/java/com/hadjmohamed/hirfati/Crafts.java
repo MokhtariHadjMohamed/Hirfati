@@ -1,5 +1,8 @@
 package com.hadjmohamed.hirfati;
 
+import java.util.HashMap;
+import java.util.Objects;
+
 public class Crafts {
     private String uid;
     private String name;
@@ -36,5 +39,12 @@ public class Crafts {
 
     public void setDesc(String desc) {
         this.desc = desc;
+    }
+    public HashMap<String, Object> toHashMap() {
+        HashMap<String, Object> hashMap = new HashMap<>();
+        hashMap.put("uid", uid);
+        hashMap.put("name", name);
+        hashMap.put("desc", desc);
+        return hashMap;
     }
 }

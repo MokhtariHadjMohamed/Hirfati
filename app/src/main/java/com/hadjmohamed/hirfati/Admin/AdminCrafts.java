@@ -104,7 +104,9 @@ public class AdminCrafts extends AppCompatActivity implements RecViewInterface, 
 
     @Override
     public void onItemClick(String view, int position) {
-        startActivity(new Intent(AdminCrafts.this, AdminCraftsInfo.class));
+        Intent intent = new Intent(AdminCrafts.this, AdminCraftsInfo.class);
+        intent.putExtra("idCraft", craftsList.get(position).getUid());
+        startActivity(intent);
     }
 
 
