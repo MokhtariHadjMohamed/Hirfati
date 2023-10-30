@@ -85,23 +85,47 @@
                     android:padding="10dp">
 
                     <TextView
-                        android:id="@+id/userNumberAdminUserAccountInfo"
+                        android:id="@+id/textView18"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="4dp"
+                        android:fontFamily="@font/tajawal_bold"
+                        android:text="الحرفي رقم"
+                        android:textColor="@color/textColor01"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
+                        android:id="@+id/userNumberAdminUserAccountInfo"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
                         android:fontFamily="@font/tajawal_bold"
                         android:text="الحرفي رقم 1029 "
                         android:textColor="@color/textColor01"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
+                        app:layout_constraintTop_toBottomOf="@+id/textView18" />
+
+                    <TextView
+                        android:id="@+id/errorAdminUserAccountInfo"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:fontFamily="@font/tajawal_bold"
+                        android:textColor="@color/Error"
+                        android:textSize="20sp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/userNumberAdminUserAccountInfo" />
 
                     <EditText
                         android:id="@+id/nameAdminUserAccountInfo"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="16dp"
-                        android:layout_marginTop="16dp"
+                        android:layout_marginTop="8dp"
                         android:layout_marginEnd="16dp"
                         android:background="@drawable/custom_input"
                         android:ems="10"
@@ -113,10 +137,10 @@
                         android:textSize="20sp"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/userNumberAdminUserAccountInfo" />
+                        app:layout_constraintTop_toBottomOf="@+id/errorAdminUserAccountInfo" />
 
                     <EditText
-                        android:id="@+id/famileNameAdminUserAccountInfo"
+                        android:id="@+id/familyNameAdminUserAccountInfo"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="16dp"
@@ -126,15 +150,14 @@
                         android:ems="10"
                         android:fontFamily="@font/tajawal_regular"
                         android:hint="اللقب"
-                        android:inputType="text"
-                        android:textColor="@color/Color01"
+                        android:inputType="none"                        android:textColor="@color/Color01"
                         android:textColorHint="@color/Color01"
                         android:textSize="20sp"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/nameAdminUserAccountInfo" />
 
-                    <androidx.appcompat.widget.AppCompatButton
+                    <EditText
                         android:id="@+id/birthdayAdminUserAccountInfo"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
@@ -146,13 +169,14 @@
                         android:fontFamily="@font/tajawal_regular"
                         android:gravity="right|center"
                         android:hint="تاريخ الميلاد"
+                        android:editable="false"
                         android:inputType="text"
                         android:textColor="@color/Color01"
                         android:textColorHint="@color/Color01"
                         android:textSize="20sp"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/famileNameAdminUserAccountInfo" />
+                        app:layout_constraintTop_toBottomOf="@+id/familyNameAdminUserAccountInfo" />
 
                     <EditText
                         android:id="@+id/addressAdminUserAccountInfo"
@@ -177,8 +201,9 @@
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/birthdayAdminUserAccountInfo" />
 
+
                     <Spinner
-                        android:id="@+id/wilayaAdminUserAccountInfo"
+                        android:id="@+id/statesAdminUserAccountInfo"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="16dp"
@@ -198,7 +223,7 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="16dp"
-                        android:layout_marginTop="16dp"
+                        android:layout_marginTop="12dp"
                         android:layout_marginEnd="16dp"
                         android:background="@drawable/custom_input"
                         android:fontFamily="@font/tajawal_regular"
@@ -207,7 +232,7 @@
                         android:textSize="20sp"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/wilayaAdminUserAccountInfo" />
+                        app:layout_constraintTop_toBottomOf="@+id/statesAdminUserAccountInfo" />
 
                     <EditText
                         android:id="@+id/emailAdminUserAccountInfo"

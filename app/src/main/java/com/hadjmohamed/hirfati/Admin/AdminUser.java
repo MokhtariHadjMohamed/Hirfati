@@ -55,9 +55,11 @@ public class AdminUser extends AppCompatActivity implements RecViewInterface, Vi
         toolbar = findViewById(R.id.toolbar_back_arrow);
         setSupportActionBar(toolbar);
         backArrow = findViewById(R.id.backArrow);
-        backArrow.setOnClickListener(this);
         toolbarTitle = findViewById(R.id.toolbarTitle);
         imageViewToolBar = findViewById(R.id.imageViewToolBar);
+
+        toolbarTitle.setText("المستعملين");
+        backArrow.setOnClickListener(this);
 
         // Progress
         progressDialog = new ProgressDialog(this);
@@ -107,7 +109,7 @@ public class AdminUser extends AppCompatActivity implements RecViewInterface, Vi
     public void onItemClick(String view, int position) {
         if (view == "user"){
             Intent intent = new Intent(AdminUser.this, AdminUserAccount.class);
-            intent.putExtra("userId", userList.get(position).getIdUser());
+            intent.putExtra("idUser", userList.get(position).getIdUser());
             startActivity(intent);
         }
     }

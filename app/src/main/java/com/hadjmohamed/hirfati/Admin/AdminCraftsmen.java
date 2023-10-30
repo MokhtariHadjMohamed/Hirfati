@@ -60,10 +60,11 @@ public class AdminCraftsmen extends AppCompatActivity implements RecViewInterfac
         toolbar = findViewById(R.id.toolbar_back_arrow);
         setSupportActionBar(toolbar);
         backArrow = findViewById(R.id.backArrow);
-        backArrow.setOnClickListener(this);
         toolbarTitle = findViewById(R.id.toolbarTitle);
         imageViewToolBar = findViewById(R.id.imageViewToolBar);
 
+        toolbarTitle.setText("الحرفين");
+        backArrow.setOnClickListener(this);
         // Progress
         progressDialog = new ProgressDialog(this);
         progressDialog.setCancelable(false);

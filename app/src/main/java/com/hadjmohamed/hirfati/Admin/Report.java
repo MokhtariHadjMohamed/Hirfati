@@ -2,6 +2,8 @@ package com.hadjmohamed.hirfati.Admin;
 
 import android.net.Uri;
 
+import java.util.HashMap;
+
 public class Report {
 
     private String idReport, reporter, reported, desc;
@@ -57,4 +59,15 @@ public class Report {
     public void setReadSituation(boolean readSituation) {
         this.readSituation = readSituation;
     }
+
+    public HashMap<String, Object> toHashMap() {
+        HashMap<String, Object> hashMap = new HashMap<>();
+        hashMap.put("idReport", idReport);
+        hashMap.put("reporter", reporter);
+        hashMap.put("reported", reported);
+        hashMap.put("desc", desc);
+        hashMap.put("readSituation", readSituation);
+        return hashMap;
+    }
+
 }

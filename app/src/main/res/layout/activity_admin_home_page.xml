@@ -150,14 +150,16 @@
 
                     <TextView
                         android:id="@+id/textView12"
-                        android:layout_width="wrap_content"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
+                        android:layout_marginEnd="8dp"
                         android:fontFamily="@font/tajawal_bold"
                         android:text="الحرفين"
                         android:textColor="@color/textColor01"
                         android:textSize="20sp"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toStartOf="@+id/imageView3"
+                        app:layout_constraintHorizontal_bias="1.0"
                         app:layout_constraintStart_toEndOf="@+id/craftsmanNumberAdminHomePage"
                         app:layout_constraintTop_toTopOf="parent" />
 
@@ -208,14 +210,17 @@
                         app:srcCompat="@drawable/baseline_groups_2_24" />
 
                     <TextView
-                        android:layout_width="wrap_content"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
+                        android:layout_marginStart="8dp"
+                        android:layout_marginEnd="8dp"
                         android:fontFamily="@font/tajawal_bold"
                         android:text="المستعملين"
                         android:textColor="@color/textColor01"
                         android:textSize="20sp"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toStartOf="@+id/imageView4"
+                        app:layout_constraintHorizontal_bias="1.0"
                         app:layout_constraintStart_toEndOf="@+id/userNumberAdminHomePage"
                         app:layout_constraintTop_toTopOf="parent" />
 
@@ -265,14 +270,17 @@
                         app:srcCompat="@drawable/baseline_construction_24" />
 
                     <TextView
-                        android:layout_width="wrap_content"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
+                        android:layout_marginStart="8dp"
+                        android:layout_marginEnd="8dp"
                         android:fontFamily="@font/tajawal_bold"
                         android:text="الحرف"
                         android:textColor="@color/textColor01"
                         android:textSize="20sp"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toStartOf="@+id/imageView44"
+                        app:layout_constraintHorizontal_bias="1.0"
                         app:layout_constraintStart_toEndOf="@+id/craftsNumberAdminHomePage"
                         app:layout_constraintTop_toTopOf="parent" />
 
@@ -324,14 +332,17 @@
                         app:srcCompat="@drawable/baseline_groups_2_24" />
 
                     <TextView
-                        android:layout_width="wrap_content"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
+                        android:layout_marginStart="8dp"
+                        android:layout_marginEnd="8dp"
                         android:fontFamily="@font/tajawal_bold"
                         android:text="المستعملين اون لاين"
                         android:textColor="@color/textColor01"
                         android:textSize="20sp"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toStartOf="@+id/imageView42"
+                        app:layout_constraintHorizontal_bias="1.0"
                         app:layout_constraintStart_toEndOf="@+id/userOnlineNumberAdminHomePage"
                         app:layout_constraintTop_toTopOf="parent" />
 
@@ -383,14 +394,17 @@
                         app:srcCompat="@drawable/baseline_report_gmailerrorred_24" />
 
                     <TextView
-                        android:layout_width="wrap_content"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
+                        android:layout_marginStart="8dp"
+                        android:layout_marginEnd="8dp"
                         android:fontFamily="@font/tajawal_bold"
                         android:text="الإبلاغات"
                         android:textColor="@color/Error"
                         android:textSize="20sp"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toStartOf="@+id/imageView47"
+                        app:layout_constraintHorizontal_bias="1.0"
                         app:layout_constraintStart_toEndOf="@+id/reportNumberAdminHomePage"
                         app:layout_constraintTop_toTopOf="parent" />
 

@@ -58,7 +58,7 @@
                 app:layout_constraintTop_toBottomOf="@+id/toolbar">
 
                 <ImageView
-                    android:id="@+id/userImageUserAccountInfo"
+                    android:id="@+id/craftsmanImageUserAccountInfo"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     tools:srcCompat="@tools:sample/avatars" />
@@ -88,9 +88,33 @@
                         android:id="@+id/craftsmanNumberAdminCraftsmenAccountInfo"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="4dp"
+                        android:layout_marginTop="8dp"
                         android:fontFamily="@font/tajawal_bold"
                         android:text="الحرفي رقم 1029 "
+                        android:textColor="@color/textColor01"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/textView19" />
+
+                    <TextView
+                        android:id="@+id/errorAdminAdminCraftsmenAccountInfo"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:fontFamily="@font/tajawal_bold"
+                        android:textColor="@color/Error"
+                        android:textSize="20sp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/craftsmanNumberAdminCraftsmenAccountInfo" />
+
+                    <TextView
+                        android:id="@+id/textView19"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="4dp"
+                        android:fontFamily="@font/tajawal_bold"
+                        android:text="الحرفي رقم  "
                         android:textColor="@color/textColor01"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
@@ -101,7 +125,7 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="16dp"
-                        android:layout_marginTop="16dp"
+                        android:layout_marginTop="8dp"
                         android:layout_marginEnd="16dp"
                         android:background="@drawable/custom_input"
                         android:ems="10"
@@ -113,7 +137,7 @@
                         android:textSize="20sp"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/craftsmanNumberAdminCraftsmenAccountInfo" />
+                        app:layout_constraintTop_toBottomOf="@+id/errorAdminAdminCraftsmenAccountInfo" />
 
                     <EditText
                         android:id="@+id/familyNameAdminCraftsmenAccountInfo"
@@ -143,11 +167,11 @@
                         android:layout_marginEnd="16dp"
                         android:background="@drawable/custom_input"
                         android:ems="10"
-                        android:editable="false"
                         android:fontFamily="@font/tajawal_regular"
                         android:gravity="right|center"
                         android:hint="تاريخ الميلاد"
-                        android:inputType="text"
+                        android:focusable="false"
+                        android:inputType="none"
                         android:textColor="@color/Color01"
                         android:textColorHint="@color/Color01"
                         android:textSize="20sp"
@@ -189,7 +213,7 @@
                         android:ems="10"
                         android:fontFamily="@font/tajawal_regular"
                         android:gravity="start|top"
-                        android:hint="عنوان سكن"
+                        android:hint="الوصف"
                         android:inputType="textMultiLine"
                         android:lines="10"
                         android:scrollbars="vertical"

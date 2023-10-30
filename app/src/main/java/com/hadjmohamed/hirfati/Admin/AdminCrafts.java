@@ -60,10 +60,11 @@ public class AdminCrafts extends AppCompatActivity implements RecViewInterface, 
         toolbar = findViewById(R.id.toolbar_back_arrow);
         setSupportActionBar(toolbar);
         backArrow = findViewById(R.id.backArrow);
-        backArrow.setOnClickListener(this);
         toolbarTitle = findViewById(R.id.toolbarTitle);
         imageViewToolBar = findViewById(R.id.imageViewToolBar);
 
+        toolbarTitle.setText("الحرف");
+        backArrow.setOnClickListener(this);
         // Progress
         progressDialog = new ProgressDialog(this);
         progressDialog.setCancelable(false);

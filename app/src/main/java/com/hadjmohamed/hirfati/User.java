@@ -2,6 +2,8 @@ package com.hadjmohamed.hirfati;
 
 import android.net.Uri;
 
+import java.util.HashMap;
+
 public class User {
     private String idUser, name, familyName, address, birthday,
             state, city, email, phoneNumber, userType, logInSituation;
@@ -109,5 +111,20 @@ public class User {
 
     public void setLogInSituation(String logInSituation) {
         this.logInSituation = logInSituation;
+    }
+
+    public HashMap<String, Object> toHashMap() {
+        HashMap<String, Object> hashMap = new HashMap<>();
+        hashMap.put("idUser", idUser);
+        hashMap.put("name", name);
+        hashMap.put("familyName", familyName);
+        hashMap.put("address", address);
+        hashMap.put("birthday", birthday);
+        hashMap.put("state", state);
+        hashMap.put("city", city);
+        hashMap.put("email", email);
+        hashMap.put("userType", userType);
+        hashMap.put("logInSituation", logInSituation);
+        return hashMap;
     }
 }
