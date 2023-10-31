@@ -1,6 +1,7 @@
 package com.hadjmohamed.hirfati.Admin;
 
 import android.app.Dialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
@@ -21,6 +22,8 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.storage.FileDownloadTask;
@@ -134,6 +137,7 @@ public class AdminUserAccount extends AppCompatActivity implements View.OnClickL
 
     private void deleteUser(String uid){
         firestore.collection("Users").document(uid).delete();
+        FirebaseAuth.getInstance().getCurrentUser().delete();
     }
 
     private void dialogReport(){
@@ -189,9 +193,21 @@ public class AdminUserAccount extends AppCompatActivity implements View.OnClickL
             startActivity(intent);
         }else if (view == reportUser)
             dialogReport();
-        else if (view == deleteUser)
-            deleteUser(idUser);
-        else if(view == backArrow){
+        else if (view == deleteUser){
+            MaterialAlertDialogBuilder dialogBuilder = new MaterialAlertDialogBuilder(this);
+            dialogBuilder.setMessage("هل تريد حذف هذه الحرفة؟");
+            dialogBuilder.setTitle("الطلب");
+            dialogBuilder.setCancelable(false);
+            dialogBuilder.setPositiveButton("نعم", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialogInterface, int i) {
+                    deleteUser(idUser);
+                }
+            }).setNegativeButton("لا", (DialogInterface.OnClickListener) (dialog, which) -> {
+                // If user click no then dialog box is canceled.
+                dialog.cancel();
+            });
+        } else if(view == backArrow){
             startActivity(new Intent(AdminUserAccount.this, AdminUser.class));
             finish();
         }

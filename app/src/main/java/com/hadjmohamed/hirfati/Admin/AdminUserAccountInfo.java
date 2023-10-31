@@ -21,6 +21,7 @@ import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.storage.FileDownloadTask;
@@ -159,11 +160,26 @@ public class AdminUserAccountInfo extends AppCompatActivity implements View.OnCl
     private void updateUser(User user){
         HashMap<String, Object> userMap = user.toHashMap();
         firestore.collection("Users")
-                .document(idUser).update(userMap);
+                .document(idUser).update(userMap).addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void unused) {
+                        Intent intent = new Intent(AdminUserAccountInfo.this,
+                                AdminUserAccount.class);
+                        intent.putExtra("idUser", idUser);
+                        startActivity(intent);
+                        finish();
+                    }
+                }).addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Log.e("Craftsmen update: ", "update failed");
+                    }
+                });;
     }
 
     private void deleteUser(String uid){
         firestore.collection("Users").document(uid).delete();
+        FirebaseAuth.getInstance().getCurrentUser().delete();
     }
 
     @Override
@@ -196,8 +212,8 @@ public class AdminUserAccountInfo extends AppCompatActivity implements View.OnCl
                 user.setBirthday(birthday.getText().toString());
                 user.setAddress(address.getText().toString());
                 user.setPhoneNumber(phone.getText().toString());
-                user.setState(states.getSelectedItem().toString());
-                user.setCity(city.getSelectedItem().toString());
+//                user.setState(states.getSelectedItem().toString());
+//                user.setCity(city.getSelectedItem().toString());
 
                 updateUser(user);
             }

@@ -2,6 +2,7 @@ package com.hadjmohamed.hirfati.Admin;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -9,6 +10,9 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -23,12 +27,17 @@ import com.hadjmohamed.hirfati.User;
 import java.util.ArrayList;
 import java.util.List;
 
-public class AdminOnlineUsers extends AppCompatActivity implements RecViewInterface {
+public class AdminOnlineUsers extends AppCompatActivity implements RecViewInterface, View.OnClickListener {
 
 //    RecyclerView
     private RecyclerView recyclerViewUserAdmin;
     private AdapterRecUser adapterRecUser;
     private List<User> userList;
+    // toolbar
+    private Toolbar toolbar;
+    private ImageView backArrow, imageViewToolBar;
+    private TextView toolbarTitle;
+
     // ProgressDialog
     private ProgressDialog progressDialog;
     private FirebaseFirestore firestore;
@@ -46,6 +55,14 @@ public class AdminOnlineUsers extends AppCompatActivity implements RecViewInterf
         progressDialog.setMessage("Fetching data...");
         progressDialog.show();
 
+        // ToolsBar
+        toolbar = findViewById(R.id.toolbar_back_arrow);
+        setSupportActionBar(toolbar);
+        toolbarTitle = findViewById(R.id.toolbarTitle);
+        backArrow = findViewById(R.id.backArrow);
+
+        toolbarTitle.setText("المستعميلين اون لاين");
+        backArrow.setOnClickListener(this);
 
         // recycle view
         recyclerViewUserAdmin = findViewById(R.id.onlineUsersAdmin);
@@ -53,8 +70,6 @@ public class AdminOnlineUsers extends AppCompatActivity implements RecViewInterf
         adapterRecUser = new AdapterRecUser(getApplicationContext(),
                 userList, this);
         getUsers();
-
-
     }
 
     private void getUsers(){
@@ -88,5 +103,13 @@ public class AdminOnlineUsers extends AppCompatActivity implements RecViewInterf
         Intent intent = new Intent(AdminOnlineUsers.this, AdminUserAccount.class);
         intent.putExtra("idUser",userList.get(position).getIdUser());
         startActivity(intent);
+    }
+
+    @Override
+    public void onClick(View view) {
+        if(view == backArrow){
+            startActivity(new Intent(AdminOnlineUsers.this, AdminHomePage.class));
+            finish();
+        }
     }
 }

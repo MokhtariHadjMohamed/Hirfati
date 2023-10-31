@@ -21,6 +21,7 @@ import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.storage.FileDownloadTask;
@@ -123,11 +124,25 @@ public class AdminCraftsmenAccountInfo extends AppCompatActivity implements View
         craftsmen.put("description", craftsman.getDescription());
 
         firestore.collection("Users")
-                .document(idUser).update(craftsmen);
+                .document(idUser).update(craftsmen).addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void unused) {
+                        Intent intent = new Intent(AdminCraftsmenAccountInfo.this, AdminCraftsmenAccount.class);
+                        intent.putExtra("idUser", idUser);
+                        startActivity(intent);
+                        finish();
+                    }
+                }).addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Log.e("Craftsmen update: ", "update failed");
+                    }
+                });
     }
     private void deleteCraftsman(){
         firestore.collection("Users")
                 .document(idUser).delete();
+        FirebaseAuth.getInstance().getCurrentUser().delete();
     }
 
     private boolean editTest(EditText[] editTexts) {
