@@ -10,6 +10,7 @@ import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -24,17 +25,22 @@ import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.storage.FileDownloadTask;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.hadjmohamed.hirfati.Craftsman;
 import com.hadjmohamed.hirfati.R;
+import com.hadjmohamed.hirfati.State;
 
 import org.checkerframework.checker.units.qual.C;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 public class AdminCraftsmenAccountInfo extends AppCompatActivity implements View.OnClickListener {
 
@@ -43,8 +49,9 @@ public class AdminCraftsmenAccountInfo extends AppCompatActivity implements View
     private Button submit;
     private TextView delete, craftsmanNumber, errorAdmin;
     private ImageView craftsmanImage;
-
     private EditText[] editTexts;
+    private List<String> stateList;
+    private ArrayAdapter<CharSequence> adapterState;
     // toolbar
     private Toolbar toolbar;
     private ImageView backArrow, imageViewToolBar;
@@ -76,6 +83,10 @@ public class AdminCraftsmenAccountInfo extends AppCompatActivity implements View
         errorAdmin = findViewById(R.id.errorAdminAdminCraftsmenAccountInfo);
         craftsmanImage = findViewById(R.id.craftsmanImageUserAccountInfo);
 
+        // adapterState
+        stateList = new ArrayList<>();
+        adapterState = new ArrayAdapter(this, android.R.layout.simple_spinner_item, stateList);
+
         submit = findViewById(R.id.submitAdminCraftsmenAccountInfo);
         delete = findViewById(R.id.deleteAdminCraftsmenAccountInfo);
 
@@ -90,6 +101,26 @@ public class AdminCraftsmenAccountInfo extends AppCompatActivity implements View
         backArrow.setOnClickListener(this);
 
         getUser();
+        getStatus();
+    }
+
+    private void getStatus(){
+        firestore.collection("States")
+                .get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if (!task.isSuccessful()){
+                            Log.e("GetUsers", "failed");
+                            return;
+                        }
+                        for(QueryDocumentSnapshot d: task.getResult()){
+                            stateList.add(d.toObject(State.class).getAr_name());
+                        }
+                        adapterState.notifyDataSetChanged();
+                    }
+                });
+        adapterState.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        states.setAdapter(adapterState);
     }
 
     private void getUser(){
@@ -111,6 +142,7 @@ public class AdminCraftsmenAccountInfo extends AppCompatActivity implements View
                         desc.setText(craftsman.getDescription());
                         email.setText(craftsman.getEmail());
                         phone.setText(craftsman.getPhoneNumber());
+                        stateList.add(craftsman.getState());
                         retrieveImage(craftsmanImage, craftsman.getIdUser());
                     }
                 });

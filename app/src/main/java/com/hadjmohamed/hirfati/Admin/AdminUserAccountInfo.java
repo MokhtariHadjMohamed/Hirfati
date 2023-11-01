@@ -10,6 +10,7 @@ import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -24,16 +25,22 @@ import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.storage.FileDownloadTask;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
+import com.hadjmohamed.hirfati.Crafts;
 import com.hadjmohamed.hirfati.Craftsman;
 import com.hadjmohamed.hirfati.R;
+import com.hadjmohamed.hirfati.State;
 import com.hadjmohamed.hirfati.User;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 public class AdminUserAccountInfo extends AppCompatActivity implements View.OnClickListener {
 
@@ -45,6 +52,9 @@ public class AdminUserAccountInfo extends AppCompatActivity implements View.OnCl
     private TextView close, errorAdmin, numberAdmin;
     private EditText[] editTexts;
     private String idUser;
+
+    private List<String> stateList;
+    private ArrayAdapter<CharSequence> adapterState;
     // toolbar
     private Toolbar toolbar;
     private ImageView backArrow, imageViewToolBar;
@@ -76,6 +86,10 @@ public class AdminUserAccountInfo extends AppCompatActivity implements View.OnCl
         city = findViewById(R.id.cityAdminUserAccountInfo);
         errorAdmin = findViewById(R.id.errorAdminUserAccountInfo);
 
+        // adapterState
+        stateList = new ArrayList<>();
+        adapterState = new ArrayAdapter(this, android.R.layout.simple_spinner_item, stateList);
+
         submit = findViewById(R.id.submitAdminUserAccountInfo);
         submit.setOnClickListener(this);
         close = findViewById(R.id.closeAccountAdminUserAccountInfo);
@@ -91,6 +105,7 @@ public class AdminUserAccountInfo extends AppCompatActivity implements View.OnCl
         backArrow.setOnClickListener(this);
 
         getUser();
+        getStatus();
     }
 
     private void getUser(){
@@ -111,6 +126,7 @@ public class AdminUserAccountInfo extends AppCompatActivity implements View.OnCl
                         address.setText(user.getAddress());
                         email.setText(user.getEmail());
                         phone.setText(user.getPhoneNumber());
+                        stateList.add(user.getState());
                         retrieveImage(userImageAdmin, user.getIdUser());
                     }
                 });
@@ -182,6 +198,25 @@ public class AdminUserAccountInfo extends AppCompatActivity implements View.OnCl
         FirebaseAuth.getInstance().getCurrentUser().delete();
     }
 
+    private void getStatus(){
+        firestore.collection("States")
+                .get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if (!task.isSuccessful()){
+                            Log.e("GetUsers", "failed");
+                            return;
+                        }
+                        for(QueryDocumentSnapshot d: task.getResult()){
+                            stateList.add(d.toObject(State.class).getAr_name());
+                        }
+                        adapterState.notifyDataSetChanged();
+                    }
+                });
+        adapterState.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        states.setAdapter(adapterState);
+    }
+
     @Override
     public void onClick(View view) {
         if (view == backArrow){
@@ -212,7 +247,7 @@ public class AdminUserAccountInfo extends AppCompatActivity implements View.OnCl
                 user.setBirthday(birthday.getText().toString());
                 user.setAddress(address.getText().toString());
                 user.setPhoneNumber(phone.getText().toString());
-//                user.setState(states.getSelectedItem().toString());
+                user.setState(states.getSelectedItem().toString());
 //                user.setCity(city.getSelectedItem().toString());
 
                 updateUser(user);

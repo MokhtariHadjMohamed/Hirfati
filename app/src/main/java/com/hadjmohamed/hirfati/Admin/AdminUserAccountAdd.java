@@ -24,11 +24,15 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.OnProgressListener;
 import com.google.firebase.storage.StorageReference;
@@ -36,11 +40,14 @@ import com.google.firebase.storage.UploadTask;
 import com.hadjmohamed.hirfati.Craftsman;
 import com.hadjmohamed.hirfati.ImageResizer;
 import com.hadjmohamed.hirfati.R;
+import com.hadjmohamed.hirfati.State;
 import com.hadjmohamed.hirfati.User;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
 
 public class AdminUserAccountAdd extends AppCompatActivity implements View.OnClickListener {
 
@@ -50,6 +57,8 @@ public class AdminUserAccountAdd extends AppCompatActivity implements View.OnCli
     private Spinner statesAdmin, cityAdmin;
     private Button submitAdmin;
     private TextView errorAdmin;
+    private List<String> stateList;
+    private ArrayAdapter<CharSequence> adapterState;
     // toolbar
     private Toolbar toolbar;
     private ImageView backArrow, imageViewToolBar;
@@ -133,13 +142,31 @@ public class AdminUserAccountAdd extends AppCompatActivity implements View.OnCli
         editTexts = new EditText[]{nameAdmin, familyNameAdmin, birthdayAdmin, addressAdmin,
                 emailAdmin, phoneNumberAdmin, passwordAdmin, password02Admin};
 
-        // spinner
-        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,R.array.wilaya,
-                android.R.layout.simple_spinner_item);
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        statesAdmin.setAdapter(adapter);
+        // adapterState
+        stateList = new ArrayList<>();
+        adapterState = new ArrayAdapter(this, android.R.layout.simple_spinner_item, stateList);
+        getStatus();
+
     }
 
+    private void getStatus(){
+        firestore.collection("States")
+                .get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if (!task.isSuccessful()){
+                            Log.e("GetUsers", "failed");
+                            return;
+                        }
+                        for(QueryDocumentSnapshot d: task.getResult()){
+                            stateList.add(d.toObject(State.class).getAr_name());
+                        }
+                        adapterState.notifyDataSetChanged();
+                    }
+                });
+        adapterState.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        statesAdmin.setAdapter(adapterState);
+    }
     private boolean editTest(EditText[] editTexts){
         for (EditText e:editTexts) {
             if (e.getText().toString().isEmpty()){

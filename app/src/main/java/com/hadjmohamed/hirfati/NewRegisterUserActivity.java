@@ -17,13 +17,19 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
 
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
 
 public class NewRegisterUserActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -31,9 +37,10 @@ public class NewRegisterUserActivity extends AppCompatActivity implements View.O
     private TextView errorUser;
     private Spinner state, city;
     private EditText[] editTextsPage01, editTextsPage02;
-
     private Button next, submit, logIn, goBack;
     private DatePickerDialog datePickerDialog;
+    private List<String> stateList;
+    private ArrayAdapter<CharSequence> adapterState;
     private User user;
     // FireBase
     private FirebaseAuth firebaseAuth;
@@ -59,12 +66,11 @@ public class NewRegisterUserActivity extends AppCompatActivity implements View.O
 
         errorUser = findViewById(R.id.errorUser);
 
-        // spinner
+        // adapterState
         state = findViewById(R.id.stateUser);
-        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,R.array.wilaya,
-                android.R.layout.simple_spinner_item);
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        state.setAdapter(adapter);
+        stateList = new ArrayList<>();
+        adapterState = new ArrayAdapter(this, android.R.layout.simple_spinner_item, stateList);
+        getStatus();
 
         // birthday selected
         birthday = findViewById(R.id.dateUser);
@@ -96,6 +102,25 @@ public class NewRegisterUserActivity extends AppCompatActivity implements View.O
         logIn.setOnClickListener(this);
 
         editTextsPage01 = new EditText[]{name, familyName, address, birthday};
+    }
+
+    private void getStatus(){
+        firestore.collection("States")
+                .get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if (!task.isSuccessful()){
+                            Log.e("GetUsers", "failed");
+                            return;
+                        }
+                        for(QueryDocumentSnapshot d: task.getResult()){
+                            stateList.add(d.toObject(State.class).getAr_name());
+                        }
+                        adapterState.notifyDataSetChanged();
+                    }
+                });
+        adapterState.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        state.setAdapter(adapterState);
     }
 
     private void page02(){

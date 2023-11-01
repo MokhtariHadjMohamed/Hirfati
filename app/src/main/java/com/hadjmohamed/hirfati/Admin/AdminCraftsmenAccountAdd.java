@@ -45,6 +45,7 @@ import com.hadjmohamed.hirfati.HomePageActivity;
 import com.hadjmohamed.hirfati.ImageResizer;
 import com.hadjmohamed.hirfati.NewRegisterCraftsmanActivity;
 import com.hadjmohamed.hirfati.R;
+import com.hadjmohamed.hirfati.State;
 import com.hadjmohamed.hirfati.User;
 
 import java.io.ByteArrayOutputStream;
@@ -75,6 +76,9 @@ public class AdminCraftsmenAccountAdd extends AppCompatActivity implements View.
     // birthday
     private DatePickerDialog datePickerDialog;
     private Craftsman craftsman;
+    // state
+    private List<String> stateList;
+    ArrayAdapter<String> adapterState;
     // crafts list
     private List<String> craftsList;
     private ArrayAdapter<String> adapterCrafts;
@@ -151,11 +155,10 @@ public class AdminCraftsmenAccountAdd extends AppCompatActivity implements View.
         editTexts = new EditText[]{nameAdmin, familyNameAdmin, birthdayAdmin, addressAdmin,
                 emailAdmin, phoneNumberAdmin, passwordAdmin, password02Admin};
 
-        // spinner
-        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,R.array.wilaya,
-                android.R.layout.simple_spinner_item);
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        statesAdmin.setAdapter(adapter);
+        // adapterState spinner
+        stateList = new ArrayList<>();
+        adapterState = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, stateList);
+        getStatus();
 
         // crafts spinner
         craftsList = new ArrayList();
@@ -193,6 +196,25 @@ public class AdminCraftsmenAccountAdd extends AppCompatActivity implements View.
 
         adapterCrafts.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         craftsAdmin.setAdapter(adapterCrafts);
+    }
+
+    private void getStatus(){
+        firestore.collection("States")
+                .get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if (!task.isSuccessful()){
+                            Log.e("GetUsers", "failed");
+                            return;
+                        }
+                        for(QueryDocumentSnapshot d: task.getResult()){
+                            stateList.add(d.toObject(State.class).getAr_name());
+                        }
+                        adapterState.notifyDataSetChanged();
+                    }
+                });
+        adapterState.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        statesAdmin.setAdapter(adapterState);
     }
 
     private boolean editTest(EditText[] editTexts){
