@@ -4,14 +4,17 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
+import android.app.DatePickerDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Spinner;
@@ -30,6 +33,8 @@ import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.storage.FileDownloadTask;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
+import com.hadjmohamed.hirfati.City;
+import com.hadjmohamed.hirfati.Crafts;
 import com.hadjmohamed.hirfati.Craftsman;
 import com.hadjmohamed.hirfati.R;
 import com.hadjmohamed.hirfati.State;
@@ -39,6 +44,7 @@ import org.checkerframework.checker.units.qual.C;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
 
@@ -50,22 +56,42 @@ public class AdminCraftsmenAccountInfo extends AppCompatActivity implements View
     private TextView delete, craftsmanNumber, errorAdmin;
     private ImageView craftsmanImage;
     private EditText[] editTexts;
-    private List<String> stateList;
-    private ArrayAdapter<CharSequence> adapterState;
+
+    // birthday
+    private DatePickerDialog datePickerDialog;
+    // states and city
+    private List<String> stateList, cityList;
+    private ArrayAdapter<CharSequence> adapterState, adapterCity;
+    // crafts, level and years
+    private List<String> craftsList, levelList, yearsList;
+    private ArrayAdapter<String> adapterCrafts, adapterLevel, adapterExYears;
+    private Craftsman craftsman;
     // toolbar
     private Toolbar toolbar;
     private ImageView backArrow, imageViewToolBar;
     private TextView toolbarTitle;
+
     // Firestor
     private FirebaseFirestore firestore;
     private String idUser;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_admin_craftsmen_account_info);
         idUser = getIntent().getStringExtra("idUser");
         firestore = FirebaseFirestore.getInstance();
+        craftsman = new Craftsman();
+        craftsman.setUserType("Craftsman");
 
+        // ToolsBar
+        toolbar = findViewById(R.id.toolbar_back_arrow);
+        setSupportActionBar(toolbar);
+        toolbarTitle = findViewById(R.id.toolbarTitle);
+        backArrow = findViewById(R.id.backArrow);
+
+        toolbarTitle.setText("معلومات الحرفي");
+        backArrow.setOnClickListener(this);
         //element
         craftsmanNumber = findViewById(R.id.craftsmanNumberAdminCraftsmenAccountInfo);
         name = findViewById(R.id.nameAdminCraftsmenAccountInfo);
@@ -83,29 +109,76 @@ public class AdminCraftsmenAccountInfo extends AppCompatActivity implements View
         errorAdmin = findViewById(R.id.errorAdminAdminCraftsmenAccountInfo);
         craftsmanImage = findViewById(R.id.craftsmanImageUserAccountInfo);
 
+        // birthday
+        birthday.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                final Calendar calendar = Calendar.getInstance();
+                int day = calendar.get(Calendar.DAY_OF_MONTH);
+                int month = calendar.get(Calendar.MONTH);
+                int year = calendar.get(Calendar.YEAR);
+
+                // data Piker
+                datePickerDialog = new DatePickerDialog(AdminCraftsmenAccountInfo.this,
+                        new DatePickerDialog.OnDateSetListener() {
+                            @Override
+                            public void onDateSet(DatePicker datePicker, int i, int i1, int i2) {
+                                birthday.setText(i2 + "/" + (i1 + 1) + "/" + i);
+                                craftsman.setBirthday(i2 + "/" + (i1 + 1) + "/" + i);
+                            }
+                        }, year, month, day);
+                datePickerDialog.show();
+            }
+        });
+
+
         // adapterState
         stateList = new ArrayList<>();
         adapterState = new ArrayAdapter(this, android.R.layout.simple_spinner_item, stateList);
 
+        // adapterCity
+        cityList = new ArrayList<>();
+        adapterCity = new ArrayAdapter(this, android.R.layout.simple_spinner_item, cityList);
+
         submit = findViewById(R.id.submitAdminCraftsmenAccountInfo);
         delete = findViewById(R.id.deleteAdminCraftsmenAccountInfo);
+        submit.setOnClickListener(this);
+        delete.setOnClickListener(this);
 
         editTexts = new EditText[]{ name, familyName, birthday, address, desc, email, phone};
-        // ToolsBar
-        Toolbar toolBar = findViewById(R.id.toolbar_back_arrow);
-        setSupportActionBar(toolBar);
-        toolbarTitle = findViewById(R.id.toolbarTitle);
-        backArrow = findViewById(R.id.backArrow);
 
-        toolbarTitle.setText("معلومات الحرفي");
-        backArrow.setOnClickListener(this);
+        // crafts spinner
+        craftsList = new ArrayList();
+        adapterCrafts = new ArrayAdapter<String>(this,
+                android.R.layout.simple_spinner_item, craftsList);
+        getCrafts();
+
+        // level spinner
+        levelList = new ArrayList<>();
+        levelList.add("مستوى");
+        levelList.add("مبتدأ");
+        levelList.add("متوسط");
+        levelList.add("محترف");
+        adapterLevel = new ArrayAdapter<>(this,
+                android.R.layout.simple_spinner_item, levelList);
+
+        // exYears spinner
+        yearsList = new ArrayList<>();
+        yearsList.add("سنوات الخبرة");
+        yearsList.add("أقل من سنة");
+        yearsList.add("مابين سنة و4 سنوات");
+        yearsList.add("اكثر من 4 سنوات");
+        adapterExYears = new ArrayAdapter<>(this,
+                android.R.layout.simple_spinner_item, yearsList);
 
         getUser();
         getStatus();
+        itemStatesSelected();
     }
 
-    private void getStatus(){
-        firestore.collection("States")
+    private void getCrafts(){
+        craftsList.add("الحرف");
+        firestore.collection("Crafts")
                 .get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
@@ -114,13 +187,31 @@ public class AdminCraftsmenAccountInfo extends AppCompatActivity implements View
                             return;
                         }
                         for(QueryDocumentSnapshot d: task.getResult()){
-                            stateList.add(d.toObject(State.class).getAr_name());
+                            craftsList.add(d.toObject(Crafts.class).getName());
                         }
-                        adapterState.notifyDataSetChanged();
+                        adapterCrafts.notifyDataSetChanged();
                     }
                 });
-        adapterState.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        states.setAdapter(adapterState);
+
+        adapterCrafts.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        crafts.setAdapter(adapterCrafts);
+    }
+
+
+    private void itemStatesSelected(){
+        states.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                cityList.clear();
+                cityList.add(0, "بلديات");
+                getCity(adapterView.getSelectedItem().toString());
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
     }
 
     private void getUser(){
@@ -142,10 +233,102 @@ public class AdminCraftsmenAccountInfo extends AppCompatActivity implements View
                         desc.setText(craftsman.getDescription());
                         email.setText(craftsman.getEmail());
                         phone.setText(craftsman.getPhoneNumber());
-                        stateList.add(craftsman.getState());
+                        stateList.add(0, craftsman.getState());
+                        cityList.add(0, craftsman.getCity());
+                        craftsList.add(0, craftsman.getCraft());
+                        levelList.add(0, craftsman.getLevel());
+                        yearsList.add(0, craftsman.getExYears());
+                        getCity(craftsman.getState());
                         retrieveImage(craftsmanImage, craftsman.getIdUser());
+                        adapterLevel.notifyDataSetChanged();
+                        adapterExYears.notifyDataSetChanged();
+                    }
+
+                });
+        adapterLevel.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        level.setAdapter(adapterLevel);
+        adapterExYears.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        years.setAdapter(adapterExYears);
+    }
+
+    private void getStatus(){
+        stateList.add("ولايات");
+        firestore.collection("States")
+                .get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if (!task.isSuccessful()){
+                            Log.e("GetUsers", "failed");
+                            return;
+                        }
+                        for(QueryDocumentSnapshot d: task.getResult()){
+                            stateList.add(d.toObject(State.class).getAr_name());
+                        }
+                        adapterState.notifyDataSetChanged();
                     }
                 });
+        adapterState.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        states.setAdapter(adapterState);
+    }
+
+    private void getCity(String uid){
+        firestore.collection("City")
+                .whereEqualTo("state_name", uid)
+                .get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if (!task.isSuccessful()){
+                            Log.e("GetUsers", "failed");
+                            return;
+                        }
+                        for(QueryDocumentSnapshot d: task.getResult()){
+                            cityList.add(d.toObject(City.class).getCommune_name());
+                        }
+                        adapterCity.notifyDataSetChanged();
+                    }
+                });
+        adapterCity.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        city.setAdapter(adapterCity);
+    }
+
+    private void retrieveImage(ImageView imageView, String image) {
+        FirebaseStorage firebaseStorage = FirebaseStorage.getInstance();
+        StorageReference storageReference = firebaseStorage.getReference().child("Image")
+                .child(image);
+
+        final File file;
+        try {
+            file = File.createTempFile("img", "png");
+
+            storageReference.getFile(file).addOnSuccessListener(new OnSuccessListener<FileDownloadTask.TaskSnapshot>() {
+                @Override
+                public void onSuccess(FileDownloadTask.TaskSnapshot taskSnapshot) {
+                    imageView.setImageBitmap(BitmapFactory.decodeFile(file.getAbsolutePath()));
+                }
+            }).addOnFailureListener(new OnFailureListener() {
+                @Override
+                public void onFailure(@NonNull Exception e) {
+                    imageView.setImageResource(R.drawable.baseline_image_not_supported_24);
+                    Log.e("Image " + image, "Failed");
+                }
+            });
+        } catch (IOException e) {
+            imageView.setImageResource(R.drawable.baseline_image_not_supported_24);
+            throw new RuntimeException(e);
+        }
+    }
+
+    private boolean editTest(EditText[] editTexts) {
+        for (EditText e : editTexts) {
+            if (e.getText().toString().isEmpty()) {
+                e.setBackgroundResource(R.drawable.custom_input_error);
+                errorAdmin.setText("إملء كل خانات");
+                return false;
+            }
+            e.setBackgroundResource(R.drawable.custom_input);
+        }
+        errorAdmin.setText("");
+        return true;
     }
 
     private void updateCraftsman(Craftsman craftsman){
@@ -177,46 +360,6 @@ public class AdminCraftsmenAccountInfo extends AppCompatActivity implements View
         FirebaseAuth.getInstance().getCurrentUser().delete();
     }
 
-    private boolean editTest(EditText[] editTexts) {
-        for (EditText e : editTexts) {
-            if (e.getText().toString().isEmpty()) {
-                e.setBackgroundResource(R.drawable.custom_input_error);
-                errorAdmin.setText("إملء كل خانات");
-                return false;
-            }
-            e.setBackgroundResource(R.drawable.custom_input);
-        }
-        errorAdmin.setText("");
-        return true;
-    }
-
-    private void retrieveImage(ImageView imageView, String image) {
-        FirebaseStorage firebaseStorage = FirebaseStorage.getInstance();
-        StorageReference storageReference = firebaseStorage.getReference().child("Image")
-                .child(image);
-
-        final File file;
-        try {
-            file = File.createTempFile("img", "png");
-
-            storageReference.getFile(file).addOnSuccessListener(new OnSuccessListener<FileDownloadTask.TaskSnapshot>() {
-                @Override
-                public void onSuccess(FileDownloadTask.TaskSnapshot taskSnapshot) {
-                    imageView.setImageBitmap(BitmapFactory.decodeFile(file.getAbsolutePath()));
-                }
-            }).addOnFailureListener(new OnFailureListener() {
-                @Override
-                public void onFailure(@NonNull Exception e) {
-                    imageView.setImageResource(R.drawable.baseline_image_not_supported_24);
-                    Log.e("Image " + image, "Failed");
-                }
-            });
-        } catch (IOException e) {
-            imageView.setImageResource(R.drawable.baseline_image_not_supported_24);
-            throw new RuntimeException(e);
-        }
-    }
-
     @Override
     public void onClick(View view) {
         if (view == backArrow){
@@ -225,8 +368,12 @@ public class AdminCraftsmenAccountInfo extends AppCompatActivity implements View
             startActivity(intent);
             finish();
         } else if (view == submit) {
-            if (editTest(editTexts)){
-                Craftsman craftsman = new Craftsman();
+            if (editTest(editTexts) &&
+                    !states.getSelectedItem().toString().equals("ولايات") &&
+                    !city.getSelectedItem().toString().equals("بلديات") &&
+                    !level.getSelectedItem().toString().equals("مستوى") &&
+                    !years.getSelectedItem().toString().equals("سنوات الخبرة") &&
+                    !crafts.getSelectedItem().toString().equals("الحرف")){
                 craftsman.setIdUser(idUser);
                 craftsman.setName(name.getText().toString());
                 craftsman.setFamilyName(familyName.getText().toString());
@@ -234,12 +381,23 @@ public class AdminCraftsmenAccountInfo extends AppCompatActivity implements View
                 craftsman.setAddress(address.getText().toString());
                 craftsman.setDescription(desc.getText().toString());
                 craftsman.setPhoneNumber(phone.getText().toString());
+                craftsman.setEmail(email.getText().toString());
                 craftsman.setState(states.getSelectedItem().toString());
                 craftsman.setCity(city.getSelectedItem().toString());
                 craftsman.setCraft(crafts.getSelectedItem().toString());
                 craftsman.setLevel(level.getSelectedItem().toString());
                 craftsman.setExYears(years.getSelectedItem().toString());
                 updateCraftsman(craftsman);
+            }else if(states.getSelectedItem().toString().equals("ولايات")){
+                states.setBackgroundResource(R.drawable.custom_input_error);
+            }else if(city.getSelectedItem().toString().equals("بلديات")){
+                city.setBackgroundResource(R.drawable.custom_input_error);
+            }else if(level.getSelectedItem().toString().equals("مستوى")){
+                level.setBackgroundResource(R.drawable.custom_input_error);
+            }else if(years.getSelectedItem().toString().equals("سنوات الخبرة")){
+                years.setBackgroundResource(R.drawable.custom_input_error);
+            }else if(crafts.getSelectedItem().toString().equals("الحرف")){
+                crafts.setBackgroundResource(R.drawable.custom_input_error);
             }
         } else if (view == delete) {
             MaterialAlertDialogBuilder dialogBuilder = new MaterialAlertDialogBuilder(this);

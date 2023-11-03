@@ -123,6 +123,7 @@ public class User {
         hashMap.put("state", state);
         hashMap.put("city", city);
         hashMap.put("email", email);
+        hashMap.put("phoneNumber", phoneNumber);
         hashMap.put("userType", userType);
         hashMap.put("logInSituation", logInSituation);
         return hashMap;

@@ -59,8 +59,8 @@
 
                 <ImageView
                     android:id="@+id/craftsmanImageUserAccountInfo"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
                     tools:srcCompat="@tools:sample/avatars" />
 
 
@@ -170,7 +170,6 @@
                         android:fontFamily="@font/tajawal_regular"
                         android:gravity="right|center"
                         android:hint="تاريخ الميلاد"
-                        android:focusable="false"
                         android:inputType="none"
                         android:textColor="@color/Color01"
                         android:textColorHint="@color/Color01"

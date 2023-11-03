@@ -17,6 +17,7 @@ import android.widget.TextView;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.AggregateQuerySnapshot;
 import com.google.firebase.firestore.AggregateSource;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -29,7 +30,7 @@ public class AdminHomePage extends AppCompatActivity implements View.OnClickList
 
     // Element
     private CardView craftsmenCard, userCard, craftsCard,
-            craftsmen, user, crafts, report, userOnline;
+            craftsmen, user, crafts, report, userOnline, singOut;
     private TextView craftsmanNumber, userNumber, craftsNumber, userOnlineNumber, reportNumber;
 
     private FirebaseFirestore firestore;
@@ -50,7 +51,7 @@ public class AdminHomePage extends AppCompatActivity implements View.OnClickList
         user = findViewById(R.id.userAdminHomePage);
         userOnline = findViewById(R.id.userOnlineAdminHomePage);
         report = findViewById(R.id.reportAdminHomePage);
-
+        singOut = findViewById(R.id.singOutAdminHomePage);
         userNumber = findViewById(R.id.userNumberAdminHomePage);
         craftsmanNumber = findViewById(R.id.craftsmanNumberAdminHomePage);
         craftsNumber = findViewById(R.id.craftsNumberAdminHomePage);
@@ -72,6 +73,7 @@ public class AdminHomePage extends AppCompatActivity implements View.OnClickList
         userCard.setOnClickListener(this);
         userOnline.setOnClickListener(this);
         report.setOnClickListener(this);
+        singOut.setOnClickListener(this);
 
     }
 
@@ -174,5 +176,7 @@ public class AdminHomePage extends AppCompatActivity implements View.OnClickList
             startActivity(new Intent(AdminHomePage.this, AdminReport.class));
         else if (view == userOnline)
             startActivity(new Intent(AdminHomePage.this, AdminOnlineUsers.class));
+        else if (view == singOut)
+            FirebaseAuth.getInstance().signOut();
     }
 }

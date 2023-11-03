@@ -4,18 +4,22 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
+import android.app.DatePickerDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -30,8 +34,7 @@ import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.storage.FileDownloadTask;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
-import com.hadjmohamed.hirfati.Crafts;
-import com.hadjmohamed.hirfati.Craftsman;
+import com.hadjmohamed.hirfati.City;
 import com.hadjmohamed.hirfati.R;
 import com.hadjmohamed.hirfati.State;
 import com.hadjmohamed.hirfati.User;
@@ -39,6 +42,7 @@ import com.hadjmohamed.hirfati.User;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
 
@@ -52,9 +56,10 @@ public class AdminUserAccountInfo extends AppCompatActivity implements View.OnCl
     private TextView close, errorAdmin, numberAdmin;
     private EditText[] editTexts;
     private String idUser;
-
-    private List<String> stateList;
-    private ArrayAdapter<CharSequence> adapterState;
+    private List<String> stateList, cityList;
+    private ArrayAdapter<CharSequence> adapterState, adapterCity;
+    // birthday
+    private DatePickerDialog datePickerDialog;
     // toolbar
     private Toolbar toolbar;
     private ImageView backArrow, imageViewToolBar;
@@ -62,6 +67,7 @@ public class AdminUserAccountInfo extends AppCompatActivity implements View.OnCl
 
     //firebase
     private FirebaseFirestore firestore;
+    private User user;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -69,6 +75,7 @@ public class AdminUserAccountInfo extends AppCompatActivity implements View.OnCl
         setContentView(R.layout.activity_admin_user_account_info);
         idUser = getIntent().getStringExtra("idUser");
         firestore = FirebaseFirestore.getInstance();
+        user = new User();
 
         // Element
         numberAdmin = findViewById(R.id.userNumberAdminUserAccountInfo);
@@ -86,9 +93,36 @@ public class AdminUserAccountInfo extends AppCompatActivity implements View.OnCl
         city = findViewById(R.id.cityAdminUserAccountInfo);
         errorAdmin = findViewById(R.id.errorAdminUserAccountInfo);
 
+        // birthday
+        birthday.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                final Calendar calendar = Calendar.getInstance();
+                int day = calendar.get(Calendar.DAY_OF_MONTH);
+                int month = calendar.get(Calendar.MONTH);
+                int year = calendar.get(Calendar.YEAR);
+
+                // data Piker
+                datePickerDialog = new DatePickerDialog(AdminUserAccountInfo.this,
+                        new DatePickerDialog.OnDateSetListener() {
+                            @Override
+                            public void onDateSet(DatePicker datePicker, int i, int i1, int i2) {
+                                birthday.setText(i2 + "/" + (i1 + 1) + "/" + i);
+                                user.setBirthday(i2 + "/" + (i1 + 1) + "/" + i);
+                            }
+                        }, year, month, day);
+                datePickerDialog.show();
+            }
+        });
+
         // adapterState
         stateList = new ArrayList<>();
         adapterState = new ArrayAdapter(this, android.R.layout.simple_spinner_item, stateList);
+
+        // adapterCity
+        cityList = new ArrayList<>();
+        adapterCity = new ArrayAdapter(this, android.R.layout.simple_spinner_item, cityList);
+
 
         submit = findViewById(R.id.submitAdminUserAccountInfo);
         submit.setOnClickListener(this);
@@ -106,6 +140,23 @@ public class AdminUserAccountInfo extends AppCompatActivity implements View.OnCl
 
         getUser();
         getStatus();
+        itemStatesSelected();
+    }
+
+    private void itemStatesSelected(){
+        states.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                cityList.clear();
+                cityList.add(0, "بلديات");
+                getCity(adapterView.getSelectedItem().toString());
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
     }
 
     private void getUser(){
@@ -126,23 +177,53 @@ public class AdminUserAccountInfo extends AppCompatActivity implements View.OnCl
                         address.setText(user.getAddress());
                         email.setText(user.getEmail());
                         phone.setText(user.getPhoneNumber());
-                        stateList.add(user.getState());
+                        stateList.add(0, user.getState());
+                        cityList.add(0, user.getCity());
+                        getCity(user.getState());
                         retrieveImage(userImageAdmin, user.getIdUser());
                     }
                 });
     }
 
-    private boolean editTest(EditText[] editTexts) {
-        for (EditText e : editTexts) {
-            if (e.getText().toString().isEmpty()) {
-                e.setBackgroundResource(R.drawable.custom_input_error);
-                errorAdmin.setText("إملء كل خانات");
-                return false;
-            }
-            e.setBackgroundResource(R.drawable.custom_input);
-        }
-        errorAdmin.setText("");
-        return true;
+
+    private void getStatus(){
+        stateList.add("ولايات");
+        firestore.collection("States")
+                .get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if (!task.isSuccessful()){
+                            Log.e("GetUsers", "failed");
+                            return;
+                        }
+                        for(QueryDocumentSnapshot d: task.getResult()){
+                            stateList.add(d.toObject(State.class).getAr_name());
+                        }
+                        adapterState.notifyDataSetChanged();
+                    }
+                });
+        adapterState.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        states.setAdapter(adapterState);
+    }
+
+    private void getCity(String uid){
+        firestore.collection("City")
+                .whereEqualTo("state_name", uid)
+                .get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if (!task.isSuccessful()){
+                            Log.e("GetUsers", "failed");
+                            return;
+                        }
+                        for(QueryDocumentSnapshot d: task.getResult()){
+                            cityList.add(d.toObject(City.class).getCommune_name());
+                        }
+                        adapterCity.notifyDataSetChanged();
+                    }
+                });
+        adapterCity.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        city.setAdapter(adapterCity);
     }
 
     private void retrieveImage(ImageView imageView, String image) {
@@ -173,6 +254,19 @@ public class AdminUserAccountInfo extends AppCompatActivity implements View.OnCl
 
     }
 
+    private boolean editTest(EditText[] editTexts) {
+        for (EditText e : editTexts) {
+            if (e.getText().toString().isEmpty()) {
+                e.setBackgroundResource(R.drawable.custom_input_error);
+                errorAdmin.setText("إملء كل خانات");
+                return false;
+            }
+            e.setBackgroundResource(R.drawable.custom_input);
+        }
+        errorAdmin.setText("");
+        return true;
+    }
+
     private void updateUser(User user){
         HashMap<String, Object> userMap = user.toHashMap();
         firestore.collection("Users")
@@ -198,25 +292,6 @@ public class AdminUserAccountInfo extends AppCompatActivity implements View.OnCl
         FirebaseAuth.getInstance().getCurrentUser().delete();
     }
 
-    private void getStatus(){
-        firestore.collection("States")
-                .get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                    @Override
-                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                        if (!task.isSuccessful()){
-                            Log.e("GetUsers", "failed");
-                            return;
-                        }
-                        for(QueryDocumentSnapshot d: task.getResult()){
-                            stateList.add(d.toObject(State.class).getAr_name());
-                        }
-                        adapterState.notifyDataSetChanged();
-                    }
-                });
-        adapterState.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        states.setAdapter(adapterState);
-    }
-
     @Override
     public void onClick(View view) {
         if (view == backArrow){
@@ -239,18 +314,24 @@ public class AdminUserAccountInfo extends AppCompatActivity implements View.OnCl
                 dialog.cancel();
             });
         } else if (view == submit){
-            if (editTest(editTexts)){
-                User user = new User();
+            if (editTest(editTexts) &&
+                    !states.getSelectedItem().toString().equals("ولايات") &&
+            !city.getSelectedItem().toString().equals("بلديات")){
                 user.setIdUser(idUser);
                 user.setName(name.getText().toString());
                 user.setFamilyName(familyName.getText().toString());
                 user.setBirthday(birthday.getText().toString());
+                user.setEmail(email.getText().toString());
                 user.setAddress(address.getText().toString());
                 user.setPhoneNumber(phone.getText().toString());
                 user.setState(states.getSelectedItem().toString());
-//                user.setCity(city.getSelectedItem().toString());
-
+                user.setCity(city.getSelectedItem().toString());
+                user.setUserType("User");
                 updateUser(user);
+            }else if(states.getSelectedItem().toString().equals("ولايات")){
+                states.setBackgroundResource(R.drawable.custom_input_error);
+            }else if(city.getSelectedItem().toString().equals("بلديات")){
+                city.setBackgroundResource(R.drawable.custom_input_error);
             }
         }
     }

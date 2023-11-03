@@ -39,6 +39,7 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.OnProgressListener;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
+import com.hadjmohamed.hirfati.City;
 import com.hadjmohamed.hirfati.Crafts;
 import com.hadjmohamed.hirfati.Craftsman;
 import com.hadjmohamed.hirfati.HomePageActivity;
@@ -75,13 +76,14 @@ public class AdminCraftsmenAccountAdd extends AppCompatActivity implements View.
     private StorageReference storageReference;
     // birthday
     private DatePickerDialog datePickerDialog;
+
+    // states and city
+    private List<String> stateList, cityList;
+    private ArrayAdapter<CharSequence> adapterState, adapterCity;
+    // crafts, level and years
+    private List<String> craftsList, levelList, yearsList;
+    private ArrayAdapter<String> adapterCrafts, adapterLevel, adapterExYears;
     private Craftsman craftsman;
-    // state
-    private List<String> stateList;
-    ArrayAdapter<String> adapterState;
-    // crafts list
-    private List<String> craftsList;
-    private ArrayAdapter<String> adapterCrafts;
 
     // Firebase
     private FirebaseAuth firebaseAuth;
@@ -107,6 +109,7 @@ public class AdminCraftsmenAccountAdd extends AppCompatActivity implements View.
         backArrow = findViewById(R.id.backArrow);
         backArrow.setOnClickListener(this);
         toolbarTitle = findViewById(R.id.toolbarTitle);
+        toolbarTitle.setText("اضافة حرفي");
         imageViewToolBar = findViewById(R.id.imageViewToolBar);
 
         // get all element
@@ -155,50 +158,66 @@ public class AdminCraftsmenAccountAdd extends AppCompatActivity implements View.
         editTexts = new EditText[]{nameAdmin, familyNameAdmin, birthdayAdmin, addressAdmin,
                 emailAdmin, phoneNumberAdmin, passwordAdmin, password02Admin};
 
-        // adapterState spinner
+        // adapterState
         stateList = new ArrayList<>();
-        adapterState = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, stateList);
-        getStatus();
+        adapterState = new ArrayAdapter(this, android.R.layout.simple_spinner_item, stateList);
+
+        // adapterCity
+        cityList = new ArrayList<>();
+        adapterCity = new ArrayAdapter(this, android.R.layout.simple_spinner_item, cityList);
 
         // crafts spinner
         craftsList = new ArrayList();
-        adapterCrafts = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, craftsList);
+        adapterCrafts = new ArrayAdapter<String>(this,
+                android.R.layout.simple_spinner_item, craftsList);
         getCrafts();
+
         // level spinner
-        ArrayAdapter<CharSequence> adapterLevel = ArrayAdapter.createFromResource(this,R.array.level,
-                android.R.layout.simple_spinner_item);
+        levelList = new ArrayList<>();
+        levelList.add("مستوى");
+        levelList.add("مبتدأ");
+        levelList.add("متوسط");
+        levelList.add("محترف");
+        adapterLevel = new ArrayAdapter<>(this,
+                android.R.layout.simple_spinner_item, levelList);
         adapterLevel.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         levelAdmin.setAdapter(adapterLevel);
         // exYears spinner
-        ArrayAdapter<CharSequence> adapterExYears = ArrayAdapter.createFromResource(this,R.array.exYears,
-                android.R.layout.simple_spinner_item);
+        yearsList = new ArrayList<>();
+        yearsList.add("سنوات الخبرة");
+        yearsList.add("أقل من سنة");
+        yearsList.add("مابين سنة و4 سنوات");
+        yearsList.add("اكثر من 4 سنوات");
+        adapterExYears = new ArrayAdapter<>(this,
+                android.R.layout.simple_spinner_item, yearsList);
         adapterExYears.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         yearsAdmin.setAdapter(adapterExYears);
+
+        getStatus();
+        itemStatesSelected();
 
         submitAdmin.setOnClickListener(this);
     }
 
-    private void getCrafts(){
-        firestore.collection("Crafts")
-                .get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                    @Override
-                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                        if (!task.isSuccessful()){
-                            Log.e("GetUsers", "failed");
-                            return;
-                        }
-                        for(QueryDocumentSnapshot d: task.getResult()){
-                            craftsList.add(d.toObject(Crafts.class).getName());
-                        }
-                        adapterCrafts.notifyDataSetChanged();
-                    }
-                });
 
-        adapterCrafts.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        craftsAdmin.setAdapter(adapterCrafts);
+    private void itemStatesSelected(){
+        statesAdmin.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                cityList.clear();
+                cityList.add(0, "بلديات");
+                getCity(adapterView.getSelectedItem().toString());
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
     }
 
     private void getStatus(){
+        stateList.add("ولايات");
         firestore.collection("States")
                 .get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override
@@ -216,6 +235,27 @@ public class AdminCraftsmenAccountAdd extends AppCompatActivity implements View.
         adapterState.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         statesAdmin.setAdapter(adapterState);
     }
+
+    private void getCity(String uid){
+        firestore.collection("City")
+                .whereEqualTo("state_name", uid)
+                .get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if (!task.isSuccessful()){
+                            Log.e("GetUsers", "failed");
+                            return;
+                        }
+                        for(QueryDocumentSnapshot d: task.getResult()){
+                            cityList.add(d.toObject(City.class).getCommune_name());
+                        }
+                        adapterCity.notifyDataSetChanged();
+                    }
+                });
+        adapterCity.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        cityAdmin.setAdapter(adapterCity);
+    }
+
 
     private boolean editTest(EditText[] editTexts){
         for (EditText e:editTexts) {
@@ -354,10 +394,37 @@ public class AdminCraftsmenAccountAdd extends AppCompatActivity implements View.
                 });
     }
 
+    private void getCrafts(){
+        craftsList.add("الحرف");
+        firestore.collection("Crafts")
+                .get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if (!task.isSuccessful()){
+                            Log.e("GetUsers", "failed");
+                            return;
+                        }
+                        for(QueryDocumentSnapshot d: task.getResult()){
+                            craftsList.add(d.toObject(Crafts.class).getName());
+                        }
+                        adapterCrafts.notifyDataSetChanged();
+                    }
+                });
+
+        adapterCrafts.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        craftsAdmin.setAdapter(adapterCrafts);
+    }
+
+
     @Override
     public void onClick(View view) {
         if (view == submitAdmin){
-            if (editTest(editTexts)){
+            if (editTest(editTexts) &&
+                    !statesAdmin.getSelectedItem().toString().equals("ولايات") &&
+                    !cityAdmin.getSelectedItem().toString().equals("بلديات") &&
+                    !levelAdmin.getSelectedItem().toString().equals("مستوى") &&
+                    !yearsAdmin.getSelectedItem().toString().equals("سنوات الخبرة") &&
+                    !craftsAdmin.getSelectedItem().toString().equals("الحرف")){
                 if (passwordAdmin.getText().toString().equals(password02Admin.getText().toString())) {
                     // Progress
                     progressDialog = new ProgressDialog(this);
@@ -368,7 +435,7 @@ public class AdminCraftsmenAccountAdd extends AppCompatActivity implements View.
                     craftsman.setName(nameAdmin.getText().toString());
                     craftsman.setFamilyName(familyNameAdmin.getText().toString());
                     craftsman.setAddress(addressAdmin.getText().toString());
-//                    user.setCity(cityAdmin.getSelectedItem().toString());
+                    craftsman.setCity(cityAdmin.getSelectedItem().toString());
                     craftsman.setState(statesAdmin.getSelectedItem().toString());
                     craftsman.setEmail(emailAdmin.getText().toString());
                     craftsman.setPhoneNumber(phoneNumberAdmin.getText().toString());
@@ -384,6 +451,16 @@ public class AdminCraftsmenAccountAdd extends AppCompatActivity implements View.
                     passwordAdmin.setBackgroundResource(R.drawable.custom_input_error);
                     password02Admin.setBackgroundResource(R.drawable.custom_input_error);
                 }
+            }else if(statesAdmin.getSelectedItem().toString().equals("ولايات")){
+                statesAdmin.setBackgroundResource(R.drawable.custom_input_error);
+            }else if(cityAdmin.getSelectedItem().toString().equals("بلديات")){
+                cityAdmin.setBackgroundResource(R.drawable.custom_input_error);
+            }else if(levelAdmin.getSelectedItem().toString().equals("مستوى")){
+                levelAdmin.setBackgroundResource(R.drawable.custom_input_error);
+            }else if(yearsAdmin.getSelectedItem().toString().equals("سنوات الخبرة")){
+                yearsAdmin.setBackgroundResource(R.drawable.custom_input_error);
+            }else if(craftsAdmin.getSelectedItem().toString().equals("الحرف")){
+                craftsAdmin.setBackgroundResource(R.drawable.custom_input_error);
             }
         } else if (view == uploadImage) {
             Intent intent = new Intent();

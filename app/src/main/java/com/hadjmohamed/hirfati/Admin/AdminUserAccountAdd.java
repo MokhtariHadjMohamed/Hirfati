@@ -15,6 +15,7 @@ import android.os.Bundle;
 import android.provider.MediaStore;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
@@ -37,6 +38,7 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.OnProgressListener;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
+import com.hadjmohamed.hirfati.City;
 import com.hadjmohamed.hirfati.Craftsman;
 import com.hadjmohamed.hirfati.ImageResizer;
 import com.hadjmohamed.hirfati.R;
@@ -57,8 +59,8 @@ public class AdminUserAccountAdd extends AppCompatActivity implements View.OnCli
     private Spinner statesAdmin, cityAdmin;
     private Button submitAdmin;
     private TextView errorAdmin;
-    private List<String> stateList;
-    private ArrayAdapter<CharSequence> adapterState;
+    private List<String> stateList, cityList;
+    private ArrayAdapter<CharSequence> adapterState, adapterCity;
     // toolbar
     private Toolbar toolbar;
     private ImageView backArrow, imageViewToolBar;
@@ -70,6 +72,7 @@ public class AdminUserAccountAdd extends AppCompatActivity implements View.OnCli
     private ImageView userImage;
     private FirebaseStorage storage;
     private StorageReference storageReference;
+
     // birthday
     private DatePickerDialog datePickerDialog;
 
@@ -97,6 +100,7 @@ public class AdminUserAccountAdd extends AppCompatActivity implements View.OnCli
         backArrow = findViewById(R.id.backArrow);
         backArrow.setOnClickListener(this);
         toolbarTitle = findViewById(R.id.toolbarTitle);
+        toolbarTitle.setText("اضافة مستخدم");
         imageViewToolBar = findViewById(R.id.imageViewToolBar);
 
         // get all element
@@ -143,13 +147,35 @@ public class AdminUserAccountAdd extends AppCompatActivity implements View.OnCli
                 emailAdmin, phoneNumberAdmin, passwordAdmin, password02Admin};
 
         // adapterState
-        stateList = new ArrayList<>();
+                stateList = new ArrayList<>();
         adapterState = new ArrayAdapter(this, android.R.layout.simple_spinner_item, stateList);
-        getStatus();
 
+        // adapterCity
+        cityList = new ArrayList<>();
+        adapterCity = new ArrayAdapter(this, android.R.layout.simple_spinner_item, cityList);
+
+        getStatus();
+        itemStatesSelected();
+    }
+
+    private void itemStatesSelected(){
+        statesAdmin.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                cityList.clear();
+                cityList.add(0, "بلديات");
+                getCity(adapterView.getSelectedItem().toString());
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
     }
 
     private void getStatus(){
+        stateList.add("ولايات");
         firestore.collection("States")
                 .get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override
@@ -167,6 +193,28 @@ public class AdminUserAccountAdd extends AppCompatActivity implements View.OnCli
         adapterState.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         statesAdmin.setAdapter(adapterState);
     }
+
+    private void getCity(String uid){
+        firestore.collection("City")
+                .whereEqualTo("state_name", uid)
+                .get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if (!task.isSuccessful()){
+                            Log.e("GetUsers", "failed");
+                            return;
+                        }
+                        for(QueryDocumentSnapshot d: task.getResult()){
+                            cityList.add(d.toObject(City.class).getCommune_name());
+                        }
+                        adapterCity.notifyDataSetChanged();
+                    }
+                });
+        adapterCity.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        cityAdmin.setAdapter(adapterCity);
+    }
+
+
     private boolean editTest(EditText[] editTexts){
         for (EditText e:editTexts) {
             if (e.getText().toString().isEmpty()){
@@ -306,7 +354,9 @@ public class AdminUserAccountAdd extends AppCompatActivity implements View.OnCli
     @Override
     public void onClick(View view) {
         if (view == submitAdmin){
-            if (editTest(editTexts)) {
+            if (editTest(editTexts) &&
+                    !statesAdmin.getSelectedItem().toString().equals("ولايات") &&
+                    !cityAdmin.getSelectedItem().toString().equals("بلديات")) {
                 if (passwordAdmin.getText().toString().equals(password02Admin.getText().toString())) {
                     // Progress
                     progressDialog = new ProgressDialog(this);
@@ -317,7 +367,7 @@ public class AdminUserAccountAdd extends AppCompatActivity implements View.OnCli
                     user.setName(nameAdmin.getText().toString());
                     user.setFamilyName(familyNameAdmin.getText().toString());
                     user.setAddress(addressAdmin.getText().toString());
-//                    user.setCity(cityAdmin.getSelectedItem().toString());
+                    user.setCity(cityAdmin.getSelectedItem().toString());
                     user.setState(statesAdmin.getSelectedItem().toString());
                     user.setEmail(emailAdmin.getText().toString());
                     user.setPhoneNumber(phoneNumberAdmin.getText().toString());
@@ -329,6 +379,10 @@ public class AdminUserAccountAdd extends AppCompatActivity implements View.OnCli
                     passwordAdmin.setBackgroundResource(R.drawable.custom_input_error);
                     password02Admin.setBackgroundResource(R.drawable.custom_input_error);
                 }
+            }else if(statesAdmin.getSelectedItem().toString().equals("ولايات")){
+                statesAdmin.setBackgroundResource(R.drawable.custom_input_error);
+            }else if(cityAdmin.getSelectedItem().toString().equals("بلديات")){
+                cityAdmin.setBackgroundResource(R.drawable.custom_input_error);
             }
         } else if (view == uploadImage) {
             Intent intent = new Intent();

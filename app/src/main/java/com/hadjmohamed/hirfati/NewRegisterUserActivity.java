@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
@@ -39,8 +40,8 @@ public class NewRegisterUserActivity extends AppCompatActivity implements View.O
     private EditText[] editTextsPage01, editTextsPage02;
     private Button next, submit, logIn, goBack;
     private DatePickerDialog datePickerDialog;
-    private List<String> stateList;
-    private ArrayAdapter<CharSequence> adapterState;
+    private List<String> stateList, cityList;
+    private ArrayAdapter<CharSequence> adapterState, adapterCity;
     private User user;
     // FireBase
     private FirebaseAuth firebaseAuth;
@@ -63,14 +64,17 @@ public class NewRegisterUserActivity extends AppCompatActivity implements View.O
         name = findViewById(R.id.nameUser);
         familyName = findViewById(R.id.familyNameUser);
         address = findViewById(R.id.addressUser);
-
+        state = findViewById(R.id.stateUser);
+        city = findViewById(R.id.citiesUser);
         errorUser = findViewById(R.id.errorUser);
 
         // adapterState
-        state = findViewById(R.id.stateUser);
         stateList = new ArrayList<>();
         adapterState = new ArrayAdapter(this, android.R.layout.simple_spinner_item, stateList);
-        getStatus();
+
+        // adapterCity
+        cityList = new ArrayList<>();
+        adapterCity = new ArrayAdapter(this, android.R.layout.simple_spinner_item, cityList);
 
         // birthday selected
         birthday = findViewById(R.id.dateUser);
@@ -102,9 +106,29 @@ public class NewRegisterUserActivity extends AppCompatActivity implements View.O
         logIn.setOnClickListener(this);
 
         editTextsPage01 = new EditText[]{name, familyName, address, birthday};
+
+        getStatus();
+        itemStatesSelected();
+    }
+
+    private void itemStatesSelected(){
+        state.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                cityList.clear();
+                cityList.add(0, "بلديات");
+                getCity(adapterView.getSelectedItem().toString());
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
     }
 
     private void getStatus(){
+        stateList.add("ولايات");
         firestore.collection("States")
                 .get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override
@@ -122,6 +146,27 @@ public class NewRegisterUserActivity extends AppCompatActivity implements View.O
         adapterState.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         state.setAdapter(adapterState);
     }
+
+    private void getCity(String uid){
+        firestore.collection("City")
+                .whereEqualTo("state_name", uid)
+                .get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if (!task.isSuccessful()){
+                            Log.e("GetUsers", "failed");
+                            return;
+                        }
+                        for(QueryDocumentSnapshot d: task.getResult()){
+                            cityList.add(d.toObject(City.class).getCommune_name());
+                        }
+                        adapterCity.notifyDataSetChanged();
+                    }
+                });
+        adapterCity.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        city.setAdapter(adapterCity);
+    }
+
 
     private void page02(){
         setContentView(R.layout.activity_new_register_user02);
@@ -198,12 +243,17 @@ public class NewRegisterUserActivity extends AppCompatActivity implements View.O
     @Override
     public void onClick(View view) {
         if (next == view){
-            if (editTest(editTextsPage01)){
+            if (editTest(editTextsPage01) && !state.getSelectedItem().toString().equals("ولايات") &&
+                    !city.getSelectedItem().toString().equals("بلديات")){
                 user.setName(name.getText().toString());
                 user.setFamilyName(familyName.getText().toString());
                 user.setAddress(address.getText().toString());
                 user.setState(state.getSelectedItem().toString());
                 page02();
+            }else if(state.getSelectedItem().toString().equals("ولايات")){
+                state.setBackgroundResource(R.drawable.custom_input_error);
+            }else if(city.getSelectedItem().toString().equals("بلديات")){
+                city.setBackgroundResource(R.drawable.custom_input_error);
             }
         } else if (logIn == view) {
             startActivity(new Intent(NewRegisterUserActivity.this, LogInActivity.class));

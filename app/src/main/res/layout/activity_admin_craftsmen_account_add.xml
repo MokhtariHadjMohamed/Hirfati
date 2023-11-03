@@ -159,7 +159,7 @@
                         android:fontFamily="@font/tajawal_regular"
                         android:gravity="right|center"
                         android:hint="تاريخ الميلاد"
-                        android:inputType="text"
+                        android:inputType="none"
                         android:textColor="@color/Color01"
                         android:textColorHint="@color/Color01"
                         android:textSize="20sp"
