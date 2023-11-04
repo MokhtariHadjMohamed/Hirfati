@@ -4,30 +4,41 @@ import android.net.Uri;
 
 public class Comment {
 
-    private Uri image;
-    private String name;
+    private String uid, uidUser, uidCraftsman;
     private String text;
 
-    public Comment(Uri image, String name, String text) {
-        this.image = image;
-        this.name = name;
+    public Comment() {
+    }
+
+    public Comment(String uid, String uidUser, String uidCraftsman, String text) {
+        this.uid = uid;
+        this.uidUser = uidUser;
+        this.uidCraftsman = uidCraftsman;
         this.text = text;
     }
 
-    public Uri getImage() {
-        return image;
+    public String getUid() {
+        return uid;
     }
 
-    public void setImage(Uri image) {
-        this.image = image;
+    public void setUid(String uid) {
+        this.uid = uid;
     }
 
-    public String getName() {
-        return name;
+    public String getUidUser() {
+        return uidUser;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setUidUser(String uidUser) {
+        this.uidUser = uidUser;
+    }
+
+    public String getUidCraftsman() {
+        return uidCraftsman;
+    }
+
+    public void setUidCraftsman(String uidCraftsman) {
+        this.uidCraftsman = uidCraftsman;
     }
 
     public String getText() {

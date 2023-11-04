@@ -17,6 +17,8 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -26,14 +28,20 @@ import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.storage.FileDownloadTask;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
+import com.hadjmohamed.hirfati.AdapterRecComment;
+import com.hadjmohamed.hirfati.Comment;
 import com.hadjmohamed.hirfati.R;
 import com.hadjmohamed.hirfati.User;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class AdminUserAccount extends AppCompatActivity implements View.OnClickListener {
 
@@ -42,6 +50,10 @@ public class AdminUserAccount extends AppCompatActivity implements View.OnClickL
     private TextView numberAdmin, nameAdmin, familyNameAdmin, birthdayAdmin, addressAdmin;
     private ImageView userInfoImage;
     private String idUser;
+    // AdapterRecComment
+    private List<Comment> commentList;
+    private AdapterRecComment adapterRecComment;
+    private RecyclerView recyclerView;
 
     // toolbar
     private Toolbar toolbar;
@@ -83,7 +95,34 @@ public class AdminUserAccount extends AppCompatActivity implements View.OnClickL
         toolbarTitle.setText("المستعمل");
         backArrow.setOnClickListener(this);
 
+        // comment RecyclerView
+        recyclerView = findViewById(R.id.commintAdminUserAccount);
+        commentList = new ArrayList<>();
+        adapterRecComment = new AdapterRecComment(getApplicationContext(), commentList);
+        getComment();
+
         getUser();
+    }
+
+    private void getComment() {
+        firestore.collection("Comment")
+                .whereEqualTo("uidUser", idUser)
+                .get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if (!task.isSuccessful()) {
+                            Log.d("get Comment: ", "failed");
+                            return;
+                        }
+                        for (QueryDocumentSnapshot c : task.getResult()) {
+                            commentList.add(c.toObject(Comment.class));
+                        }
+                        adapterRecComment.notifyDataSetChanged();
+                    }
+                });
+        recyclerView.setLayoutManager(new LinearLayoutManager(this,
+                LinearLayoutManager.VERTICAL, false));
+        recyclerView.setAdapter(adapterRecComment);
     }
 
     private void retrieveImage(ImageView imageView, String image) {

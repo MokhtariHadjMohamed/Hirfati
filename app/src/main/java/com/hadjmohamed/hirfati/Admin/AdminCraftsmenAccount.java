@@ -28,6 +28,8 @@ import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.storage.FileDownloadTask;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
@@ -49,7 +51,12 @@ public class AdminCraftsmenAccount extends AppCompatActivity implements View.OnC
     private Button craftsmanInfo, reportCraftsman, deleteCraftsmen;
     private TextView numberAdmin, nameAndFamilyNameAdmin, craftsAdmin, descAdmin;
     private ImageView craftsmanInfoImage;
+    private RecyclerView recyclerView;
     private String idUser;
+
+    // AdapterRecComment
+    private List<Comment> commentList;
+    private AdapterRecComment adapterRecComment;
 
     // toolbar
     private Toolbar toolbar;
@@ -90,29 +97,45 @@ public class AdminCraftsmenAccount extends AppCompatActivity implements View.OnC
 
         toolbarTitle.setText("الحرفي");
         backArrow.setOnClickListener(this);
-        
+
         getUser();
 
         // comment RecyclerView
-        RecyclerView recyclerView = findViewById(R.id.commentAdminCraftsmenAccount);
-        List<Comment> commentList = new ArrayList<>();
-        commentList.add(new Comment(null, "جاك سيمسون", "بلا بلا بلا بلا"));
-        commentList.add(new Comment(null, "جاك سيمسون", "بلا بلا بلا بلا"));
-        commentList.add(new Comment(null, "جاك سيمسون", "بلا بلا بلا بلا"));
+        recyclerView = findViewById(R.id.commentAdminCraftsmenAccount);
+        commentList = new ArrayList<>();
+        adapterRecComment = new AdapterRecComment(getApplicationContext(), commentList);
+        getComment();
 
-        recyclerView.setLayoutManager(new LinearLayoutManager(this,
-                LinearLayoutManager.VERTICAL, false));
-
-        recyclerView.setAdapter(new AdapterRecComment(getApplicationContext(), commentList));
     }
 
-    private void getUser(){
+    private void getComment() {
+        firestore.collection("Comment")
+                .whereEqualTo("uidCraftsman", idUser)
+                .get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if (!task.isSuccessful()) {
+                            Log.d("get Comment: ", "failed");
+                            return;
+                        }
+                        for (QueryDocumentSnapshot c : task.getResult()) {
+                            commentList.add(c.toObject(Comment.class));
+                        }
+                        adapterRecComment.notifyDataSetChanged();
+                    }
+                });
+        recyclerView.setLayoutManager(new LinearLayoutManager(this,
+                LinearLayoutManager.VERTICAL, false));
+        recyclerView.setAdapter(adapterRecComment);
+    }
+
+    private void getUser() {
         firestore.collection("Users")
                 .document(idUser)
                 .get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
                     @Override
                     public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                        if (!task.isSuccessful()){
+                        if (!task.isSuccessful()) {
                             Log.d("get User: ", "failed");
                             return;
                         }
@@ -126,12 +149,12 @@ public class AdminCraftsmenAccount extends AppCompatActivity implements View.OnC
                 });
     }
 
-    private void deleteUser(String uid){
+    private void deleteUser(String uid) {
         firestore.collection("Users").document(uid).delete();
         FirebaseAuth.getInstance().getCurrentUser().delete();
     }
 
-    private void dialogReport(){
+    private void dialogReport() {
         final Dialog dialog = new Dialog(this);
 
         dialog.setContentView(R.layout.send_raport_custom_dialog);
@@ -184,7 +207,7 @@ public class AdminCraftsmenAccount extends AppCompatActivity implements View.OnC
 
     }
 
-    private void sendReport(String text, String email){
+    private void sendReport(String text, String email) {
         String[] TO = {email};
         Intent emailIntent = new Intent(Intent.ACTION_SEND);
 
@@ -206,14 +229,13 @@ public class AdminCraftsmenAccount extends AppCompatActivity implements View.OnC
 
     @Override
     public void onClick(View view) {
-        if (view == craftsmanInfo){
+        if (view == craftsmanInfo) {
             Intent intent = new Intent(AdminCraftsmenAccount.this, AdminCraftsmenAccountInfo.class);
             intent.putExtra("idUser", idUser);
             startActivity(intent);
-        }
-        else if(view == reportCraftsman)
+        } else if (view == reportCraftsman)
             dialogReport();
-        else if(view == deleteCraftsmen){
+        else if (view == deleteCraftsmen) {
             MaterialAlertDialogBuilder dialogBuilder = new MaterialAlertDialogBuilder(this);
             dialogBuilder.setMessage("هل تريد حذف هذه الحرفة؟");
             dialogBuilder.setTitle("الطلب");
@@ -227,7 +249,7 @@ public class AdminCraftsmenAccount extends AppCompatActivity implements View.OnC
                 // If user click no then dialog box is canceled.
                 dialog.cancel();
             });
-        } else if(view == backArrow){
+        } else if (view == backArrow) {
             startActivity(new Intent(AdminCraftsmenAccount.this, AdminCraftsmen.class));
             finish();
         }

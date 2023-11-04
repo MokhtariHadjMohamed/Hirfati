@@ -39,9 +39,9 @@ public class UserAccountActivity extends AppCompatActivity implements View.OnCli
         // comment RecyclerView
         RecyclerView recyclerView = findViewById(R.id.commentUserAccount);
         List<Comment> commentList = new ArrayList<>();
-        commentList.add(new Comment(null, "جاك سيمسون", "بلا بلا بلا بلا"));
-        commentList.add(new Comment(null, "جاك سيمسون", "بلا بلا بلا بلا"));
-        commentList.add(new Comment(null, "جاك سيمسون", "بلا بلا بلا بلا"));
+//        commentList.add(new Comment(null, "جاك سيمسون", "بلا بلا بلا بلا"));
+//        commentList.add(new Comment(null, "جاك سيمسون", "بلا بلا بلا بلا"));
+//        commentList.add(new Comment(null, "جاك سيمسون", "بلا بلا بلا بلا"));
 
         recyclerView.setLayoutManager(new LinearLayoutManager(this,
                 LinearLayoutManager.VERTICAL, false));

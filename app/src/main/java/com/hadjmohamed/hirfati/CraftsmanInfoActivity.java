@@ -38,9 +38,9 @@ public class CraftsmanInfoActivity extends AppCompatActivity implements View.OnC
         // comment RecyclerView
         RecyclerView recyclerView = findViewById(R.id.commentCraftsmanInfo);
         List<Comment> commentList = new ArrayList<>();
-        commentList.add(new Comment(null, "جاك سيمسون", "بلا بلا بلا بلا"));
-        commentList.add(new Comment(null, "جاك سيمسون", "بلا بلا بلا بلا"));
-        commentList.add(new Comment(null, "جاك سيمسون", "بلا بلا بلا بلا"));
+//        commentList.add(new Comment(null, "جاك سيمسون", "بلا بلا بلا بلا"));
+//        commentList.add(new Comment(null, "جاك سيمسون", "بلا بلا بلا بلا"));
+//        commentList.add(new Comment(null, "جاك سيمسون", "بلا بلا بلا بلا"));
 
         recyclerView.setLayoutManager(new LinearLayoutManager(this,
                 LinearLayoutManager.VERTICAL, false));
