@@ -2,6 +2,7 @@ package com.hadjmohamed.hirfati.Admin;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.cardview.widget.CardView;
@@ -72,6 +73,9 @@ public class AdminCraftsInfo extends AppCompatActivity implements View.OnClickLi
     // progressDialog
     private ProgressDialog progressDialog;
     private Crafts crafts;
+    // Dialog delete
+    private MaterialAlertDialogBuilder dialogBuilder;
+    private AlertDialog alertDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -283,7 +287,7 @@ public class AdminCraftsInfo extends AppCompatActivity implements View.OnClickLi
                 uploadImage(uid);
             }
         } else if (view == delete) {
-            MaterialAlertDialogBuilder dialogBuilder = new MaterialAlertDialogBuilder(this);
+            dialogBuilder = new MaterialAlertDialogBuilder(this);
             dialogBuilder.setMessage("هل تريد حذف هذه الحرفة؟");
             dialogBuilder.setTitle("الطلب");
             dialogBuilder.setCancelable(false);
@@ -296,6 +300,9 @@ public class AdminCraftsInfo extends AppCompatActivity implements View.OnClickLi
                 // If user click no then dialog box is canceled.
                 dialog.cancel();
             });
+
+            alertDialog = dialogBuilder.create();
+            alertDialog.show();
 
         } else if (view == craftImage) {
             Intent intent = new Intent();

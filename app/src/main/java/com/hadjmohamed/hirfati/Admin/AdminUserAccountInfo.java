@@ -1,6 +1,7 @@
 package com.hadjmohamed.hirfati.Admin;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
@@ -68,6 +69,9 @@ public class AdminUserAccountInfo extends AppCompatActivity implements View.OnCl
     //firebase
     private FirebaseFirestore firestore;
     private User user;
+    // Dialog delete
+    private MaterialAlertDialogBuilder dialogBuilder;
+    private AlertDialog alertDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -300,7 +304,7 @@ public class AdminUserAccountInfo extends AppCompatActivity implements View.OnCl
             startActivity(intent);
             finish();
         } else if (view == close) {
-            MaterialAlertDialogBuilder dialogBuilder = new MaterialAlertDialogBuilder(this);
+            dialogBuilder = new MaterialAlertDialogBuilder(this);
             dialogBuilder.setMessage("هل تريد حذف هذه الحرفة؟");
             dialogBuilder.setTitle("الطلب");
             dialogBuilder.setCancelable(false);
@@ -313,6 +317,9 @@ public class AdminUserAccountInfo extends AppCompatActivity implements View.OnCl
                 // If user click no then dialog box is canceled.
                 dialog.cancel();
             });
+
+            alertDialog = dialogBuilder.create();
+            alertDialog.show();
         } else if (view == submit){
             if (editTest(editTexts) &&
                     !states.getSelectedItem().toString().equals("ولايات") &&

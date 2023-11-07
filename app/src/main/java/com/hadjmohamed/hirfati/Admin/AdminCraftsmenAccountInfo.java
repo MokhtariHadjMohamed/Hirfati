@@ -1,6 +1,7 @@
 package com.hadjmohamed.hirfati.Admin;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
@@ -74,6 +75,10 @@ public class AdminCraftsmenAccountInfo extends AppCompatActivity implements View
     // Firestor
     private FirebaseFirestore firestore;
     private String idUser;
+
+    // Dialog delete
+    private MaterialAlertDialogBuilder dialogBuilder;
+    private AlertDialog alertDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -400,7 +405,7 @@ public class AdminCraftsmenAccountInfo extends AppCompatActivity implements View
                 crafts.setBackgroundResource(R.drawable.custom_input_error);
             }
         } else if (view == delete) {
-            MaterialAlertDialogBuilder dialogBuilder = new MaterialAlertDialogBuilder(this);
+            dialogBuilder = new MaterialAlertDialogBuilder(this);
             dialogBuilder.setMessage("هل تريد حذف هذه الحرفة؟");
             dialogBuilder.setTitle("الطلب");
             dialogBuilder.setCancelable(false);
@@ -414,6 +419,8 @@ public class AdminCraftsmenAccountInfo extends AppCompatActivity implements View
                 dialog.cancel();
             });
 
+            alertDialog = dialogBuilder.create();
+            alertDialog.show();
         }
     }
 }

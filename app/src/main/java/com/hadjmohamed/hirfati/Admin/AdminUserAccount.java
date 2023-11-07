@@ -15,6 +15,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -61,6 +62,9 @@ public class AdminUserAccount extends AppCompatActivity implements View.OnClickL
     private TextView toolbarTitle;
     //firebase
     private FirebaseFirestore firestore;
+    // Dialog delete
+    private MaterialAlertDialogBuilder dialogBuilder;
+    private AlertDialog alertDialog;
 
 
     @Override
@@ -233,7 +237,7 @@ public class AdminUserAccount extends AppCompatActivity implements View.OnClickL
         }else if (view == reportUser)
             dialogReport();
         else if (view == deleteUser){
-            MaterialAlertDialogBuilder dialogBuilder = new MaterialAlertDialogBuilder(this);
+            dialogBuilder = new MaterialAlertDialogBuilder(this);
             dialogBuilder.setMessage("هل تريد حذف هذه الحرفة؟");
             dialogBuilder.setTitle("الطلب");
             dialogBuilder.setCancelable(false);
@@ -246,6 +250,9 @@ public class AdminUserAccount extends AppCompatActivity implements View.OnClickL
                 // If user click no then dialog box is canceled.
                 dialog.cancel();
             });
+
+            alertDialog = dialogBuilder.create();
+            alertDialog.show();
         } else if(view == backArrow){
             startActivity(new Intent(AdminUserAccount.this, AdminUser.class));
             finish();
