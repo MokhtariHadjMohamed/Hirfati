@@ -15,7 +15,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import java.util.ArrayList;
 import java.util.List;
 
-public class UserAccountActivity extends AppCompatActivity implements View.OnClickListener {
+public class UserAccountActivity extends AppCompatActivity implements View.OnClickListener, RecViewInterface {
 
     private TextView accountInfoUserAccount, settingUserAccount, logOutUserAccount;
 
@@ -46,7 +46,7 @@ public class UserAccountActivity extends AppCompatActivity implements View.OnCli
         recyclerView.setLayoutManager(new LinearLayoutManager(this,
                 LinearLayoutManager.VERTICAL, false));
 
-        recyclerView.setAdapter(new AdapterRecComment(getApplicationContext(), commentList));
+        recyclerView.setAdapter(new AdapterRecComment(getApplicationContext(), commentList, this));
     }
 
     private void BottomNavigation(){
@@ -83,5 +83,10 @@ public class UserAccountActivity extends AppCompatActivity implements View.OnCli
             startActivity(new Intent(UserAccountActivity.this, LogInActivity.class));
             finish();
         }
+    }
+
+    @Override
+    public void onItemClick(String view, int position) {
+
     }
 }

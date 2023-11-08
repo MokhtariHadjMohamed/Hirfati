@@ -1,5 +1,7 @@
 package com.hadjmohamed.hirfati.Admin;
 
+import static androidx.constraintlayout.helper.widget.MotionEffect.TAG;
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
@@ -28,6 +30,9 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.AggregateQuerySnapshot;
+import com.google.firebase.firestore.AggregateSource;
+import com.google.firebase.firestore.DocumentChange;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
@@ -294,6 +299,27 @@ public class AdminUserAccountInfo extends AppCompatActivity implements View.OnCl
     private void deleteUser(String uid){
         firestore.collection("Users").document(uid).delete();
         FirebaseAuth.getInstance().getCurrentUser().delete();
+        deleteReport();
+    }
+
+    private void deleteReport(){
+        firestore.collection("Reports")
+                .whereEqualTo("reporter", idUser)
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if (!task.isSuccessful()){
+                            Log.e("Report delete: ", "failed");
+                            return;
+                        }
+                        for (QueryDocumentSnapshot d: task.getResult()){
+                            Report report = d.toObject(Report.class);
+                            firestore.collection("Reports").document(report.getIdReport()).delete();
+                        }
+
+                    }
+                });
     }
 
     @Override

@@ -16,7 +16,7 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 import java.util.ArrayList;
 import java.util.List;
 
-public class CraftsmanInfoActivity extends AppCompatActivity implements View.OnClickListener {
+public class CraftsmanInfoActivity extends AppCompatActivity implements View.OnClickListener, RecViewInterface {
 
     private TextView textViewToolsBar;
     private ImageView backArrowToolsBar;
@@ -45,7 +45,7 @@ public class CraftsmanInfoActivity extends AppCompatActivity implements View.OnC
         recyclerView.setLayoutManager(new LinearLayoutManager(this,
                 LinearLayoutManager.VERTICAL, false));
 
-        recyclerView.setAdapter(new AdapterRecComment(getApplicationContext(), commentList));
+        recyclerView.setAdapter(new AdapterRecComment(getApplicationContext(), commentList, this));
 
 
     }
@@ -56,5 +56,10 @@ public class CraftsmanInfoActivity extends AppCompatActivity implements View.OnC
             startActivity(new Intent(CraftsmanInfoActivity.this, HomePageActivity.class));
             finish();
         }
+    }
+
+    @Override
+    public void onItemClick(String view, int position) {
+        
     }
 }

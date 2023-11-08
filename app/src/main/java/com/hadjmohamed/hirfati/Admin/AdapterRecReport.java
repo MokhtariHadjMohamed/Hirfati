@@ -43,40 +43,13 @@ public class AdapterRecReport extends RecyclerView.Adapter<HolderRecReport>{
     @Override
     public void onBindViewHolder(@NonNull HolderRecReport holder, int position) {
         holder.imageView.setImageResource(R.drawable.baseline_report_gmailerrorred_24);
-        holder.reporter.setText(reportList.get(position).getReporter());
-        holder.reported.setText(reportList.get(position).getReported());
+        holder.idCraftsman.setText(reportList.get(position).getIdCraftsman());
+        holder.idUser.setText(reportList.get(position).getIdUser());
         if (reportList.get(position).isReadSituation())
             holder.desc.setText("تم القراءة");
         else
             holder.desc.setText("لم يتم القراءة");
 
-        delete(holder.delete, reportList.get(position).getIdReport());
-    }
-
-    private void delete(ImageView delete, String uid){
-        delete.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                getDelete(uid);
-            }
-        });
-
-    }
-
-    private void getDelete(String uid){
-        FirebaseFirestore.getInstance().collection("Reports")
-                .document(uid)
-                .delete().addOnSuccessListener(new OnSuccessListener<Void>() {
-                    @Override
-                    public void onSuccess(Void unused) {
-                        Log.d("Delete; ", "Success");
-                    }
-                }).addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-                        Log.e("Delete: ", e.getMessage());
-                    }
-                });
     }
 
     @Override

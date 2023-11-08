@@ -363,6 +363,27 @@ public class AdminCraftsmenAccountInfo extends AppCompatActivity implements View
         firestore.collection("Users")
                 .document(idUser).delete();
         FirebaseAuth.getInstance().getCurrentUser().delete();
+        deleteReport();
+    }
+
+    private void deleteReport(){
+        firestore.collection("Reports")
+                .whereEqualTo("reported", idUser)
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if (!task.isSuccessful()){
+                            Log.e("Report delete: ", "failed");
+                            return;
+                        }
+                        for (QueryDocumentSnapshot d: task.getResult()){
+                            Report report = d.toObject(Report.class);
+                            firestore.collection("Reports").document(report.getIdReport()).delete();
+                        }
+
+                    }
+                });
     }
 
     @Override

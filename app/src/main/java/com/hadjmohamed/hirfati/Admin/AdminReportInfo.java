@@ -31,9 +31,9 @@ import com.hadjmohamed.hirfati.R;
 public class AdminReportInfo extends AppCompatActivity implements View.OnClickListener {
     private String idReport;
     // Element
-    private TextView craftsNumber, reportHim, reported;
+    private TextView craftsNumber, reportCraftsman, reportUser;
     private EditText reportDesc;
-    private Button showReportHim, showReported, submit, delete;
+    private Button showReportCraftsman, showReportUser, submit, delete;
 
     // Firebase
     private FirebaseFirestore firestore;
@@ -53,13 +53,13 @@ public class AdminReportInfo extends AppCompatActivity implements View.OnClickLi
 
         // Element
         craftsNumber = findViewById(R.id.craftsNumberAdminReportInfo);
-        reportHim = findViewById(R.id.reportHimAdminReportInfo);
-        reported = findViewById(R.id.reportedAdminReportInfo);
+        reportUser = findViewById(R.id.reportHimAdminReportInfo);
+        reportCraftsman = findViewById(R.id.reportedAdminReportInfo);
         reportDesc = findViewById(R.id.reportAdminReportInfo);
-        showReportHim = findViewById(R.id.showReportHimAdminReportInfo);
-        showReportHim.setOnClickListener(this);
-        showReported = findViewById(R.id.showReportedAdminReportInfo);
-        showReported.setOnClickListener(this);
+        showReportUser = findViewById(R.id.showReportHimAdminReportInfo);
+        showReportUser.setOnClickListener(this);
+        showReportCraftsman = findViewById(R.id.showReportedAdminReportInfo);
+        showReportCraftsman.setOnClickListener(this);
         submit = findViewById(R.id.submitAdminReportInfo);
         submit.setOnClickListener(this);
         delete = findViewById(R.id.deleteAdminReportInfo);
@@ -96,8 +96,8 @@ public class AdminReportInfo extends AppCompatActivity implements View.OnClickLi
                         }
                         Report report = task.getResult().toObject(Report.class);
                         craftsNumber.setText(report.getIdReport());
-                        reportHim.setText(report.getReporter());
-                        reported.setText(report.getReported());
+                        reportCraftsman.setText(report.getIdCraftsman());
+                        reportUser.setText(report.getIdUser());
                         reportDesc.setText(report.getDesc());
                         if (progressDialog.isShowing())
                             progressDialog.dismiss();
@@ -131,13 +131,13 @@ public class AdminReportInfo extends AppCompatActivity implements View.OnClickLi
     public void onClick(View view) {
         if (view == submit) {
             getUpdate(idReport);
-        } else if (view == showReportHim) {
+        } else if (view == showReportUser) {
             Intent intent = new Intent(AdminReportInfo.this, AdminUserAccount.class);
-            intent.putExtra("idUser", reportHim.getText().toString());
+            intent.putExtra("idUser", reportUser.getText().toString());
             startActivity(intent);
-        } else if (view == showReported) {
+        } else if (view == showReportCraftsman) {
             Intent intent = new Intent(AdminReportInfo.this, AdminCraftsmenAccount.class);
-            intent.putExtra("idUser", reported.getText().toString());
+            intent.putExtra("idUser", reportCraftsman.getText().toString());
             startActivity(intent);
         } else if (view == delete) {
             doDelete(idReport);

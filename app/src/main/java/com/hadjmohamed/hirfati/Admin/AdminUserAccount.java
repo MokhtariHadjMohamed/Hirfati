@@ -37,6 +37,7 @@ import com.google.firebase.storage.StorageReference;
 import com.hadjmohamed.hirfati.AdapterRecComment;
 import com.hadjmohamed.hirfati.Comment;
 import com.hadjmohamed.hirfati.R;
+import com.hadjmohamed.hirfati.RecViewInterface;
 import com.hadjmohamed.hirfati.User;
 
 import java.io.File;
@@ -44,7 +45,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class AdminUserAccount extends AppCompatActivity implements View.OnClickListener {
+public class AdminUserAccount extends AppCompatActivity implements View.OnClickListener, RecViewInterface {
 
     // Element
     private Button userInfo, reportUser, deleteUser;
@@ -102,7 +103,7 @@ public class AdminUserAccount extends AppCompatActivity implements View.OnClickL
         // comment RecyclerView
         recyclerView = findViewById(R.id.commintAdminUserAccount);
         commentList = new ArrayList<>();
-        adapterRecComment = new AdapterRecComment(getApplicationContext(), commentList);
+        adapterRecComment = new AdapterRecComment(getApplicationContext(), commentList, this);
         getComment();
 
         getUser();
@@ -181,6 +182,7 @@ public class AdminUserAccount extends AppCompatActivity implements View.OnClickL
     private void deleteUser(String uid){
         firestore.collection("Users").document(uid).delete();
         FirebaseAuth.getInstance().getCurrentUser().delete();
+        deleteReport();
     }
 
     private void dialogReport(){
@@ -228,6 +230,26 @@ public class AdminUserAccount extends AppCompatActivity implements View.OnClickL
         }
     }
 
+    private void deleteReport(){
+        firestore.collection("Reports")
+                .whereEqualTo("reporter", idUser)
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if (!task.isSuccessful()){
+                            Log.e("Report delete: ", "failed");
+                            return;
+                        }
+                        for (QueryDocumentSnapshot d: task.getResult()){
+                            Report report = d.toObject(Report.class);
+                            firestore.collection("Reports").document(report.getIdReport()).delete();
+                        }
+
+                    }
+                });
+    }
+
     @Override
     public void onClick(View view) {
         if (view == userInfo) {
@@ -257,5 +279,10 @@ public class AdminUserAccount extends AppCompatActivity implements View.OnClickL
             startActivity(new Intent(AdminUserAccount.this, AdminUser.class));
             finish();
         }
+    }
+
+    @Override
+    public void onItemClick(String view, int position) {
+        Toast.makeText(this, "Click comment", Toast.LENGTH_SHORT).show();
     }
 }

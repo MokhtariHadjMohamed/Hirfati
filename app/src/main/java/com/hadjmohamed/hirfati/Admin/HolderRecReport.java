@@ -15,16 +15,15 @@ import com.hadjmohamed.hirfati.RecViewInterface;
 public class HolderRecReport extends RecyclerView.ViewHolder {
 
     ImageView imageView, delete;
-    TextView reporter, reported, desc;
+    TextView idUser, idCraftsman, desc;
 
     public HolderRecReport(@NonNull View itemView, RecViewInterface recViewInterface) {
         super(itemView);
 
         imageView = itemView.findViewById(R.id.imageReport);
-        reported = itemView.findViewById(R.id.reportedName);
-        reporter = itemView.findViewById(R.id.reporterName);
+        idUser = itemView.findViewById(R.id.reportedName);
+        idCraftsman = itemView.findViewById(R.id.reporterName);
         desc = itemView.findViewById(R.id.reportText);
-        delete = itemView.findViewById(R.id.deleteReport);
 
         itemView.setOnClickListener(new View.OnClickListener() {
             @Override

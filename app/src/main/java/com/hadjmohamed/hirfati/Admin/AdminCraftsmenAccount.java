@@ -51,6 +51,7 @@ import com.hadjmohamed.hirfati.CraftsmanAccountInfoActivity;
 import com.hadjmohamed.hirfati.GridAdapter;
 import com.hadjmohamed.hirfati.ImageResizer;
 import com.hadjmohamed.hirfati.R;
+import com.hadjmohamed.hirfati.RecViewInterface;
 import com.hadjmohamed.hirfati.User;
 
 import java.io.ByteArrayOutputStream;
@@ -59,7 +60,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class AdminCraftsmenAccount extends AppCompatActivity implements View.OnClickListener {
+public class AdminCraftsmenAccount extends AppCompatActivity implements View.OnClickListener, RecViewInterface {
 
     private Button craftsmanInfo, reportCraftsman, deleteCraftsmen;
     private TextView numberAdmin, nameAndFamilyNameAdmin, craftsAdmin, descAdmin;
@@ -144,7 +145,7 @@ public class AdminCraftsmenAccount extends AppCompatActivity implements View.OnC
         // comment RecyclerView
         recyclerView = findViewById(R.id.commentAdminCraftsmenAccount);
         commentList = new ArrayList<>();
-        adapterRecComment = new AdapterRecComment(getApplicationContext(), commentList);
+        adapterRecComment = new AdapterRecComment(getApplicationContext(), commentList, this);
         getComment();
 
         // GridView
@@ -345,6 +346,7 @@ public class AdminCraftsmenAccount extends AppCompatActivity implements View.OnC
     private void deleteUser(String uid) {
         firestore.collection("Users").document(uid).delete();
         FirebaseAuth.getInstance().getCurrentUser().delete();
+        deleteReport();
     }
 
     private void dialogReport() {
@@ -455,5 +457,58 @@ public class AdminCraftsmenAccount extends AppCompatActivity implements View.OnC
             startActivity(new Intent(AdminCraftsmenAccount.this, AdminCraftsmen.class));
             finish();
         }
+    }
+
+    private void deleteReport(){
+        firestore.collection("Reports")
+                .whereEqualTo("reported", idUser)
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if (!task.isSuccessful()){
+                            Log.e("Report delete: ", "failed");
+                            return;
+                        }
+                        for (QueryDocumentSnapshot d: task.getResult()){
+                            Report report = d.toObject(Report.class);
+                            firestore.collection("Reports").document(report.getIdReport()).delete();
+                        }
+
+                    }
+                });
+    }
+
+    @Override
+    public void onItemClick(String view, int position) {
+        dialogBuilder = new MaterialAlertDialogBuilder(AdminCraftsmenAccount.this);
+        dialogBuilder.setMessage("هل تريد حذف هذه  تعليق؟");
+        dialogBuilder.setTitle("الطلب");
+        dialogBuilder.setCancelable(false);
+        dialogBuilder.setPositiveButton("نعم", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                firestore.collection("Comment")
+                        .document(commentList.get(position).getUid())
+                        .delete().addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void unused) {
+                        finish();
+                        startActivity(getIntent());
+                    }
+                }).addOnFailureListener(new OnFailureListener() {
+                            @Override
+                            public void onFailure(@NonNull Exception e) {
+                                Log.e("Error: ", e.getMessage());
+                            }
+                        });
+            }
+        }).setNegativeButton("لا", (DialogInterface.OnClickListener) (dialog, which) -> {
+            // If user click no then dialog box is canceled.
+            dialog.cancel();
+        });
+
+        alertDialog = dialogBuilder.create();
+        alertDialog.show();
     }
 }

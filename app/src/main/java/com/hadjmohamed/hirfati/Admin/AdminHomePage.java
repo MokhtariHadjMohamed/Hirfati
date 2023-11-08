@@ -147,7 +147,6 @@ public class AdminHomePage extends AppCompatActivity implements View.OnClickList
     }
     private void getReportNumber(){
             firestore.collection("Reports")
-                    .whereEqualTo("logInSituation", "Online")
                     .count()
                     .get(AggregateSource.SERVER).addOnCompleteListener(new OnCompleteListener<AggregateQuerySnapshot>() {
                         @Override

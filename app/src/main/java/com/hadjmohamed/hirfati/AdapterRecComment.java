@@ -29,17 +29,19 @@ public class AdapterRecComment extends RecyclerView.Adapter<HolderRecComment> {
 
     private Context context;
     private List<Comment> commentList;
+    private final RecViewInterface recViewInterface;
 
-    public AdapterRecComment(Context context, List<Comment> commentList) {
+    public AdapterRecComment(Context context, List<Comment> commentList, RecViewInterface recViewInterface) {
         this.context = context;
         this.commentList = commentList;
+        this.recViewInterface = recViewInterface;
     }
 
     @NonNull
     @Override
     public HolderRecComment onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         return new HolderRecComment(LayoutInflater.from(context)
-                .inflate(R.layout.comment_item, parent, false));
+                .inflate(R.layout.comment_item, parent, false), recViewInterface);
     }
 
     @Override
