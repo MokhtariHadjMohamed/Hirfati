@@ -70,11 +70,11 @@ public class NewRegisterUserActivity extends AppCompatActivity implements View.O
 
         // adapterState
         stateList = new ArrayList<>();
-        adapterState = new ArrayAdapter(this, android.R.layout.simple_spinner_item, stateList);
+        adapterState = new ArrayAdapter(this, R.layout.spinner_item, stateList);
 
         // adapterCity
         cityList = new ArrayList<>();
-        adapterCity = new ArrayAdapter(this, android.R.layout.simple_spinner_item, cityList);
+        adapterCity = new ArrayAdapter(this, R.layout.spinner_item, cityList);
 
         // birthday selected
         birthday = findViewById(R.id.dateUser);

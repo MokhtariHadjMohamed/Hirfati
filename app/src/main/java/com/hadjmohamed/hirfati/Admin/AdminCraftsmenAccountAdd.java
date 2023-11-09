@@ -160,16 +160,16 @@ public class AdminCraftsmenAccountAdd extends AppCompatActivity implements View.
 
         // adapterState
         stateList = new ArrayList<>();
-        adapterState = new ArrayAdapter(this, android.R.layout.simple_spinner_item, stateList);
+        adapterState = new ArrayAdapter(this, R.layout.spinner_item, stateList);
 
         // adapterCity
         cityList = new ArrayList<>();
-        adapterCity = new ArrayAdapter(this, android.R.layout.simple_spinner_item, cityList);
+        adapterCity = new ArrayAdapter(this, R.layout.spinner_item, cityList);
 
         // crafts spinner
         craftsList = new ArrayList();
         adapterCrafts = new ArrayAdapter<String>(this,
-                android.R.layout.simple_spinner_item, craftsList);
+                R.layout.spinner_item, craftsList);
         getCrafts();
 
         // level spinner
@@ -179,7 +179,7 @@ public class AdminCraftsmenAccountAdd extends AppCompatActivity implements View.
         levelList.add("متوسط");
         levelList.add("محترف");
         adapterLevel = new ArrayAdapter<>(this,
-                android.R.layout.simple_spinner_item, levelList);
+                R.layout.spinner_item, levelList);
         adapterLevel.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         levelAdmin.setAdapter(adapterLevel);
         // exYears spinner
@@ -189,7 +189,7 @@ public class AdminCraftsmenAccountAdd extends AppCompatActivity implements View.
         yearsList.add("مابين سنة و4 سنوات");
         yearsList.add("اكثر من 4 سنوات");
         adapterExYears = new ArrayAdapter<>(this,
-                android.R.layout.simple_spinner_item, yearsList);
+                R.layout.spinner_item, yearsList);
         adapterExYears.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         yearsAdmin.setAdapter(adapterExYears);
 

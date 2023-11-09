@@ -23,6 +23,7 @@ import com.google.firebase.firestore.AggregateSource;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
+import com.hadjmohamed.hirfati.LogInActivity;
 import com.hadjmohamed.hirfati.R;
 import com.hadjmohamed.hirfati.User;
 
@@ -175,7 +176,10 @@ public class AdminHomePage extends AppCompatActivity implements View.OnClickList
             startActivity(new Intent(AdminHomePage.this, AdminReport.class));
         else if (view == userOnline)
             startActivity(new Intent(AdminHomePage.this, AdminOnlineUsers.class));
-        else if (view == singOut)
+        else if (view == singOut){
             FirebaseAuth.getInstance().signOut();
+            startActivity(new Intent(AdminHomePage.this, LogInActivity.class));
+            finish();
+        }
     }
 }
