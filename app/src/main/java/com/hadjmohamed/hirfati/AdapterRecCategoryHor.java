@@ -1,7 +1,9 @@
 package com.hadjmohamed.hirfati;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
@@ -10,6 +12,7 @@ import android.widget.ImageView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.storage.FileDownloadTask;
@@ -25,7 +28,6 @@ public class AdapterRecCategoryHor extends RecyclerView.Adapter<HolderRecCategor
     private final RecViewInterface recViewInterface;
     Context context;
     List<Crafts> craftsList;
-
     public AdapterRecCategoryHor(Context context, List<Crafts> craftsList, RecViewInterface recViewInterface) {
         this.context = context;
         this.craftsList = craftsList;
@@ -51,26 +53,20 @@ public class AdapterRecCategoryHor extends RecyclerView.Adapter<HolderRecCategor
         StorageReference storageReference = firebaseStorage.getReference().child("Image")
                 .child(image);
 
-        final File file;
-        try {
-            file = File.createTempFile("img", "png");
-
-            storageReference.getFile(file).addOnSuccessListener(new OnSuccessListener<FileDownloadTask.TaskSnapshot>() {
-                @Override
-                public void onSuccess(FileDownloadTask.TaskSnapshot taskSnapshot) {
-                    imageView.setImageBitmap(BitmapFactory.decodeFile(file.getAbsolutePath()));
-                }
-            }).addOnFailureListener(new OnFailureListener() {
-                @Override
-                public void onFailure(@NonNull Exception e) {
-                    imageView.setImageResource(R.drawable.baseline_image_not_supported_24);
-                    Log.e("Image " + image, "Failed");
-                }
-            });
-        } catch (IOException e) {
-            imageView.setImageResource(R.drawable.baseline_image_not_supported_24);
-            throw new RuntimeException(e);
-        }
+        storageReference.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+            @Override
+            public void onSuccess(Uri uri) {
+                Glide.with(context)
+                        .load(uri)
+                        .into(imageView);
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                imageView.setImageResource(R.drawable.baseline_image_not_supported_24);
+                Log.e("Image" + image, e.getMessage());
+            }
+        });
 
     }
 

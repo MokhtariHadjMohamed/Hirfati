@@ -5,13 +5,19 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import android.widget.SearchView;
+import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -22,11 +28,19 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-public class HomePageActivity extends AppCompatActivity implements RecViewInterface {
+public class HomePageActivity extends AppCompatActivity implements RecViewInterface, View.OnClickListener {
 
+    private TextView more;
+
+    // RecyclerView
     private RecyclerView recyclerViewCategory, recyclerViewCraftsmen;
     private AdapterRecCraftsmen adapterRecCraftsmen;
+    private AdapterRecCategoryHor adapterRecCategoryHor;
+    private List<Crafts> craftsList;
     private List<Craftsman> craftsmanList;
+    // Toolbar
+    private TextView textViewToolsBar;
+    private SearchView search;
     // Firestor
     private FirebaseFirestore firestore;
     // progressDialog
@@ -36,7 +50,6 @@ public class HomePageActivity extends AppCompatActivity implements RecViewInterf
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
-
         firestore = FirebaseFirestore.getInstance();
 
         // Progress
@@ -45,28 +58,70 @@ public class HomePageActivity extends AppCompatActivity implements RecViewInterf
         progressDialog.setMessage("Fetching data...");
         progressDialog.show();
 
+        // Element
+        more = findViewById(R.id.more);
+        more.setOnClickListener(this);
+
+        // Toolbar
+        Toolbar toolBar = findViewById(R.id.toolbar_back_arrow);
+        setSupportActionBar(toolBar);
+        textViewToolsBar = findViewById(R.id.toolbarTitle);
+        search = findViewById(R.id.search);
+        search.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                Intent intent = new Intent(HomePageActivity.this, SearchPageActivity.class);
+                intent.putExtra("search", query);
+                startActivity(intent);
+                return true;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                return false;
+            }
+        });
+
         // navigation bar Bottom
         navigationBottom();
 
         // RecyclerView Crafts
         recyclerViewCategory = findViewById(R.id.categoryHome);
-        List<Crafts> craftsList = new ArrayList<>();
-//        craftsList.add(new Crafts("سباك", Uri.parse("android.resource:" + R.drawable.logo)));
-//        craftsList.add(new Crafts("نجار", Uri.parse("android.resource:" + R.drawable.logo)));
-//        craftsList.add(new Crafts("كهربائي", Uri.parse("android.resource:" + R.drawable.logo)));
-//        craftsList.add(new Crafts("طيار", Uri.parse("android.resource:" + R.drawable.logo)));
-
-        recyclerViewCategory.setLayoutManager(new LinearLayoutManager(this,
-                LinearLayoutManager.HORIZONTAL, false));
-        recyclerViewCategory.setAdapter(new AdapterRecCategoryHor(getApplicationContext(),
-                craftsList, this));
+        craftsList = new ArrayList<>();
+        adapterRecCategoryHor = new AdapterRecCategoryHor(HomePageActivity.this,
+                craftsList, this);
 
         // recyclerView Craftsmen
         recyclerViewCraftsmen = findViewById(R.id.craftsmenHome);
         craftsmanList = new ArrayList<>();
-        adapterRecCraftsmen = new AdapterRecCraftsmen(getApplicationContext(),
+        adapterRecCraftsmen = new AdapterRecCraftsmen(HomePageActivity.this,
                 craftsmanList, this);
         getUsers();
+    }
+
+    private void getCrafts(){
+        firestore.collection("Crafts")
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                if (!task.isSuccessful()){
+                    Log.e("GetUsers", "failed");
+                    if (progressDialog.isShowing())
+                        progressDialog.dismiss();
+                    return;
+                }
+                for(QueryDocumentSnapshot d: task.getResult()){
+                    craftsList.add(d.toObject(Crafts.class));
+                }
+                adapterRecCategoryHor.notifyDataSetChanged();
+                if (progressDialog.isShowing())
+                    progressDialog.dismiss();
+            }
+        });
+        recyclerViewCategory.setLayoutManager(new LinearLayoutManager(this,
+                LinearLayoutManager.HORIZONTAL, false));
+        recyclerViewCategory.setAdapter(adapterRecCategoryHor);
     }
 
     private void getUsers(){
@@ -85,21 +140,26 @@ public class HomePageActivity extends AppCompatActivity implements RecViewInterf
                             craftsmanList.add(d.toObject(Craftsman.class));
                         }
                         adapterRecCraftsmen.notifyDataSetChanged();
-                        if (progressDialog.isShowing())
-                            progressDialog.dismiss();
                     }
                 });
         recyclerViewCraftsmen.setLayoutManager(new LinearLayoutManager(this,
                 LinearLayoutManager.VERTICAL, false));
         recyclerViewCraftsmen.setAdapter(adapterRecCraftsmen);
+        getCrafts();
     }
 
     @Override
     public void onItemClick(String view, int position) {
-        if (Objects.equals(view, "Crafts"))
-            startActivity(new Intent(HomePageActivity.this, CraftsPageActivity.class));
-        else if (Objects.equals(view, "Craftsmen"))
-            startActivity(new Intent(HomePageActivity.this, CraftsmanInfoActivity.class));
+        if (Objects.equals(view, "Crafts")){
+            Intent intent = new Intent(HomePageActivity.this, SearchPageActivity.class);
+            intent.putExtra("IdCrafts", craftsList.get(position).getUid());
+            startActivity(intent);
+        }
+        else if (Objects.equals(view, "Craftsmen")){
+            Intent intent = new Intent(HomePageActivity.this, CraftsmanInfoActivity.class);
+            intent.putExtra("IdUser", craftsmanList.get(position).getIdUser());
+            startActivity(intent);
+        }
     }
 
     private void navigationBottom(){
@@ -124,5 +184,12 @@ public class HomePageActivity extends AppCompatActivity implements RecViewInterf
                 return false;
             }
         });
+    }
+
+    @Override
+    public void onClick(View view) {
+        if (view == more){
+            startActivity(new Intent(HomePageActivity.this, CraftsPageActivity.class));
+        }
     }
 }

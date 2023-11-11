@@ -7,6 +7,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
+import android.app.ProgressDialog;
 import android.app.SearchManager;
 import android.app.SearchManager.OnCancelListener;
 import android.content.Intent;
@@ -35,12 +36,19 @@ public class AdminHomePage extends AppCompatActivity implements View.OnClickList
     private TextView craftsmanNumber, userNumber, craftsNumber, userOnlineNumber, reportNumber;
 
     private FirebaseFirestore firestore;
+    private ProgressDialog progressDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_admin_home_page);
         firestore = FirebaseFirestore.getInstance();
+
+        // Progress
+        progressDialog = new ProgressDialog(this);
+        progressDialog.setCancelable(false);
+        progressDialog.setMessage("Fetching data...");
+        progressDialog.show();
 
         // Element
         craftsCard = findViewById(R.id.craftsCardAdminHomePage);
@@ -60,10 +68,6 @@ public class AdminHomePage extends AppCompatActivity implements View.OnClickList
         reportNumber = findViewById(R.id.reportNumberAdminHomePage);
 
         getUsersNumber();
-        getCraftsmenNumber();
-        getCraftsNumber();
-        getUserOnlineNumber();
-        getReportNumber();
 
         crafts.setOnClickListener(this);
         craftsmen.setOnClickListener(this);
@@ -89,7 +93,10 @@ public class AdminHomePage extends AppCompatActivity implements View.OnClickList
                             // Count fetched successfully
                             AggregateQuerySnapshot snapshot = task.getResult();
                             userNumber.setText(String.valueOf(snapshot.getCount()));
+                            getCraftsmenNumber();
                         } else {
+                            if (progressDialog.isShowing())
+                                progressDialog.dismiss();
                             Log.d(TAG, "Count failed: ", task.getException());
                         }
                     }
@@ -105,7 +112,10 @@ public class AdminHomePage extends AppCompatActivity implements View.OnClickList
                             // Count fetched successfully
                             AggregateQuerySnapshot snapshot = task.getResult();
                             craftsNumber.setText(String.valueOf(snapshot.getCount()));
+                            getUserOnlineNumber();
                         } else {
+                            if (progressDialog.isShowing())
+                                progressDialog.dismiss();
                             Log.d(TAG, "Count failed: ", task.getException());
                         }
                     }
@@ -123,7 +133,10 @@ public class AdminHomePage extends AppCompatActivity implements View.OnClickList
                             // Count fetched successfully
                             AggregateQuerySnapshot snapshot = task.getResult();
                             craftsmanNumber.setText(String.valueOf(snapshot.getCount()));
+                            getCraftsNumber();
                         } else {
+                            if (progressDialog.isShowing())
+                                progressDialog.dismiss();
                             Log.d(TAG, "Count failed: ", task.getException());
                         }
                     }
@@ -140,7 +153,10 @@ public class AdminHomePage extends AppCompatActivity implements View.OnClickList
                             // Count fetched successfully
                             AggregateQuerySnapshot snapshot = task.getResult();
                             userOnlineNumber.setText(String.valueOf(snapshot.getCount()));
+                            getReportNumber();
                         } else {
+                            if (progressDialog.isShowing())
+                                progressDialog.dismiss();
                             Log.d(TAG, "Count failed: ", task.getException());
                         }
                     }
@@ -156,7 +172,11 @@ public class AdminHomePage extends AppCompatActivity implements View.OnClickList
                                 // Count fetched successfully
                                 AggregateQuerySnapshot snapshot = task.getResult();
                                 reportNumber.setText(String.valueOf(snapshot.getCount()));
+                                if (progressDialog.isShowing())
+                                    progressDialog.dismiss();
                             } else {
+                                if (progressDialog.isShowing())
+                                    progressDialog.dismiss();
                                 Log.d(TAG, "Count failed: ", task.getException());
                             }
                         }

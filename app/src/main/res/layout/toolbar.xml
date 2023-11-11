@@ -23,7 +23,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-            <Toolbar
+            <androidx.appcompat.widget.Toolbar
                 android:id="@+id/toolbar"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -32,7 +32,7 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
-            <EditText
+            <SearchView
                 android:id="@+id/search"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -43,13 +43,17 @@
                 android:ems="10"
                 android:inputType="text"
                 android:hint="بحث"
+                android:iconifiedByDefault="false"
+                android:queryBackground="@drawable/custom_input"
+                android:queryHint="البحث"
                 android:textColor="@color/Color01"
                 android:textColorHint="@color/Color01"
                 android:fontFamily="@font/tajawal_regular"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@+id/profile"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="parent"
+                app:theme="@style/AppSearchView"/>
 
             <androidx.cardview.widget.CardView
                 android:id="@+id/profile"
