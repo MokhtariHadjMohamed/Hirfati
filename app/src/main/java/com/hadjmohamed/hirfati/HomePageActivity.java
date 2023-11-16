@@ -2,6 +2,7 @@ package com.hadjmohamed.hirfati;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
@@ -17,13 +18,21 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
+import com.google.firebase.storage.FileDownloadTask;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -38,20 +47,23 @@ public class HomePageActivity extends AppCompatActivity implements RecViewInterf
     private AdapterRecCategoryHor adapterRecCategoryHor;
     private List<Crafts> craftsList;
     private List<Craftsman> craftsmanList;
-    // Toolbar
-    private TextView textViewToolsBar;
+    // toolbar
+    private Toolbar toolbar;
+    private ImageView imageViewToolBar;
     private SearchView search;
     // Firestor
     private FirebaseFirestore firestore;
     // progressDialog
     private ProgressDialog progressDialog;
+    private String idUser, userType;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
         firestore = FirebaseFirestore.getInstance();
-
+        idUser = FirebaseAuth.getInstance().getUid();
+        getUsers(idUser);
         // Progress
         progressDialog = new ProgressDialog(this);
         progressDialog.setCancelable(false);
@@ -63,10 +75,12 @@ public class HomePageActivity extends AppCompatActivity implements RecViewInterf
         more.setOnClickListener(this);
 
         // Toolbar
-        Toolbar toolBar = findViewById(R.id.toolbar_back_arrow);
-        setSupportActionBar(toolBar);
-        textViewToolsBar = findViewById(R.id.toolbarTitle);
+        toolbar = findViewById(R.id.toolbarSearch);
+        setSupportActionBar(toolbar);
         search = findViewById(R.id.search);
+        imageViewToolBar = findViewById(R.id.imageToolBar);
+        retrieveImage(imageViewToolBar, idUser);
+
         search.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
@@ -148,20 +162,23 @@ public class HomePageActivity extends AppCompatActivity implements RecViewInterf
         getCrafts();
     }
 
-    @Override
-    public void onItemClick(String view, int position) {
-        if (Objects.equals(view, "Crafts")){
-            Intent intent = new Intent(HomePageActivity.this, SearchPageActivity.class);
-            intent.putExtra("IdCrafts", craftsList.get(position).getUid());
-            startActivity(intent);
-        }
-        else if (Objects.equals(view, "Craftsmen")){
-            Intent intent = new Intent(HomePageActivity.this, CraftsmanInfoActivity.class);
-            intent.putExtra("IdUser", craftsmanList.get(position).getIdUser());
-            startActivity(intent);
-        }
+    private void getUsers(String uid){
+        firestore.collection("Users")
+                .document(uid)
+                .get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                        if (!task.isSuccessful()){
+                            Log.e("GetUsers", "failed");
+                            if (progressDialog.isShowing())
+                                progressDialog.dismiss();
+                            return;
+                        }
+                        User user = task.getResult().toObject(User.class);
+                        userType = user.getUserType();
+                    }
+                });
     }
-
     private void navigationBottom(){
         // navigation bar Bottom
         BottomNavigationView bottomNavigationView = findViewById(R.id.navigation_bar_home);
@@ -175,7 +192,10 @@ public class HomePageActivity extends AppCompatActivity implements RecViewInterf
                 startActivity(new Intent(HomePageActivity.this, SearchPageActivity.class));
                 return true;
             } else if (id == R.id.accountNavigation) {
-                startActivity(new Intent(HomePageActivity.this, UserAccountActivity.class));
+                if (userType.equals("Craftsman"))
+                    startActivity(new Intent(HomePageActivity.this, CraftsmanAccountActivity.class));
+                else if(userType.equals("User"))
+                    startActivity(new Intent(HomePageActivity.this, UserAccountActivity.class));
                 return true;
             } else if (id == R.id.categoryNavigation) {
                 startActivity(new Intent(HomePageActivity.this, CraftsPageActivity.class));
@@ -184,6 +204,53 @@ public class HomePageActivity extends AppCompatActivity implements RecViewInterf
                 return false;
             }
         });
+    }
+
+    private void retrieveImage(ImageView imageView, String image) {
+        FirebaseStorage firebaseStorage = FirebaseStorage.getInstance();
+        StorageReference storageReference = firebaseStorage.getReference().child("Image")
+                .child(image);
+
+        final File file;
+        try {
+            file = File.createTempFile("img", "png");
+
+            storageReference.getFile(file).addOnSuccessListener(new OnSuccessListener<FileDownloadTask.TaskSnapshot>() {
+                @Override
+                public void onSuccess(FileDownloadTask.TaskSnapshot taskSnapshot) {
+                    imageView.setImageBitmap(BitmapFactory.decodeFile(file.getAbsolutePath()));
+                    if (progressDialog.isShowing())
+                        progressDialog.dismiss();
+                }
+            }).addOnFailureListener(new OnFailureListener() {
+                @Override
+                public void onFailure(@NonNull Exception e) {
+                    imageView.setImageResource(R.drawable.baseline_image_not_supported_24);
+                    Log.e("Image " + image, "Failed");
+                    if (progressDialog.isShowing())
+                        progressDialog.dismiss();
+                }
+            });
+        } catch (IOException e) {
+            imageView.setImageResource(R.drawable.baseline_image_not_supported_24);
+            if (progressDialog.isShowing())
+                progressDialog.dismiss();
+            throw new RuntimeException(e);
+        }
+
+    }
+    @Override
+    public void onItemClick(String view, int position) {
+        if (Objects.equals(view, "Crafts")){
+            Intent intent = new Intent(HomePageActivity.this, SearchPageActivity.class);
+            intent.putExtra("IdCrafts", craftsList.get(position).getUid());
+            startActivity(intent);
+        }
+        else if (Objects.equals(view, "Craftsmen")){
+            Intent intent = new Intent(HomePageActivity.this, CraftsmanInfoActivity.class);
+            intent.putExtra("idUser", craftsmanList.get(position).getIdUser());
+            startActivity(intent);
+        }
     }
 
     @Override

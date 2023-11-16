@@ -14,6 +14,7 @@ import android.util.Log;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirestoreRegistrar;
@@ -33,12 +34,14 @@ public class CraftsPageActivity extends AppCompatActivity implements RecViewInte
     private ProgressDialog progressDialog;
     // Firebase
     private FirebaseFirestore firestore;
+    private String userType;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_category_page);
         firestore = FirebaseFirestore.getInstance();
+        getUsersUid(FirebaseAuth.getInstance().getUid());
 
         // Progress
         progressDialog = new ProgressDialog(this);
@@ -59,7 +62,10 @@ public class CraftsPageActivity extends AppCompatActivity implements RecViewInte
                 startActivity(new Intent(CraftsPageActivity.this, SearchPageActivity.class));
                 return true;
             } else if (id == R.id.accountNavigation) {
-                startActivity(new Intent(CraftsPageActivity.this, UserAccountActivity.class));
+                if (userType.equals("Craftsman"))
+                    startActivity(new Intent(CraftsPageActivity.this, CraftsmanAccountActivity.class));
+                else if(userType.equals("User"))
+                    startActivity(new Intent(CraftsPageActivity.this, UserAccountActivity.class));
                 return true;
             } else if (id == R.id.categoryNavigation) {
                 return true;
@@ -98,6 +104,24 @@ public class CraftsPageActivity extends AppCompatActivity implements RecViewInte
                 });
         recyclerViewCategory.setLayoutManager(new GridLayoutManager(this, 2));
         recyclerViewCategory.setAdapter(adapterRecCategoryHor);
+    }
+
+    private void getUsersUid(String uid){
+        firestore.collection("Users")
+                .document(uid)
+                .get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                        if (!task.isSuccessful()){
+                            Log.e("GetUsers", "failed");
+                            if (progressDialog.isShowing())
+                                progressDialog.dismiss();
+                            return;
+                        }
+                        User user = task.getResult().toObject(User.class);
+                        userType = user.getUserType();
+                    }
+                });
     }
 
     @Override

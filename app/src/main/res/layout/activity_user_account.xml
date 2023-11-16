@@ -4,6 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/textColor01"
+    android:backgroundTint="@color/textColor01"
     tools:context=".UserAccountActivity">
 
     <ScrollView
@@ -64,18 +66,6 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:padding="10dp">
-
-                    <TextView
-                        android:id="@+id/craftsmanInfoNumber"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="4dp"
-                        android:fontFamily="@font/tajawal_bold"
-                        android:text="الحرفي رقم 1029 "
-                        android:textColor="@color/textColor01"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
 
                     <TextView
                         android:id="@+id/textView7"
@@ -142,15 +132,16 @@
                         android:layout_width="120dp"
                         android:layout_height="120dp"
                         android:layout_marginStart="8dp"
-                        android:layout_marginTop="8dp"
+                        android:layout_marginTop="16dp"
+                        app:cardBackgroundColor="@color/textColor01"
                         app:cardCornerRadius="20dp"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/craftsmanInfoNumber">
+                        app:layout_constraintTop_toTopOf="parent">
 
                         <ImageView
-                            android:id="@+id/craftsmanInfoImage"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
+                            android:id="@+id/userInfoImage"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
                             tools:srcCompat="@tools:sample/avatars" />
                     </androidx.cardview.widget.CardView>
 
@@ -184,7 +175,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="16dp"
                         android:layout_marginEnd="16dp"
-                        android:layout_marginBottom="8dp"
+                        android:layout_marginBottom="16dp"
                         android:fontFamily="@font/tajawal_regular"
                         android:text="حي المنظر الجميل العمارة 35 ب رقم 05 تيارت تيارت"
                         android:textColor="@color/textColor01"

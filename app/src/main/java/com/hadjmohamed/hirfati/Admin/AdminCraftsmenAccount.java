@@ -5,7 +5,6 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
-import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -46,13 +45,10 @@ import com.google.firebase.storage.UploadTask;
 import com.hadjmohamed.hirfati.AdapterRecComment;
 import com.hadjmohamed.hirfati.Comment;
 import com.hadjmohamed.hirfati.Craftsman;
-import com.hadjmohamed.hirfati.CraftsmanAccountActivity;
-import com.hadjmohamed.hirfati.CraftsmanAccountInfoActivity;
-import com.hadjmohamed.hirfati.GridAdapter;
+import com.hadjmohamed.hirfati.GridAdapterAdmin;
 import com.hadjmohamed.hirfati.ImageResizer;
 import com.hadjmohamed.hirfati.R;
 import com.hadjmohamed.hirfati.RecViewInterface;
-import com.hadjmohamed.hirfati.User;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -67,7 +63,6 @@ public class AdminCraftsmenAccount extends AppCompatActivity implements View.OnC
     private ImageView craftsmanInfoImage;
     private RecyclerView recyclerView;
     private String idUser;
-    private int position = 0;
 
     // Image
     private static final int PICK_IMAGE_REQUEST = 1;
@@ -75,10 +70,11 @@ public class AdminCraftsmenAccount extends AppCompatActivity implements View.OnC
     private ImageView workImage;
     private FirebaseStorage storage;
     private StorageReference storageReference;
+    private int position = 0;
 
     // GridView
     private GridView gridView;
-    private GridAdapter gridAdapter;
+    private GridAdapterAdmin gridAdapterAdmin;
     private List<String> works;
 
     // AdapterRecComment
@@ -154,8 +150,8 @@ public class AdminCraftsmenAccount extends AppCompatActivity implements View.OnC
         for (int i = 1; i <= 6; i++){
             works.add(idUser + "-" + i);
         }
-        gridAdapter = new GridAdapter(AdminCraftsmenAccount.this, works);
-        gridView.setAdapter(gridAdapter);
+        gridAdapterAdmin = new GridAdapterAdmin(AdminCraftsmenAccount.this, works);
+        gridView.setAdapter(gridAdapterAdmin);
         gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {

@@ -249,6 +249,7 @@ public class NewRegisterUserActivity extends AppCompatActivity implements View.O
                 user.setFamilyName(familyName.getText().toString());
                 user.setAddress(address.getText().toString());
                 user.setState(state.getSelectedItem().toString());
+                user.setCity(city.getSelectedItem().toString());
                 page02();
             }else if(state.getSelectedItem().toString().equals("ولايات")){
                 state.setBackgroundResource(R.drawable.custom_input_error);

@@ -24,7 +24,7 @@
             android:layout_height="match_parent">
 
             <androidx.appcompat.widget.Toolbar
-                android:id="@+id/toolbar"
+                android:id="@+id/toolbarSearch"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -59,15 +59,16 @@
                 android:id="@+id/profile"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
+                app:cardBackgroundColor="@color/textColor01"
                 app:cardCornerRadius="1000dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent">
 
                 <ImageView
-                    android:id="@+id/imageView"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:id="@+id/imageToolBar"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
                     tools:srcCompat="@tools:sample/avatars" />
             </androidx.cardview.widget.CardView>
         </androidx.constraintlayout.widget.ConstraintLayout>

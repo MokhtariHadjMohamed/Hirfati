@@ -77,7 +77,7 @@
                         android:layout_height="match_parent"
                         android:padding="20dp"
                         android:background="@color/Color01_50p"
-                        android:src="@drawable/baseline_edit_24"/>
+                        android:src="@drawable/baseline_cloud_upload_24"/>
                 </androidx.cardview.widget.CardView>
 
 
@@ -102,13 +102,13 @@
                     android:padding="10dp">
 
                     <TextView
-                        android:id="@+id/userNumberUserAccountInfo"
+                        android:id="@+id/errorUserAccountInfo"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="4dp"
                         android:fontFamily="@font/tajawal_bold"
-                        android:text="الحرفي رقم 1029 "
-                        android:textColor="@color/textColor01"
+                        android:textColor="@color/Error"
+                        android:textSize="20sp"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
@@ -130,7 +130,7 @@
                         android:textSize="20sp"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/userNumberUserAccountInfo" />
+                        app:layout_constraintTop_toBottomOf="@+id/errorUserAccountInfo" />
 
                     <EditText
                         android:id="@+id/famileNameUserAccountInfo"
@@ -151,7 +151,7 @@
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/nameUserAccountInfo" />
 
-                    <androidx.appcompat.widget.AppCompatButton
+                    <EditText
                         android:id="@+id/birthdayUserAccountInfo"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
@@ -159,7 +159,7 @@
                         android:layout_marginTop="16dp"
                         android:layout_marginEnd="16dp"
                         android:ems="10"
-                        android:inputType="text"
+                        android:inputType="none"
                         android:hint="تاريخ الميلاد"
                         android:fontFamily="@font/tajawal_regular"
                         android:textColor="@color/Color01"
@@ -195,7 +195,7 @@
                         app:layout_constraintTop_toBottomOf="@+id/birthdayUserAccountInfo" />
 
                     <Spinner
-                        android:id="@+id/wilayaUserAccountInfo"
+                        android:id="@+id/statesUserAccountInfo"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="16dp"
@@ -224,7 +224,7 @@
                         android:textSize="20sp"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/wilayaUserAccountInfo" />
+                        app:layout_constraintTop_toBottomOf="@+id/statesUserAccountInfo" />
 
                     <EditText
                         android:id="@+id/emailUserAccountInfo"

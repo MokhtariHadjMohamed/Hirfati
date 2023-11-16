@@ -2,7 +2,6 @@ package com.hadjmohamed.hirfati;
 
 import android.app.ProgressDialog;
 import android.content.Context;
-import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -17,22 +16,19 @@ import androidx.annotation.NonNull;
 import com.bumptech.glide.Glide;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.firebase.storage.FileDownloadTask;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
-import java.io.File;
-import java.io.IOException;
 import java.util.List;
 
-public class GridAdapter extends BaseAdapter {
+public class GridAdapterUser extends BaseAdapter {
 
     Context context;
     LayoutInflater inflater;
     List<String> works;
     ProgressDialog progressDialog;
 
-    public GridAdapter(Context context, List<String> works) {
+    public GridAdapterUser(Context context, List<String> works) {
         this.context = context;
         this.works = works;
         inflater = LayoutInflater.from(context);
@@ -71,13 +67,15 @@ public class GridAdapter extends BaseAdapter {
         deleteImage = view.findViewById(R.id.deleteImageCraftsmen);
         imageType = view.findViewById(R.id.imageTypeCraftsmen);
 
-        retrieveImage(workImage, works.get(i).toString(), deleteImage, imageType);
+        deleteImage.setImageResource(0);
+
+        retrieveImage(workImage, works.get(i).toString(), imageType);
 
         return view;
     }
 
     private void retrieveImage(ImageView imageView, String image,
-                               ImageView delete, TextView textView) {
+                               TextView textView) {
         FirebaseStorage firebaseStorage = FirebaseStorage.getInstance();
         StorageReference storageReference = firebaseStorage.getReference().child("Image/")
                 .child(image);
@@ -88,7 +86,6 @@ public class GridAdapter extends BaseAdapter {
                 Glide.with(context)
                         .load(uri)
                         .into(imageView);
-                delete.setImageResource(R.drawable.trach);
                 textView.setText("fill");
                 if (progressDialog.isShowing())
                     progressDialog.dismiss();
@@ -96,9 +93,7 @@ public class GridAdapter extends BaseAdapter {
         }).addOnFailureListener(new OnFailureListener() {
             @Override
             public void onFailure(@NonNull Exception e) {
-                delete.setImageResource(0);
-                imageView.setImageResource(R.drawable.add_work);
-                Log.e("Image" + image, e.getMessage());
+                imageView.setImageResource(R.drawable.baseline_image_not_supported_24);
                 textView.setText("none");
                 if (progressDialog.isShowing())
                     progressDialog.dismiss();

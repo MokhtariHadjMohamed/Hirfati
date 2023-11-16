@@ -16,6 +16,7 @@ import android.widget.TextView;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.Filter;
@@ -41,14 +42,14 @@ public class SearchPageActivity extends AppCompatActivity implements RecViewInte
 
     // ProgressDialog
     private ProgressDialog progressDialog;
-    private String search;
+    private String search, userType;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search_page);
         firestore = FirebaseFirestore.getInstance();
-
+        getUsersUid(FirebaseAuth.getInstance().getUid());
         // Progress
         progressDialog = new ProgressDialog(this);
         progressDialog.setCancelable(false);
@@ -106,7 +107,10 @@ public class SearchPageActivity extends AppCompatActivity implements RecViewInte
             } else if (id == R.id.searchNavigation) {
                 return true;
             } else if (id == R.id.accountNavigation) {
-                startActivity(new Intent(SearchPageActivity.this, UserAccountActivity.class));
+                if (userType.equals("Craftsman"))
+                    startActivity(new Intent(SearchPageActivity.this, CraftsmanAccountActivity.class));
+                else if(userType.equals("User"))
+                    startActivity(new Intent(SearchPageActivity.this, UserAccountActivity.class));
                 return true;
             } else if (id == R.id.categoryNavigation) {
                 startActivity(new Intent(SearchPageActivity.this, CraftsPageActivity.class));
@@ -164,6 +168,24 @@ public class SearchPageActivity extends AppCompatActivity implements RecViewInte
         recyclerView.setLayoutManager(new LinearLayoutManager(this,
                 LinearLayoutManager.VERTICAL, false));
         recyclerView.setAdapter(adapterRecCraftsmen);
+    }
+
+    private void getUsersUid(String uid){
+        firestore.collection("Users")
+                .document(uid)
+                .get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                        if (!task.isSuccessful()){
+                            Log.e("GetUsers", "failed");
+                            if (progressDialog.isShowing())
+                                progressDialog.dismiss();
+                            return;
+                        }
+                        User user = task.getResult().toObject(User.class);
+                        userType = user.getUserType();
+                    }
+                });
     }
 
     @Override
