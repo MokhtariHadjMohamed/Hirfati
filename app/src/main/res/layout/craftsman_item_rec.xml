@@ -9,7 +9,7 @@
 
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
-        android:layout_height="100dp"
+        android:layout_height="wrap_content"
         app:cardBackgroundColor="@color/textColor01"
         app:cardCornerRadius="20dp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -81,6 +81,7 @@
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="8dp"
                 android:layout_marginBottom="8dp"
+                android:lines="3"
                 android:text="تعليق"
                 android:textColor="@color/textColor03"
                 app:layout_constraintBottom_toBottomOf="parent"

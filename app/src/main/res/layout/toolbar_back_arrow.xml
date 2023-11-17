@@ -62,6 +62,7 @@
                 android:id="@+id/profile"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
+                app:cardBackgroundColor="@color/textColor01"
                 app:cardCornerRadius="1000dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"

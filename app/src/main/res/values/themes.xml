@@ -17,4 +17,7 @@
         <item name="android:textColorHint">@color/Color01</item>
         <item name="android:icon">@color/Color01</item>
     </style>
+    <style name="RatingBar" parent="Theme.AppCompat">
+        <item name="colorControlActivated">@color/textColor01</item>
+    </style>
 </resources>

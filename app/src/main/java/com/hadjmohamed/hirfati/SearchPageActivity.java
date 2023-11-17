@@ -8,12 +8,17 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.util.Log;
+import android.widget.ImageView;
 import android.widget.SearchView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.auth.FirebaseAuth;
@@ -23,11 +28,19 @@ import com.google.firebase.firestore.Filter;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
+import com.google.firebase.storage.FileDownloadTask;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
 public class SearchPageActivity extends AppCompatActivity implements RecViewInterface {
+
+    // Element
+    private TextView noneSearch;
 
     // RecyclerView
     private RecyclerView recyclerView;
@@ -38,6 +51,7 @@ public class SearchPageActivity extends AppCompatActivity implements RecViewInte
 
     // Toolbar
     private TextView textViewToolsBar;
+    private ImageView imageViewToolBar;
     private SearchView searchView;
 
     // ProgressDialog
@@ -56,10 +70,16 @@ public class SearchPageActivity extends AppCompatActivity implements RecViewInte
         progressDialog.setMessage("Fetching data...");
         progressDialog.show();
 
+        // Element
+        noneSearch = findViewById(R.id.noneSearchActivity);
+        if (craftsmanList == null)
+            noneSearch.setText("إبحث عن حرفي");
+
         // Toolbar
         Toolbar toolBar = findViewById(R.id.toolbar_back_arrow);
         setSupportActionBar(toolBar);
         textViewToolsBar = findViewById(R.id.toolbarTitle);
+        imageViewToolBar = findViewById(R.id.imageToolBar);
         searchView = findViewById(R.id.search);
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
@@ -75,6 +95,8 @@ public class SearchPageActivity extends AppCompatActivity implements RecViewInte
                 return false;
             }
         });
+
+        retrieveImage(imageViewToolBar, FirebaseAuth.getInstance().getUid());
 
         // RecyclerView
         recyclerView = findViewById(R.id.craftsmenSearch);
@@ -93,7 +115,6 @@ public class SearchPageActivity extends AppCompatActivity implements RecViewInte
             if (progressDialog.isShowing())
                 progressDialog.dismiss();
         }
-
 
         // navigation bar Bottom
         BottomNavigationView bottomNavigationView = findViewById(R.id.navigation_bar_home);
@@ -160,6 +181,10 @@ public class SearchPageActivity extends AppCompatActivity implements RecViewInte
                         for (QueryDocumentSnapshot d : task.getResult()) {
                             craftsmanList.add(d.toObject(Craftsman.class));
                         }
+                        if (craftsmanList.isEmpty())
+                            noneSearch.setText("لايوجد حرفي");
+                        else
+                            noneSearch.setText(null);
                         adapterRecCraftsmen.notifyDataSetChanged();
                         if (progressDialog.isShowing())
                             progressDialog.dismiss();
@@ -188,8 +213,38 @@ public class SearchPageActivity extends AppCompatActivity implements RecViewInte
                 });
     }
 
+    private void retrieveImage(ImageView imageView, String image) {
+        FirebaseStorage firebaseStorage = FirebaseStorage.getInstance();
+        StorageReference storageReference = firebaseStorage.getReference().child("Image")
+                .child(image);
+
+        final File file;
+        try {
+            file = File.createTempFile("img", "png");
+
+            storageReference.getFile(file).addOnSuccessListener(new OnSuccessListener<FileDownloadTask.TaskSnapshot>() {
+                @Override
+                public void onSuccess(FileDownloadTask.TaskSnapshot taskSnapshot) {
+                    imageView.setImageBitmap(BitmapFactory.decodeFile(file.getAbsolutePath()));
+                }
+            }).addOnFailureListener(new OnFailureListener() {
+                @Override
+                public void onFailure(@NonNull Exception e) {
+                    imageView.setImageResource(R.drawable.baseline_image_not_supported_24);
+                    Log.e("Image " + image, "Failed");
+                }
+            });
+        } catch (IOException e) {
+            imageView.setImageResource(R.drawable.baseline_image_not_supported_24);
+            throw new RuntimeException(e);
+        }
+    }
+
+
     @Override
     public void onItemClick(String view, int position) {
-
+        Intent intent = new Intent(SearchPageActivity.this, CraftsmanInfoActivity.class);
+        intent.putExtra("idUser", craftsmanList.get(position).getIdUser());
+        startActivity(intent);
     }
 }

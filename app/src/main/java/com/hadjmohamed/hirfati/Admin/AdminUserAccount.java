@@ -110,7 +110,7 @@ public class AdminUserAccount extends AppCompatActivity implements View.OnClickL
     }
 
     private void getComment() {
-        firestore.collection("Comment")
+        firestore.collection("Comments")
                 .whereEqualTo("uidUser", idUser)
                 .get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override

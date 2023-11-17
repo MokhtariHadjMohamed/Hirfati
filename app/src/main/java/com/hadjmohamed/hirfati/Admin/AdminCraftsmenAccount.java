@@ -297,7 +297,7 @@ public class AdminCraftsmenAccount extends AppCompatActivity implements View.OnC
     }
 
      private void getComment() {
-        firestore.collection("Comment")
+        firestore.collection("Comments")
                 .whereEqualTo("uidCraftsman", idUser)
                 .get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override
@@ -484,7 +484,7 @@ public class AdminCraftsmenAccount extends AppCompatActivity implements View.OnC
         dialogBuilder.setPositiveButton("نعم", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
-                firestore.collection("Comment")
+                firestore.collection("Comments")
                         .document(commentList.get(position).getUid())
                         .delete().addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override

@@ -11,7 +11,6 @@ import android.provider.MediaStore;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.Button;
 import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.SearchView;
@@ -23,7 +22,6 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
-import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -39,20 +37,16 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.OnProgressListener;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
-import com.hadjmohamed.hirfati.Admin.AdminCraftsmenAccount;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 
 public class CraftsmanAccountActivity extends AppCompatActivity implements View.OnClickListener {
     // Element
-    private Button craftsmanCall, reportCraftsman;
     private TextView nameAndFamilyName, crafts, desc;
     private ImageView craftsmanInfoImage;
-    private RecyclerView recyclerView;
     private TextView accountInfoCraftsmanAccount, settingCraftsmanAccount, logOutCraftsAccount;
     // toolbar
     private Toolbar toolbar;
@@ -68,7 +62,7 @@ public class CraftsmanAccountActivity extends AppCompatActivity implements View.
     // GridView
     private GridView gridView;
     private GridAdapterAdmin gridAdapterAdmin;
-    private List<String> works;
+    public static List<String> works;
 
     // Firebase
     private FirebaseFirestore firestore;
@@ -115,6 +109,8 @@ public class CraftsmanAccountActivity extends AppCompatActivity implements View.
         desc = findViewById(R.id.craftsmanInfoDesc);
         craftsmanInfoImage = findViewById(R.id.craftsmanInfoImage);
 
+        gridView = findViewById(R.id.worksCraftsmenAccount);
+
         accountInfoCraftsmanAccount = findViewById(R.id.accountInfoCraftsmanAccount);
         settingCraftsmanAccount = findViewById(R.id.settingCraftsmanAccount);
         logOutCraftsAccount = findViewById(R.id.logOutCraftsmanAccount);
@@ -126,13 +122,10 @@ public class CraftsmanAccountActivity extends AppCompatActivity implements View.
         getUser();
         // navigation bar Bottom
         BottomNavigation();
+    }
 
+    private void gridView(List<String> works) {
         // GridView
-        gridView = findViewById(R.id.worksCraftsmenAccount);
-        works = new ArrayList<>();
-        for (int i = 1; i <= 6; i++){
-            works.add(idUser + "-" + i);
-        }
         gridAdapterAdmin = new GridAdapterAdmin(CraftsmanAccountActivity.this, works);
         gridView.setAdapter(gridAdapterAdmin);
         gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -140,7 +133,7 @@ public class CraftsmanAccountActivity extends AppCompatActivity implements View.
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 TextView imageView = view.findViewById(R.id.imageTypeCraftsmen);
                 workImage = view.findViewById(R.id.workImageCraftsmen);
-                if (imageView.getText().toString().equals("none")){
+                if (imageView.getText().toString().equals("none")) {
                     Toast.makeText(CraftsmanAccountActivity.this, "Add", Toast.LENGTH_SHORT).show();
                     Intent intent = new Intent();
                     intent.setType("image/*");
@@ -149,16 +142,41 @@ public class CraftsmanAccountActivity extends AppCompatActivity implements View.
                             intent,
                             "Select Image from here..."), PICK_IMAGE_REQUEST);
                     position = i;
-                }else if (imageView.getText().toString().equals("fill")){
+                } else if (imageView.getText().toString().equals("fill")) {
                     Toast.makeText(CraftsmanAccountActivity.this, "Delete", Toast.LENGTH_SHORT).show();
-                    imageDelete(idUser + "-" + (i+1));
+                    imageDelete(idUser + "-" + (i + 1));
                 }
 
             }
         });
-
     }
-    private void imageDelete(String uid){
+
+    private void deleteImageFirestor(String work) {
+        firestore.collection("Users")
+                .document(idUser)
+                .get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                        if (!task.isSuccessful()) {
+                            Log.d("get User: ", "failed");
+                            return;
+                        }
+                        Craftsman craftsman = task.getResult().toObject(Craftsman.class);
+                        works = craftsman.getWorks();
+                        works.remove(work);
+                        firestore.collection("Users").document(idUser)
+                                .update("works", works).addOnSuccessListener(new OnSuccessListener<Void>() {
+                                    @Override
+                                    public void onSuccess(Void unused) {
+                                        finish();
+                                        startActivity(getIntent());
+                                    }
+                                });
+                    }
+                });
+    }
+
+    private void imageDelete(String uid) {
         dialogBuilder = new MaterialAlertDialogBuilder(CraftsmanAccountActivity.this);
         dialogBuilder.setMessage("هل تريد حذف هذه  صورة؟");
         dialogBuilder.setTitle("الطلب");
@@ -172,8 +190,7 @@ public class CraftsmanAccountActivity extends AppCompatActivity implements View.
                     @Override
                     public void onSuccess(Void unused) {
                         Toast.makeText(CraftsmanAccountActivity.this, "Delete done", Toast.LENGTH_SHORT).show();
-                        finish();
-                        startActivity(getIntent());
+                        deleteImageFirestor(uid);
                     }
                 }).addOnFailureListener(new OnFailureListener() {
                     @Override
@@ -203,7 +220,7 @@ public class CraftsmanAccountActivity extends AppCompatActivity implements View.
                 Bitmap bitmap = ImageResizer.reduceBitmapSize(bitmapOrigin, 307200);
                 workImage.setImageBitmap(bitmap);
                 Toast.makeText(this, "Upload", Toast.LENGTH_SHORT).show();
-                uploadImage(idUser + "-" + (position+1));
+                uploadImage(idUser + "-" + (position + 1));
             } catch (IOException e) {
                 e.printStackTrace();
                 Toast.makeText(this, "Error Upload", Toast.LENGTH_SHORT).show();
@@ -214,7 +231,7 @@ public class CraftsmanAccountActivity extends AppCompatActivity implements View.
     }
 
     private void uploadImage(String uid) {
-        if (imageUri == null){
+        if (imageUri == null) {
             return;
         }
 
@@ -275,10 +292,10 @@ public class CraftsmanAccountActivity extends AppCompatActivity implements View.
                             progressDialog.cancel();
                     }
                 });
-
+        listImageUpdate(uid);
     }
 
-    private void BottomNavigation(){
+    private void BottomNavigation() {
         BottomNavigationView bottomNavigationView = findViewById(R.id.navigation_bar_home);
         bottomNavigationView.setSelectedItemId(R.id.accountNavigation);
 
@@ -300,13 +317,14 @@ public class CraftsmanAccountActivity extends AppCompatActivity implements View.
             }
         });
     }
-    private void getUser(){
+
+    private void getUser() {
         firestore.collection("Users")
                 .document(idUser)
                 .get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
                     @Override
                     public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                        if (!task.isSuccessful()){
+                        if (!task.isSuccessful()) {
                             Log.d("get User: ", "failed");
                             return;
                         }
@@ -314,10 +332,34 @@ public class CraftsmanAccountActivity extends AppCompatActivity implements View.
                         nameAndFamilyName.setText(craftsman.getName() + " " + craftsman.getFamilyName());
                         crafts.setText(craftsman.getCraft());
                         desc.setText(craftsman.getDescription());
+                        works = craftsman.getWorks();
+                        if (works.size() < 6)
+                            works.add("gg");
+                        gridView(works);
                         retrieveImage(craftsmanInfoImage, idUser);
                     }
                 });
     }
+
+    private void listImageUpdate(String work) {
+        firestore.collection("Users")
+                .document(idUser)
+                .get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                        if (!task.isSuccessful()) {
+                            Log.d("get User: ", "failed");
+                            return;
+                        }
+                        Craftsman craftsman = task.getResult().toObject(Craftsman.class);
+                        works = craftsman.getWorks();
+                        works.add(work);
+                        firestore.collection("Users").document(idUser)
+                                .update("works", works);
+                    }
+                });
+    }
+
     private void retrieveImage(ImageView imageView, String image) {
         FirebaseStorage firebaseStorage = FirebaseStorage.getInstance();
         StorageReference storageReference = firebaseStorage.getReference().child("Image")
@@ -347,13 +389,13 @@ public class CraftsmanAccountActivity extends AppCompatActivity implements View.
 
     @Override
     public void onClick(View view) {
-        if (view == accountInfoCraftsmanAccount){
+        if (view == accountInfoCraftsmanAccount) {
             Intent intent = new Intent(CraftsmanAccountActivity.this, CraftsmanAccountInfoActivity.class);
             intent.putExtra("idUser", FirebaseAuth.getInstance().getUid());
             startActivity(intent);
-        }else if (view == settingCraftsmanAccount){
+        } else if (view == settingCraftsmanAccount) {
             startActivity(new Intent(CraftsmanAccountActivity.this, SettingsPageActivity.class));
-        }else if (view == logOutCraftsAccount){
+        } else if (view == logOutCraftsAccount) {
             startActivity(new Intent(CraftsmanAccountActivity.this, LogInActivity.class));
             FirebaseAuth.getInstance().signOut();
         }

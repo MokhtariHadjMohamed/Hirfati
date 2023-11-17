@@ -18,6 +18,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.GridView;
 import android.widget.ImageView;
+import android.widget.RatingBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -25,6 +26,9 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
@@ -32,6 +36,7 @@ import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.storage.FileDownloadTask;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
+import com.hadjmohamed.hirfati.Admin.Report;
 
 import java.io.File;
 import java.io.IOException;
@@ -40,10 +45,13 @@ import java.util.List;
 
 public class CraftsmanInfoActivity extends AppCompatActivity implements View.OnClickListener, RecViewInterface {
 
-    private Button craftsmanCall, reportCraftsman;
+    private Button craftsmanCall, reportCraftsman, addComment;
     private TextView nameAndFamilyName, crafts, desc;
     private ImageView craftsmanInfoImage;
+    private TextView noneComment;
     private RecyclerView recyclerView;
+    private RatingBar ratingBar;
+    private float rate = 0;
 
     // GridView
     private GridView gridView;
@@ -87,15 +95,21 @@ public class CraftsmanInfoActivity extends AppCompatActivity implements View.OnC
         toolbar = findViewById(R.id.toolbar_back_arrow);
         setSupportActionBar(toolbar);
         toolbarTitle = findViewById(R.id.toolbarTitle);
+        imageViewToolBar = findViewById(R.id.imageViewToolBar);
         backArrow = findViewById(R.id.backArrow);
 
         toolbarTitle.setText("الحرفي");
         backArrow.setOnClickListener(this);
 
+        retrieveImage(imageViewToolBar, FirebaseAuth.getInstance().getUid());
         // Element
         nameAndFamilyName = findViewById(R.id.craftsmanInfoNameAndFamilyName);
         crafts = findViewById(R.id.craftsmanInfoCrafts);
         desc = findViewById(R.id.craftsmanInfoDesc);
+        noneComment = findViewById(R.id.noneCommentCraftsmanInfoActivity);
+        addComment = findViewById(R.id.addCommentCraftsmanInfoActivity);
+        addComment.setOnClickListener(this);
+        ratingBar = findViewById(R.id.ratingBarCraftsInfoActivity);
 
         craftsmanCall = findViewById(R.id.callPhoneNumberCraftsman);
         reportCraftsman = findViewById(R.id.reportCraftsmanCraftsmenAccount);
@@ -111,12 +125,11 @@ public class CraftsmanInfoActivity extends AppCompatActivity implements View.OnC
         adapterRecComment = new AdapterRecComment(getApplicationContext(), commentList, this);
         getComment();
 
+    }
+
+    private void gridView(List<String> works){
         // GridView
         gridView = findViewById(R.id.workImageCraftsmenInfo);
-        works = new ArrayList<>();
-        for (int i = 1; i <= 6; i++){
-            works.add(idUser + "-" + i);
-        }
         gridAdapterUser = new GridAdapterUser(CraftsmanInfoActivity.this, works);
         gridView.setAdapter(gridAdapterUser);
 //        gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -143,7 +156,7 @@ public class CraftsmanInfoActivity extends AppCompatActivity implements View.OnC
     }
 
     private void getComment() {
-        firestore.collection("Comment")
+        firestore.collection("Comments")
                 .whereEqualTo("uidCraftsman", idUser)
                 .get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override
@@ -154,7 +167,13 @@ public class CraftsmanInfoActivity extends AppCompatActivity implements View.OnC
                         }
                         for (QueryDocumentSnapshot c : task.getResult()) {
                             commentList.add(c.toObject(Comment.class));
+                            rate += c.toObject(Comment.class).getRate();
                         }
+                        if (commentList.isEmpty()){
+                            noneComment.setText("اضف تعليق");
+                            noneComment.setVisibility(View.VISIBLE);
+                        }
+                        ratingBar.setRating(rate / commentList.size());
                         adapterRecComment.notifyDataSetChanged();
                     }
                 });
@@ -181,6 +200,10 @@ public class CraftsmanInfoActivity extends AppCompatActivity implements View.OnC
                         crafts.setText(craftsman.getCraft());
                         desc.setText(craftsman.getDescription());
                         phone = craftsman.getPhoneNumber();
+                        works = craftsman.getWorks();
+                        if (works.size() < 6)
+                            works.add("gg");
+                        gridView(works);
                         retrieveImage(craftsmanInfoImage, craftsman.getIdUser());
                     }
                 });
@@ -193,13 +216,15 @@ public class CraftsmanInfoActivity extends AppCompatActivity implements View.OnC
         dialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
 
         EditText text = (EditText) dialog.findViewById(R.id.textSendRaportDialog);
+        text.setHint("نص الإبلاغ");
         Button btnSubmit = (Button) dialog.findViewById(R.id.submitSendRaportDialog);
         Button btnCancel = (Button) dialog.findViewById(R.id.cancelSendRaportDialog);
 
         btnSubmit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                sendReport(text.getText().toString(), "7adj.mo7amed@gmail.com");
+                sendReport(FirebaseAuth.getInstance().getUid(), idUser, text.getText().toString());
+                dialog.cancel();
             }
         });
         btnCancel.setOnClickListener(new View.OnClickListener() {
@@ -210,7 +235,58 @@ public class CraftsmanInfoActivity extends AppCompatActivity implements View.OnC
         });
         dialog.show();
     }
+    private void sendReport(String uidUser, String uidCraftsman, String text) {
 
+        DocumentReference document = firestore.collection("Reports").document();
+
+        Report report = new Report();
+        report.setIdUser(uidUser);
+        report.setIdCraftsman(uidCraftsman);
+        report.setDesc(text);
+        report.setIdReport(document.getId());
+
+        document.set(report);
+    }
+
+    private void dialogComment() {
+        final Dialog dialog = new Dialog(this);
+
+        dialog.setContentView(R.layout.send_comment_custom_dialog);
+        dialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
+
+        RatingBar ratingBar = dialog.findViewById(R.id.ratingBarComment);
+        EditText text = (EditText) dialog.findViewById(R.id.textSendRaportDialog);
+        text.setHint("إضافة تعليق");
+        Button btnSubmit = (Button) dialog.findViewById(R.id.submitSendRaportDialog);
+        Button btnCancel = (Button) dialog.findViewById(R.id.cancelSendRaportDialog);
+        btnSubmit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                addComment(FirebaseAuth.getInstance().getUid(), idUser, text.getText().toString(), ratingBar.getRating());
+                dialog.cancel();
+            }
+        });
+        btnCancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                dialog.cancel();
+            }
+        });
+        dialog.show();
+    }
+    private void addComment(String uidUser, String uidCraftsman, String text, float rate) {
+
+        DocumentReference document = firestore.collection("Comments").document();
+
+        Comment comment = new Comment();
+        comment.setUidUser(uidUser);
+        comment.setUidCraftsman(uidCraftsman);
+        comment.setText(text);
+        comment.setUid(document.getId());
+        comment.setRate(rate);
+
+        document.set(comment);
+    }
     private void retrieveImage(ImageView imageView, String image) {
         FirebaseStorage firebaseStorage = FirebaseStorage.getInstance();
         StorageReference storageReference = firebaseStorage.getReference().child("Image")
@@ -243,28 +319,6 @@ public class CraftsmanInfoActivity extends AppCompatActivity implements View.OnC
             throw new RuntimeException(e);
         }
     }
-
-    private void sendReport(String text, String email) {
-        String[] TO = {email};
-        Intent emailIntent = new Intent(Intent.ACTION_SEND);
-
-        emailIntent.setData(Uri.parse("mailto:"));
-        emailIntent.setType("text/plain");
-        emailIntent.putExtra(Intent.EXTRA_EMAIL, TO);
-        emailIntent.putExtra(Intent.EXTRA_SUBJECT, "إنذار من تطبيق مول الحرف");
-        emailIntent.putExtra(Intent.EXTRA_TEXT, text);
-
-        try {
-            startActivity(Intent.createChooser(emailIntent, "Send mail..."));
-            finish();
-            Log.i("Finished sending email...", "");
-        } catch (android.content.ActivityNotFoundException ex) {
-            Log.e("Send Report:", ex.getMessage());
-            Toast.makeText(CraftsmanInfoActivity.this, "There is no email client installed.", Toast.LENGTH_SHORT).show();
-        }
-    }
-
-
     @Override
     public void onClick(View view) {
         if (view == backArrow){
@@ -276,6 +330,8 @@ public class CraftsmanInfoActivity extends AppCompatActivity implements View.OnC
             Intent intent = new Intent(Intent.ACTION_DIAL);
             intent.setData(Uri.parse("tel:" + phone));
             startActivity(intent);
+        } else if (view == addComment) {
+            dialogComment();
         }
     }
 

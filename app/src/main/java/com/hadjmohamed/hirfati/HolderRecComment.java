@@ -2,6 +2,7 @@ package com.hadjmohamed.hirfati;
 
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.RatingBar;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -11,12 +12,14 @@ public class HolderRecComment extends RecyclerView.ViewHolder {
 
     ImageView imageView;
     TextView nameAndFamilyName, description;
+    RatingBar ratingBar;
 
     public HolderRecComment(@NonNull View itemView, RecViewInterface recViewInterface) {
         super(itemView);
         nameAndFamilyName = itemView.findViewById(R.id.nameComment);
         description = itemView.findViewById(R.id.commentText);
         imageView = itemView.findViewById(R.id.imageComment);
+        ratingBar = itemView.findViewById(R.id.ratingBarCommentItem);
 
         itemView.setOnClickListener(new View.OnClickListener() {
             @Override

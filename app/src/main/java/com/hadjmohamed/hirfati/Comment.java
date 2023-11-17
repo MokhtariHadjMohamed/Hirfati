@@ -6,15 +6,17 @@ public class Comment {
 
     private String uid, uidUser, uidCraftsman;
     private String text;
+    private float rate;
 
     public Comment() {
     }
 
-    public Comment(String uid, String uidUser, String uidCraftsman, String text) {
+    public Comment(String uid, String uidUser, String uidCraftsman, String text, float rate) {
         this.uid = uid;
         this.uidUser = uidUser;
         this.uidCraftsman = uidCraftsman;
         this.text = text;
+        this.rate = rate;
     }
 
     public String getUid() {
@@ -47,5 +49,13 @@ public class Comment {
 
     public void setText(String text) {
         this.text = text;
+    }
+
+    public float getRate() {
+        return rate;
+    }
+
+    public void setRate(float rate) {
+        this.rate = rate;
     }
 }

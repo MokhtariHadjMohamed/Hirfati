@@ -31,8 +31,8 @@
         android:layout_marginEnd="8dp"
         android:fontFamily="@font/tajawal_bold"
         android:text="قاس جيمس"
-        android:textSize="20sp"
         android:textColor="@color/textColor01"
+        android:textSize="20sp"
         app:layout_constraintEnd_toStartOf="@+id/cardView5"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -64,4 +64,18 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/commentText" />
+
+    <RatingBar
+        android:id="@+id/ratingBarCommentItem"
+        style="@android:style/Widget.DeviceDefault.Light.RatingBar.Small"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:isIndicator="true"
+        android:numStars="5"
+        android:stepSize=".5"
+        app:layout_constraintBottom_toBottomOf="@+id/nameComment"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/nameComment"
+        android:theme="@style/RatingBar"/>
 </androidx.constraintlayout.widget.ConstraintLayout>

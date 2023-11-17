@@ -51,6 +51,7 @@ public class AdapterRecComment extends RecyclerView.Adapter<HolderRecComment> {
             return;
         }
         holder.description.setText(commentList.get(position).getText());
+        holder.ratingBar.setRating(commentList.get(position).getRate());
         getUser(commentList.get(position), holder.imageView, holder.nameAndFamilyName);
     }
 
