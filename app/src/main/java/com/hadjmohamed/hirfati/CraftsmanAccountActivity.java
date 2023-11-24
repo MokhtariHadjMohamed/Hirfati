@@ -13,6 +13,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.GridView;
 import android.widget.ImageView;
+import android.widget.RatingBar;
 import android.widget.SearchView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -46,6 +47,7 @@ import java.util.List;
 public class CraftsmanAccountActivity extends AppCompatActivity implements View.OnClickListener {
     // Element
     private TextView nameAndFamilyName, crafts, desc;
+    private RatingBar ratingBar;
     private ImageView craftsmanInfoImage;
     private TextView accountInfoCraftsmanAccount, settingCraftsmanAccount, logOutCraftsAccount;
     // toolbar
@@ -108,6 +110,7 @@ public class CraftsmanAccountActivity extends AppCompatActivity implements View.
         crafts = findViewById(R.id.craftsmanInfoCrafts);
         desc = findViewById(R.id.craftsmanInfoDesc);
         craftsmanInfoImage = findViewById(R.id.craftsmanInfoImage);
+        ratingBar = findViewById(R.id.ratingBarCraftsActivity);
 
         gridView = findViewById(R.id.worksCraftsmenAccount);
 
@@ -333,6 +336,7 @@ public class CraftsmanAccountActivity extends AppCompatActivity implements View.
                         crafts.setText(craftsman.getCraft());
                         desc.setText(craftsman.getDescription());
                         works = craftsman.getWorks();
+                        ratingBar.setRating(craftsman.getRating());
                         if (works.size() < 6)
                             works.add("gg");
                         gridView(works);

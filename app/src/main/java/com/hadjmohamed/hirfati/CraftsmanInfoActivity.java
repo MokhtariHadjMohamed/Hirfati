@@ -132,27 +132,6 @@ public class CraftsmanInfoActivity extends AppCompatActivity implements View.OnC
         gridView = findViewById(R.id.workImageCraftsmenInfo);
         gridAdapterUser = new GridAdapterUser(CraftsmanInfoActivity.this, works);
         gridView.setAdapter(gridAdapterUser);
-//        gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-//            @Override
-//            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-//                TextView imageView = view.findViewById(R.id.imageTypeCraftsmen);
-//                workImage = view.findViewById(R.id.workImageCraftsmenInfo);
-//                if (imageView.getText().toString().equals("none")){
-//                    Toast.makeText(CraftsmanInfoActivity.this, "Add", Toast.LENGTH_SHORT).show();
-//                    Intent intent = new Intent();
-//                    intent.setType("image/*");
-//                    intent.setAction(Intent.ACTION_GET_CONTENT);
-//                    startActivityForResult(Intent.createChooser(
-//                            intent,
-//                            "Select Image from here..."), PICK_IMAGE_REQUEST);
-//                    position = i;
-//                }else if (imageView.getText().toString().equals("fill")){
-//                    Toast.makeText(AdminCraftsmenAccount.this, "Delete", Toast.LENGTH_SHORT).show();
-//                    imageDelete(idUser + "-" + (i+1));
-//                }
-//
-//            }
-//        });
     }
 
     private void getComment() {
@@ -167,13 +146,11 @@ public class CraftsmanInfoActivity extends AppCompatActivity implements View.OnC
                         }
                         for (QueryDocumentSnapshot c : task.getResult()) {
                             commentList.add(c.toObject(Comment.class));
-                            rate += c.toObject(Comment.class).getRate();
                         }
                         if (commentList.isEmpty()){
                             noneComment.setText("اضف تعليق");
                             noneComment.setVisibility(View.VISIBLE);
                         }
-                        ratingBar.setRating(rate / commentList.size());
                         adapterRecComment.notifyDataSetChanged();
                     }
                 });
@@ -201,6 +178,7 @@ public class CraftsmanInfoActivity extends AppCompatActivity implements View.OnC
                         desc.setText(craftsman.getDescription());
                         phone = craftsman.getPhoneNumber();
                         works = craftsman.getWorks();
+                        ratingBar.setRating(craftsman.getRating());
                         if (works.size() < 6)
                             works.add("gg");
                         gridView(works);
@@ -274,6 +252,28 @@ public class CraftsmanInfoActivity extends AppCompatActivity implements View.OnC
         });
         dialog.show();
     }
+
+    private void uploadRatingAndCommentNumber(Float rate){
+        firestore.collection("Comments")
+                .whereEqualTo("uidCraftsman", idUser)
+                .get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if (!task.isSuccessful()) {
+                            Log.d("get Comment: ", "failed");
+                            return;
+                        }
+                        float rate = 0;
+                        for (QueryDocumentSnapshot c : task.getResult()) {
+                            rate += c.toObject(Comment.class).getRate();
+                        }
+                        int commentNumber = task.getResult().size();
+                        firestore.collection("Users").document(idUser).update("rating", rate / commentNumber);
+                        finish();
+                        startActivity(getIntent());
+                    }
+                });
+    }
     private void addComment(String uidUser, String uidCraftsman, String text, float rate) {
 
         DocumentReference document = firestore.collection("Comments").document();
@@ -284,8 +284,9 @@ public class CraftsmanInfoActivity extends AppCompatActivity implements View.OnC
         comment.setText(text);
         comment.setUid(document.getId());
         comment.setRate(rate);
-
         document.set(comment);
+
+        uploadRatingAndCommentNumber(rate);
     }
     private void retrieveImage(ImageView imageView, String image) {
         FirebaseStorage firebaseStorage = FirebaseStorage.getInstance();

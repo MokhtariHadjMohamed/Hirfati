@@ -117,7 +117,7 @@ public class UserAccountInfoActivity extends AppCompatActivity implements View.O
         birthday = findViewById(R.id.birthdayUserAccountInfo);
         address = findViewById(R.id.addressUserAccountInfo);
         email = findViewById(R.id.emailUserAccountInfo);
-        phone = findViewById(R.id.passwordUserAccountInfo);
+        phone = findViewById(R.id.phoneNumberUserAccountInfo);
         userImage = findViewById(R.id.userImageUserAccountInfo);
         error = findViewById(R.id.errorUserAccountInfo);
         uploadImage = findViewById(R.id.editImageUserAccountInfo);
@@ -201,7 +201,7 @@ public class UserAccountInfoActivity extends AppCompatActivity implements View.O
                         birthday.setText(user.getBirthday());
                         address.setText(user.getAddress());
                         email.setText(user.getEmail());
-                        phone.setText(user.getPhoneNumber());
+                        phone.setText("1234567");
                         stateList.add(0, user.getState());
                         cityList.add(0, user.getCity());
                         getCity(user.getState());
@@ -209,7 +209,6 @@ public class UserAccountInfoActivity extends AppCompatActivity implements View.O
                     }
                 });
     }
-
 
     private void getStatus(){
         stateList.add("ولايات");
@@ -258,7 +257,7 @@ public class UserAccountInfoActivity extends AppCompatActivity implements View.O
                     @Override
                     public void onSuccess(Void unused) {
                         Intent intent = new Intent(UserAccountInfoActivity.this,
-                                AdminUserAccount.class);
+                                UserAccountActivity.class);
                         intent.putExtra("idUser", idUser);
                         startActivity(intent);
                         finish();
@@ -467,6 +466,13 @@ public class UserAccountInfoActivity extends AppCompatActivity implements View.O
         } else if (view == backArrow) {
             startActivity(new Intent(UserAccountInfoActivity.this, UserAccountActivity.class));
             finish();
+        }else if(view == uploadImage){
+            Intent intent = new Intent();
+            intent.setType("image/*");
+            intent.setAction(Intent.ACTION_GET_CONTENT);
+            startActivityForResult(Intent.createChooser(
+                    intent,
+                    "Select Image from here..."), PICK_IMAGE_REQUEST);
         }
     }
 }

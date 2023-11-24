@@ -52,6 +52,7 @@
                 android:layout_width="120dp"
                 android:layout_height="120dp"
                 android:layout_marginTop="32dp"
+                app:cardBackgroundColor="@color/textColor01"
                 app:cardCornerRadius="20dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -59,25 +60,25 @@
 
                 <ImageView
                     android:id="@+id/userImageUserAccountInfo"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
                     tools:srcCompat="@tools:sample/avatars" />
 
                 <androidx.cardview.widget.CardView
                     android:id="@+id/editImageUserAccountInfo"
                     android:layout_width="120dp"
                     android:layout_height="120dp"
-                    app:cardCornerRadius="20dp"
                     android:backgroundTint="#00000000"
+                    app:cardCornerRadius="20dp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent">
 
                     <ImageView
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:padding="20dp"
                         android:background="@color/Color01_50p"
-                        android:src="@drawable/baseline_cloud_upload_24"/>
+                        android:padding="20dp"
+                        android:src="@drawable/baseline_cloud_upload_24" />
                 </androidx.cardview.widget.CardView>
 
 

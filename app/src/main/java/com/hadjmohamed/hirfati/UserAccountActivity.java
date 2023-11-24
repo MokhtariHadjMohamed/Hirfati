@@ -66,7 +66,7 @@ public class UserAccountActivity extends AppCompatActivity implements View.OnCli
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_account);
         firestore = FirebaseFirestore.getInstance();
-        idUser = FirebaseAuth.getInstance().getUid();
+        idUser = FirebaseAuth.getInstance().getCurrentUser().getUid();
 
         // Progress
         progressDialog = new ProgressDialog(this);
@@ -96,7 +96,6 @@ public class UserAccountActivity extends AppCompatActivity implements View.OnCli
         settingUserAccount.setOnClickListener(this);
         logOutUserAccount.setOnClickListener(this);
 
-
         // navigation bar Bottom
         BottomNavigation();
 
@@ -106,7 +105,6 @@ public class UserAccountActivity extends AppCompatActivity implements View.OnCli
         adapterRecComment = new AdapterRecComment(getApplicationContext(), commentList, this);
 
         getComment();
-
         getUser();
     }
     private void retrieveImage(ImageView imageView, String image) {
@@ -164,7 +162,8 @@ public class UserAccountActivity extends AppCompatActivity implements View.OnCli
     }
 
     private void getComment() {
-        firestore.collection("Comment")
+        Log.d("get idUser: ", idUser);
+        firestore.collection("Comments")
                 .whereEqualTo("uidUser", idUser)
                 .get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override
@@ -173,6 +172,7 @@ public class UserAccountActivity extends AppCompatActivity implements View.OnCli
                             Log.d("get Comment: ", "failed");
                             return;
                         }
+                        Log.d("Size comment: ", task.getResult().size() + "");
                         for (QueryDocumentSnapshot c : task.getResult()) {
                             commentList.add(c.toObject(Comment.class));
                         }

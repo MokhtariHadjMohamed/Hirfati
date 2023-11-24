@@ -8,19 +8,22 @@ import java.util.List;
 public class Craftsman extends User{
 
     private String craft, level, exYears, description;
+    private Float rating;
     private List<String> works;
 
     public Craftsman() {
     }
 
     public Craftsman(String idUser, String name, String familyName, String address, String birthday,
-                     String state, String city, String email, String userType, String logInSituation,
-                     String craft, String level, String exYears, String description, List<String> works) {
-        super(idUser, name, familyName, address, birthday, state, city, email, userType, logInSituation);
+                     String state, String city, String email, String phoneNumber, String userType,
+                     String logInSituation, String craft, String level, String exYears,
+                     String description, Float rating, List<String> works) {
+        super(idUser, name, familyName, address, birthday, state, city, email, phoneNumber, userType, logInSituation);
         this.craft = craft;
         this.level = level;
         this.exYears = exYears;
         this.description = description;
+        this.rating = rating;
         this.works = works;
     }
 
@@ -46,6 +49,14 @@ public class Craftsman extends User{
 
     public void setExYears(String exYears) {
         this.exYears = exYears;
+    }
+
+    public Float getRating() {
+        return rating;
+    }
+
+    public void setRating(Float rating) {
+        this.rating = rating;
     }
 
     public String getDescription() {

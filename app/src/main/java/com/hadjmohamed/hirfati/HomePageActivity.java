@@ -25,6 +25,7 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.storage.FileDownloadTask;
@@ -140,7 +141,7 @@ public class HomePageActivity extends AppCompatActivity implements RecViewInterf
 
     private void getUsers(){
         firestore.collection("Users")
-                .whereEqualTo("userType", "Craftsman")
+                .orderBy("rating", Query.Direction.DESCENDING)
                 .get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
@@ -151,7 +152,9 @@ public class HomePageActivity extends AppCompatActivity implements RecViewInterf
                             return;
                         }
                         for(QueryDocumentSnapshot d: task.getResult()){
-                            craftsmanList.add(d.toObject(Craftsman.class));
+                            Craftsman craftsman = d.toObject(Craftsman.class);
+                            if (!Objects.equals(craftsman.getIdUser(), idUser))
+                                craftsmanList.add(craftsman);
                         }
                         adapterRecCraftsmen.notifyDataSetChanged();
                     }

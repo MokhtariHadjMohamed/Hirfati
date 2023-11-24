@@ -48,6 +48,7 @@ public class AdapterRecCraftsmen extends RecyclerView.Adapter<HolderRecCraftsmen
                 + craftsmanList.get(position).getFamilyName()));
         holder.crafts.setText(craftsmanList.get(position).getCraft());
         holder.description.setText(craftsmanList.get(position).getDescription());
+        holder.ratingBar.setRating(craftsmanList.get(position).getRating());
         retrieveImage(holder.imageView, craftsmanList.get(position).getIdUser());
     }
 

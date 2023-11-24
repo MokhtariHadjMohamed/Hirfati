@@ -12,7 +12,8 @@ public class User {
     }
 
     public User(String idUser, String name, String familyName, String address, String birthday,
-                String state, String city, String email, String userType, String logInSituation) {
+                String state, String city, String email, String phoneNumber, String userType,
+                String logInSituation) {
         this.idUser = idUser;
         this.name = name;
         this.familyName = familyName;
@@ -21,6 +22,7 @@ public class User {
         this.state = state;
         this.city = city;
         this.email = email;
+        this.phoneNumber = phoneNumber;
         this.userType = userType;
         this.logInSituation = logInSituation;
     }

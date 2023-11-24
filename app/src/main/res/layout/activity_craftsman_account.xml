@@ -7,7 +7,6 @@
     tools:context=".CraftsmanAccountActivity"
     >
 
-
     <ScrollView
         android:layout_width="0dp"
         android:layout_height="0dp"
@@ -156,6 +155,21 @@
                             android:layout_height="match_parent"
                             tools:srcCompat="@tools:sample/avatars" />
                     </androidx.cardview.widget.CardView>
+
+                    <RatingBar
+                        android:id="@+id/ratingBarCraftsActivity"
+                        style="@android:style/Widget.DeviceDefault.Light.RatingBar.Small"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="16dp"
+                        android:layout_marginBottom="3dp"
+                        android:isIndicator="true"
+                        android:numStars="5"
+                        android:stepSize=".5"
+                        android:theme="@style/RatingBar"
+                        app:layout_constraintBottom_toBottomOf="@+id/textView10"
+                        app:layout_constraintEnd_toStartOf="@+id/textView10"
+                        app:layout_constraintTop_toTopOf="@+id/textView10" />
                 </androidx.constraintlayout.widget.ConstraintLayout>
             </androidx.cardview.widget.CardView>
 

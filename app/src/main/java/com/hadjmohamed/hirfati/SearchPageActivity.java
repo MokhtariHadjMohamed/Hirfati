@@ -11,6 +11,7 @@ import android.content.Intent;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.SearchView;
 import android.widget.TextView;
@@ -36,6 +37,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class SearchPageActivity extends AppCompatActivity implements RecViewInterface {
 
@@ -72,8 +74,10 @@ public class SearchPageActivity extends AppCompatActivity implements RecViewInte
 
         // Element
         noneSearch = findViewById(R.id.noneSearchActivity);
-        if (craftsmanList == null)
+        if (craftsmanList == null){
             noneSearch.setText("إبحث عن حرفي");
+            noneSearch.setVisibility(View.VISIBLE);
+        }
 
         // Toolbar
         Toolbar toolBar = findViewById(R.id.toolbar_back_arrow);
@@ -179,12 +183,16 @@ public class SearchPageActivity extends AppCompatActivity implements RecViewInte
                             return;
                         }
                         for (QueryDocumentSnapshot d : task.getResult()) {
-                            craftsmanList.add(d.toObject(Craftsman.class));
+                            Craftsman craftsman = d.toObject(Craftsman.class);
+                            if (!Objects.equals(craftsman.getIdUser(), FirebaseAuth.getInstance().getCurrentUser().getUid()))
+                                craftsmanList.add(craftsman);
                         }
-                        if (craftsmanList.isEmpty())
-                            noneSearch.setText("لايوجد حرفي");
+                        if (craftsmanList.isEmpty()){
+                            noneSearch.setText("لا يوجد حرفي");
+                            noneSearch.setVisibility(View.VISIBLE);
+                        }
                         else
-                            noneSearch.setText(null);
+                            noneSearch.setVisibility(View.GONE);
                         adapterRecCraftsmen.notifyDataSetChanged();
                         if (progressDialog.isShowing())
                             progressDialog.dismiss();

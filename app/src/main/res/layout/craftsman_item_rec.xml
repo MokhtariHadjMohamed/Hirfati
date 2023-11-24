@@ -51,6 +51,21 @@
                 app:layout_constraintEnd_toStartOf="@+id/cardView"
                 app:layout_constraintTop_toTopOf="parent" />
 
+            <RatingBar
+                android:id="@+id/ratingBarItem"
+                style="@android:style/Widget.DeviceDefault.Light.RatingBar.Small"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="24dp"
+                android:layout_marginBottom="3dp"
+                android:isIndicator="true"
+                android:numStars="5"
+                android:stepSize=".5"
+                android:theme="@style/RatingBarItem"
+                app:layout_constraintBottom_toBottomOf="@+id/nameHome"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/nameHome" />
+
             <TextView
                 android:id="@+id/textView8"
                 android:layout_width="wrap_content"
