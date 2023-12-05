@@ -78,6 +78,7 @@ public class NewRegisterUserActivity extends AppCompatActivity implements View.O
 
         // birthday selected
         birthday = findViewById(R.id.dateUser);
+        birthday.setFocusable(false);
         birthday.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -176,6 +177,19 @@ public class NewRegisterUserActivity extends AppCompatActivity implements View.O
         password = findViewById(R.id.password01User);
         password02 = findViewById(R.id.password02User);
 
+        password.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View view, boolean b) {
+                EditText e = (EditText) view;
+                if (!b){
+                    if(e.getText().toString().length() <= 6)
+                        errorUser.setText("كلمة سر يجب ان تكون أكثر من 6 أحرف");
+                    else
+                        errorUser.setVisibility(View.GONE);
+                }
+            }
+        });
+
         errorUser = findViewById(R.id.errorUser2);
 
         goBack = findViewById(R.id.goBackUser);
@@ -191,11 +205,12 @@ public class NewRegisterUserActivity extends AppCompatActivity implements View.O
             if (e.getText().toString().isEmpty()){
                 e.setBackgroundResource(R.drawable.custom_input_error);
                 errorUser.setText("إملء كل خانات");
+                errorUser.setVisibility(View.VISIBLE);
                 return false;
             }
             e.setBackgroundResource(R.drawable.custom_input);
         }
-        errorUser.setText("");
+        errorUser.setVisibility(View.GONE);
         return true;
     }
 
@@ -262,7 +277,8 @@ public class NewRegisterUserActivity extends AppCompatActivity implements View.O
             page01();
         } else if (view == submit) {
             if (editTest(editTextsPage02)){
-                if (password.getText().toString().equals(password02.getText().toString())){
+                if (password.getText().toString().equals(password02.getText().toString())
+                        && password.getText().toString().length() > 6){
                     // Progress
                     progressDialog = new ProgressDialog(this);
                     progressDialog.setCancelable(false);
@@ -274,9 +290,14 @@ public class NewRegisterUserActivity extends AppCompatActivity implements View.O
                     user.setUserType("User");
 
                     addAuth(email.getText().toString(), password.getText().toString());
-                }else{
+                }else if (!password.getText().toString().equals(password02.getText().toString())){
                     errorUser.setText("كلمة سر غير متطابقتان");
                     password02.setBackgroundResource(R.drawable.custom_input_error);
+                    errorUser.setVisibility(View.VISIBLE);
+                }else if (password.getText().toString().length() <= 6){
+                    errorUser.setText("كلمة سر يجب ان تكون أكثر من 6 أحرف");
+                    Toast.makeText(this, "Click", Toast.LENGTH_SHORT).show();
+                    errorUser.setVisibility(View.VISIBLE);
                 }
             }
         }

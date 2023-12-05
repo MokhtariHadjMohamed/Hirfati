@@ -60,7 +60,7 @@ public class UserAccountInfoActivity extends AppCompatActivity implements View.O
 
 
     // Element
-    private EditText name, familyName, birthday, address, email, phone;
+    private EditText name, familyName, birthday, address, email, phone, password;
     private Spinner states, city;
     private Button submit;
     private TextView close, error;
@@ -79,7 +79,6 @@ public class UserAccountInfoActivity extends AppCompatActivity implements View.O
     private CardView uploadImage;
     private Uri imageUri;
     private ImageView userImage;
-
     private FirebaseStorage storage;
     private StorageReference storageReference;
     //firebase
@@ -118,6 +117,7 @@ public class UserAccountInfoActivity extends AppCompatActivity implements View.O
         address = findViewById(R.id.addressUserAccountInfo);
         email = findViewById(R.id.emailUserAccountInfo);
         phone = findViewById(R.id.phoneNumberUserAccountInfo);
+        password = findViewById(R.id.passwordUserAccountInfo);
         userImage = findViewById(R.id.userImageUserAccountInfo);
         error = findViewById(R.id.errorUserAccountInfo);
         uploadImage = findViewById(R.id.editImageUserAccountInfo);
@@ -127,8 +127,17 @@ public class UserAccountInfoActivity extends AppCompatActivity implements View.O
 
         states = findViewById(R.id.statesUserAccountInfo);
         city = findViewById(R.id.cityUserAccountInfo);
+        password.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(UserAccountInfoActivity.this, ForgetPasswordActivity.class);
+                intent.putExtra("email", email.getText().toString());
+                startActivity(intent);
+            }
+        });
 
         // birthday
+        birthday.setFocusable(false);
         birthday.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -421,7 +430,6 @@ public class UserAccountInfoActivity extends AppCompatActivity implements View.O
                     }
                 });
     }
-
 
     @Override
     public void onClick(View view) {

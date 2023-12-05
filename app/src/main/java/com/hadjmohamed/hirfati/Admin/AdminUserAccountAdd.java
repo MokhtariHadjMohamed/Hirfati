@@ -122,6 +122,7 @@ public class AdminUserAccountAdd extends AppCompatActivity implements View.OnCli
 
         // birthday selected
         birthdayAdmin = (EditText) findViewById(R.id.birthdayAdminUserAccountAdd);
+        birthdayAdmin.setFocusable(false);
         birthdayAdmin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

@@ -115,6 +115,7 @@ public class AdminCraftsmenAccountInfo extends AppCompatActivity implements View
         craftsmanImage = findViewById(R.id.craftsmanImageUserAccountInfo);
 
         // birthday
+        birthday.setFocusable(false);
         birthday.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

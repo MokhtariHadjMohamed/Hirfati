@@ -6,6 +6,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -28,7 +30,7 @@ import java.util.Objects;
 public class LogInActivity extends AppCompatActivity implements View.OnClickListener {
 
     private Button logIn, craftsmenRegister, userRegister;
-    private TextView errorCraftsman;
+    private TextView errorCraftsman, forgetPassword;
     private EditText email, password;
     private EditText[] editTexts;
     private User user;
@@ -53,9 +55,25 @@ public class LogInActivity extends AppCompatActivity implements View.OnClickList
 
         email = findViewById(R.id.emailSignIn);
         password = findViewById(R.id.passwordSignIn);
+        forgetPassword = findViewById(R.id.forgetPasswordLogIn);
         errorCraftsman = findViewById(R.id.errorLogInActivity);
 
+        password.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View view, boolean b) {
+                EditText e = (EditText) view;
+                if (!b){
+                    if(e.getText().toString().length() <= 6)
+                        errorCraftsman.setText("كلمة سر يجب ان تكون أكثر من 6 أحرف");
+                    else
+                        errorCraftsman.setVisibility(View.GONE);
+                }
+            }
+        });
+
         editTexts = new EditText[]{email, password};
+
+        forgetPassword.setOnClickListener(this);
 
         userRegister.setOnClickListener(this);
         craftsmenRegister.setOnClickListener(this);
@@ -78,6 +96,10 @@ public class LogInActivity extends AppCompatActivity implements View.OnClickList
             startActivity(new Intent(LogInActivity.this, NewRegisterUserActivity.class));
         } else if (view == craftsmenRegister) {
             startActivity(new Intent(LogInActivity.this, NewRegisterCraftsmanActivity.class));
+        }else if (view == forgetPassword){
+            Intent intent = new Intent(LogInActivity.this, ForgetPasswordActivity.class);
+            intent.putExtra("email", email.getText().toString());
+            startActivity(intent);
         }
     }
 
@@ -135,8 +157,14 @@ public class LogInActivity extends AppCompatActivity implements View.OnClickList
             if (e.getText().toString().isEmpty()){
                 e.setBackgroundResource(R.drawable.custom_input_error);
                 errorCraftsman.setText("إملء كل خانات");
+                errorCraftsman.setVisibility(View.VISIBLE);
                 return false;
-            }
+            }else if(e.getText().toString().length() <= 6){
+                errorCraftsman.setText("كلمة سر يجب ان تكون أكثر من 6 أحرف");
+                errorCraftsman.setVisibility(View.VISIBLE);
+                return false;
+            }else
+                errorCraftsman.setVisibility(View.GONE);
             e.setBackgroundResource(R.drawable.custom_input);
         }
         errorCraftsman.setText("");

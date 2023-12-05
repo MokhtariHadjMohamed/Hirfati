@@ -83,6 +83,7 @@ public class NewRegisterCraftsmanActivity extends AppCompatActivity
 
         // birthday selected
         birthday = findViewById(R.id.dateCraftsman);
+        birthday.setFocusable(false);
         birthday.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -194,6 +195,18 @@ public class NewRegisterCraftsmanActivity extends AppCompatActivity
         password02 = findViewById(R.id.password02Craftsman);
         descriptionCraftsman = findViewById(R.id.descriptionCraftsman);
 
+        password.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View view, boolean b) {
+                EditText e = (EditText) view;
+                if (!b){
+                    if(e.getText().toString().length() <= 6)
+                        errorCraftsman.setText("كلمة سر يجب ان تكون أكثر من 6 أحرف");
+                    else
+                        errorCraftsman.setVisibility(View.GONE);
+                }
+            }
+        });
         // crafts spinner
         craftsList = new ArrayList();
         adapterCrafts = new ArrayAdapter<String>(this,
@@ -250,11 +263,12 @@ public class NewRegisterCraftsmanActivity extends AppCompatActivity
             if (e.getText().toString().isEmpty()) {
                 e.setBackgroundResource(R.drawable.custom_input_error);
                 errorCraftsman.setText("إملء كل خانات");
+                errorCraftsman.setVisibility(View.VISIBLE);
                 return false;
             }
             e.setBackgroundResource(R.drawable.custom_input);
         }
-        errorCraftsman.setText("");
+        errorCraftsman.setVisibility(View.GONE);
         return true;
     }
     private void addAuth(String email, String password) {
@@ -323,7 +337,8 @@ public class NewRegisterCraftsmanActivity extends AppCompatActivity
                     !level.getSelectedItem().toString().equals("مستوى") &&
                     !exYears.getSelectedItem().toString().equals("سنوات الخبرة") &&
                     !crafts.getSelectedItem().toString().equals("الحرف")) {
-                if (password.getText().toString().equals(password02.getText().toString())) {
+                if (password.getText().toString().equals(password02.getText().toString())
+                    && password.getText().toString().length() > 6) {
                     // Progress
                     progressDialog = new ProgressDialog(this);
                     progressDialog.setCancelable(false);
@@ -340,10 +355,14 @@ public class NewRegisterCraftsmanActivity extends AppCompatActivity
 
                     addAuth(email.getText().toString(), password.getText().toString());
 
-                } else {
+                } else if (!password.getText().toString().equals(password02.getText().toString())){
                     errorCraftsman.setText("كلمة سر غير متطابقتان");
-                    password.setBackgroundResource(R.drawable.custom_input_error);
                     password02.setBackgroundResource(R.drawable.custom_input_error);
+                    password02.setBackgroundResource(R.drawable.custom_input_error);
+                    errorCraftsman.setVisibility(View.VISIBLE);
+                }else if (password.getText().toString().length() <= 6){
+                    errorCraftsman.setText("كلمة سر يجب ان تكون أكثر من 6 أحرف");
+                    errorCraftsman.setVisibility(View.VISIBLE);
                 }
             }else if(level.getSelectedItem().toString().equals("مستوى")){
                 level.setBackgroundResource(R.drawable.custom_input_error);

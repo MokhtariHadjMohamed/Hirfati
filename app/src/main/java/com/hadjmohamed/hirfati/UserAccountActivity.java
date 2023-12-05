@@ -41,7 +41,7 @@ import java.util.List;
 public class UserAccountActivity extends AppCompatActivity implements View.OnClickListener, RecViewInterface {
 
     // Element
-    private TextView nameAdmin, familyNameAdmin, birthdayAdmin, addressAdmin;
+    private TextView nameAdmin, familyNameAdmin, birthdayAdmin, addressAdmin, commentNoun;
     private TextView accountInfoUserAccount, settingUserAccount, logOutUserAccount;
 
     private ImageView userInfoImage;
@@ -87,6 +87,7 @@ public class UserAccountActivity extends AppCompatActivity implements View.OnCli
         birthdayAdmin = findViewById(R.id.birthdayUserAccount);
         addressAdmin = findViewById(R.id.addressUserAccount);
         userInfoImage = findViewById(R.id.userInfoImage);
+        commentNoun = findViewById(R.id.commentNounUserAccount);
 
         accountInfoUserAccount = findViewById(R.id.accountInfoUserAccount);
         settingUserAccount = findViewById(R.id.settingUserAccount);
@@ -176,6 +177,8 @@ public class UserAccountActivity extends AppCompatActivity implements View.OnCli
                         for (QueryDocumentSnapshot c : task.getResult()) {
                             commentList.add(c.toObject(Comment.class));
                         }
+                        if (commentList.isEmpty())
+                            commentNoun.setVisibility(View.VISIBLE);
                         adapterRecComment.notifyDataSetChanged();
                     }
                 });

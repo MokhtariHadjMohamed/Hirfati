@@ -103,6 +103,7 @@ public class AdminUserAccountInfo extends AppCompatActivity implements View.OnCl
         errorAdmin = findViewById(R.id.errorAdminUserAccountInfo);
 
         // birthday
+        birthday.setFocusable(false);
         birthday.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

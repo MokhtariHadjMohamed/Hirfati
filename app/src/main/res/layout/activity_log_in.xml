@@ -94,6 +94,7 @@
                     android:fontFamily="@font/tajawal_bold"
                     android:textColor="@color/Error"
                     android:textSize="20sp"
+                    android:visibility="gone"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/textView4" />
@@ -103,7 +104,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
-                    android:layout_marginTop="8dp"
+                    android:layout_marginTop="16dp"
                     android:layout_marginEnd="16dp"
                     android:background="@drawable/custom_input"
                     android:ems="10"
@@ -138,7 +139,7 @@
                     app:layout_constraintTop_toBottomOf="@+id/emailSignIn" />
 
                 <TextView
-                    android:id="@+id/textView6"
+                    android:id="@+id/forgetPasswordLogIn"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
@@ -162,7 +163,7 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.5"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/textView6" />
+                    app:layout_constraintTop_toBottomOf="@+id/forgetPasswordLogIn" />
 
                 <TextView
                     android:id="@+id/textView5"

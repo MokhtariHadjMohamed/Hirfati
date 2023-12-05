@@ -55,7 +55,7 @@ import java.util.List;
 
 public class CraftsmanAccountInfoActivity extends AppCompatActivity implements View.OnClickListener {
 
-    private EditText name, familyName, birthday, address, desc, email, phone;
+    private EditText name, familyName, birthday, address, desc, email, phone, password;
     private Spinner states, city, crafts, level, years;
     private ImageView craftsmanImage;
     private EditText[] editTexts;
@@ -114,9 +114,10 @@ public class CraftsmanAccountInfoActivity extends AppCompatActivity implements V
         desc = findViewById(R.id.descCraftsmanAccountInfo);
         email = findViewById(R.id.emailCraftsmanAccountInfo);
         phone = findViewById(R.id.phoneNumberCraftsmanAccountInfo);
+        password = findViewById(R.id.passwordCraftsmanAccountInfo);
         craftsmanImage = findViewById(R.id.craftsmanImageCraftsmanAccountInfo);
         errorCrafts = findViewById(R.id.craftsmanErrorCraftsmanAccountInfo);
-        uploadImage = findViewById(R.id.editImageِCraftsmanAccountInfo);
+        uploadImage = findViewById(R.id.editImageCraftsmanAccountInfo);
         uploadImage.setOnClickListener(this);
 
         states = findViewById(R.id.statesCraftsmanAccountInfo);
@@ -125,7 +126,17 @@ public class CraftsmanAccountInfoActivity extends AppCompatActivity implements V
         level = findViewById(R.id.levelCraftsmanAccountInfo);
         years = findViewById(R.id.yearsCraftsmanAccountInfo);
 
+        password.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(CraftsmanAccountInfoActivity.this, ForgetPasswordActivity.class);
+                intent.putExtra("email", email.getText().toString());
+                startActivity(intent);
+            }
+        });
+
         // birthday
+        birthday.setFocusable(false);
         birthday.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
