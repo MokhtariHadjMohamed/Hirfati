@@ -1,9 +1,8 @@
-package com.hadjmohamed.hirfati;
+package com.hadjmohamed.hirfati.Adapter;
 
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.net.Uri;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,6 +17,7 @@ import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
+import com.hadjmohamed.hirfati.R;
 
 import java.util.List;
 

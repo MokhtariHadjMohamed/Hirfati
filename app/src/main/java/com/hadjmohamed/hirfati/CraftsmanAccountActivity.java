@@ -38,6 +38,9 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.OnProgressListener;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
+import com.hadjmohamed.hirfati.Adapter.GridAdapterAdmin;
+import com.hadjmohamed.hirfati.model.Craftsman;
+import com.hadjmohamed.hirfati.model.ImageResizer;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;

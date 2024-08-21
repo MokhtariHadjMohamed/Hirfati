@@ -34,11 +34,11 @@ import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.storage.FileDownloadTask;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
-import com.hadjmohamed.hirfati.AdapterRecComment;
-import com.hadjmohamed.hirfati.Comment;
+import com.hadjmohamed.hirfati.Adapter.AdapterRecComment;
+import com.hadjmohamed.hirfati.model.Comment;
 import com.hadjmohamed.hirfati.R;
 import com.hadjmohamed.hirfati.RecViewInterface;
-import com.hadjmohamed.hirfati.User;
+import com.hadjmohamed.hirfati.model.User;
 
 import java.io.File;
 import java.io.IOException;

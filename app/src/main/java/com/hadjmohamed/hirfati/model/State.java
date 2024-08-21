@@ -1,4 +1,4 @@
-package com.hadjmohamed.hirfati;
+package com.hadjmohamed.hirfati.model;
 
 public class State {
     private String ar_name, code, name;

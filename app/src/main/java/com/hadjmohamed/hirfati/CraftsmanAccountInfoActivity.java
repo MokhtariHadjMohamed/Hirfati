@@ -44,6 +44,11 @@ import com.google.firebase.storage.OnProgressListener;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 import com.hadjmohamed.hirfati.Admin.Report;
+import com.hadjmohamed.hirfati.model.City;
+import com.hadjmohamed.hirfati.model.Crafts;
+import com.hadjmohamed.hirfati.model.Craftsman;
+import com.hadjmohamed.hirfati.model.ImageResizer;
+import com.hadjmohamed.hirfati.model.State;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;

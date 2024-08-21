@@ -1,6 +1,4 @@
-package com.hadjmohamed.hirfati;
-
-import android.net.Uri;
+package com.hadjmohamed.hirfati.model;
 
 public class Comment {
 

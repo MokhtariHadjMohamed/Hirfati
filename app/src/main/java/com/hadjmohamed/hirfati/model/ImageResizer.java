@@ -1,4 +1,4 @@
-package com.hadjmohamed.hirfati;
+package com.hadjmohamed.hirfati.model;
 
 import android.graphics.Bitmap;
 import android.util.Log;

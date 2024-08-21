@@ -5,7 +5,6 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.cardview.widget.CardView;
-import androidx.recyclerview.widget.LinearLayoutManager;
 
 import android.app.DatePickerDialog;
 import android.app.ProgressDialog;
@@ -39,15 +38,12 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.OnProgressListener;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
-import com.hadjmohamed.hirfati.City;
-import com.hadjmohamed.hirfati.Crafts;
-import com.hadjmohamed.hirfati.Craftsman;
-import com.hadjmohamed.hirfati.HomePageActivity;
-import com.hadjmohamed.hirfati.ImageResizer;
-import com.hadjmohamed.hirfati.NewRegisterCraftsmanActivity;
+import com.hadjmohamed.hirfati.model.City;
+import com.hadjmohamed.hirfati.model.Crafts;
+import com.hadjmohamed.hirfati.model.Craftsman;
+import com.hadjmohamed.hirfati.model.ImageResizer;
 import com.hadjmohamed.hirfati.R;
-import com.hadjmohamed.hirfati.State;
-import com.hadjmohamed.hirfati.User;
+import com.hadjmohamed.hirfati.model.State;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;

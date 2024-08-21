@@ -1,7 +1,6 @@
-package com.hadjmohamed.hirfati;
+package com.hadjmohamed.hirfati.model;
 
 import java.util.HashMap;
-import java.util.Objects;
 
 public class Crafts {
     private String uid;

@@ -1,6 +1,5 @@
-package com.hadjmohamed.hirfati;
+package com.hadjmohamed.hirfati.Adapter;
 
-import android.app.ProgressDialog;
 import android.content.Context;
 import android.net.Uri;
 import android.util.Log;
@@ -16,6 +15,10 @@ import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
+import com.hadjmohamed.hirfati.Adapter.Holder.HolderRecCraftsmen;
+import com.hadjmohamed.hirfati.R;
+import com.hadjmohamed.hirfati.RecViewInterface;
+import com.hadjmohamed.hirfati.model.Craftsman;
 
 import java.util.List;
 public class AdapterRecCraftsmen extends RecyclerView.Adapter<HolderRecCraftsmen> {

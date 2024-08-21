@@ -34,13 +34,11 @@ import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.storage.FileDownloadTask;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
-import com.hadjmohamed.hirfati.City;
-import com.hadjmohamed.hirfati.Crafts;
-import com.hadjmohamed.hirfati.Craftsman;
+import com.hadjmohamed.hirfati.model.City;
+import com.hadjmohamed.hirfati.model.Crafts;
+import com.hadjmohamed.hirfati.model.Craftsman;
 import com.hadjmohamed.hirfati.R;
-import com.hadjmohamed.hirfati.State;
-
-import org.checkerframework.checker.units.qual.C;
+import com.hadjmohamed.hirfati.model.State;
 
 import java.io.File;
 import java.io.IOException;

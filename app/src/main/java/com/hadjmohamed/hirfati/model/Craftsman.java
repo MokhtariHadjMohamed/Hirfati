@@ -1,11 +1,8 @@
-package com.hadjmohamed.hirfati;
+package com.hadjmohamed.hirfati.model;
 
-import android.net.Uri;
-
-import java.util.Date;
 import java.util.List;
 
-public class Craftsman extends User{
+public class Craftsman extends User {
 
     private String craft, level, exYears, description;
     private Float rating;

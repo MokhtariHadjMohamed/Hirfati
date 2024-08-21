@@ -38,12 +38,11 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.OnProgressListener;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
-import com.hadjmohamed.hirfati.City;
-import com.hadjmohamed.hirfati.Craftsman;
-import com.hadjmohamed.hirfati.ImageResizer;
+import com.hadjmohamed.hirfati.model.City;
+import com.hadjmohamed.hirfati.model.ImageResizer;
 import com.hadjmohamed.hirfati.R;
-import com.hadjmohamed.hirfati.State;
-import com.hadjmohamed.hirfati.User;
+import com.hadjmohamed.hirfati.model.State;
+import com.hadjmohamed.hirfati.model.User;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;

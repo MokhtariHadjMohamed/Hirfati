@@ -28,8 +28,8 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.OnProgressListener;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
-import com.hadjmohamed.hirfati.Crafts;
-import com.hadjmohamed.hirfati.ImageResizer;
+import com.hadjmohamed.hirfati.model.Crafts;
+import com.hadjmohamed.hirfati.model.ImageResizer;
 import com.hadjmohamed.hirfati.R;
 
 import java.io.ByteArrayOutputStream;

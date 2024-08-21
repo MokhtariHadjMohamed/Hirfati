@@ -1,4 +1,4 @@
-package com.hadjmohamed.hirfati;
+package com.hadjmohamed.hirfati.Adapter;
 
 import android.content.Context;
 import android.graphics.BitmapFactory;
@@ -20,6 +20,12 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.storage.FileDownloadTask;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
+import com.hadjmohamed.hirfati.Adapter.Holder.HolderRecComment;
+import com.hadjmohamed.hirfati.R;
+import com.hadjmohamed.hirfati.RecViewInterface;
+import com.hadjmohamed.hirfati.model.Comment;
+import com.hadjmohamed.hirfati.model.Craftsman;
+import com.hadjmohamed.hirfati.model.User;
 
 import java.io.File;
 import java.io.IOException;

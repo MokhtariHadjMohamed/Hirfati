@@ -20,8 +20,8 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
-import com.hadjmohamed.hirfati.AdapterRecCategoryVer;
-import com.hadjmohamed.hirfati.Crafts;
+import com.hadjmohamed.hirfati.Adapter.AdapterRecCategoryVer;
+import com.hadjmohamed.hirfati.model.Crafts;
 import com.hadjmohamed.hirfati.R;
 import com.hadjmohamed.hirfati.RecViewInterface;
 

@@ -1,4 +1,4 @@
-package com.hadjmohamed.hirfati;
+package com.hadjmohamed.hirfati.Adapter.Holder;
 
 import android.view.View;
 import android.widget.ImageView;
@@ -6,6 +6,9 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.hadjmohamed.hirfati.R;
+import com.hadjmohamed.hirfati.RecViewInterface;
 
 public class HolderRecCategory extends RecyclerView.ViewHolder {
 
